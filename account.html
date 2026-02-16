@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSMStunter - Mijn Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar__left">
+        <span class="top-bar__item"><i class="fas fa-truck"></i><span data-i18n="topbar-shipping">Gratis verzending vanaf €50</span></span>
+        <span class="top-bar__item"><i class="fas fa-shield-halved"></i><span data-i18n="topbar-warranty">Tot 3 jaar garantie</span></span>
+        <span class="top-bar__item"><i class="fas fa-rotate-left"></i><span data-i18n="topbar-returns">30 dagen retourneren</span></span>
+      </div>
+      <div class="top-bar__right">
+        <a href="account.html" class="top-bar__item"><i class="fas fa-headset"></i><span data-i18n="nav-help">Hulp</span></a>
+        <a href="account.html" class="top-bar__item"><i class="fas fa-box"></i><span data-i18n="nav-orders">Bestellingen</span></a>
+        <div style="position: relative;">
+          <div class="lang-switcher"><img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="20" height="15"><span class="lang-switcher__text">NL</span><i class="fas fa-chevron-down" style="font-size:0.6rem;margin-left:2px"></i></div>
+          <div class="lang-dropdown">
+            <div class="lang-dropdown__item active" data-lang="nl"><img src="https://flagcdn.com/w40/nl.png" alt="NL" width="24" height="18" style="border-radius:2px"><span>Nederlands</span></div>
+            <div class="lang-dropdown__item" data-lang="en"><img src="https://flagcdn.com/w40/gb.png" alt="EN" width="24" height="18" style="border-radius:2px"><span>English</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="header" role="banner">
+    <div class="container">
+      <a href="index.html" class="header__logo"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text">gsm<span>stunter</span></div></a>
+      <div class="search-bar"><div class="search-bar__input-wrapper"><i class="fas fa-search search-bar__icon"></i><input type="search" class="search-bar__input" placeholder="Zoek smartphones, laptops, tablets..."></div><div class="search-autocomplete"></div></div>
+      <nav class="main-nav"><a href="products.html" class="main-nav__link"><i class="fas fa-shopping-bag"></i><span data-i18n="nav-buy">Kopen</span></a><a href="sell.html" class="main-nav__link"><i class="fas fa-hand-holding-dollar"></i><span data-i18n="nav-sell">Verkopen</span></a><a href="trade.html" class="main-nav__link"><i class="fas fa-arrows-rotate"></i><span data-i18n="nav-trade">Inruilen</span></a></nav>
+      <div class="header__actions"><a href="account.html" class="header__action" style="color:var(--color-primary)"><i class="fas fa-user"></i></a><a href="cart.html" class="header__action"><i class="fas fa-shopping-cart"></i><span class="header__action-count cart-count" style="display:none">0</span></a></div>
+      <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main class="main" role="main">
+    <div class="container">
+      <div class="account-layout">
+        <!-- Left Sidebar -->
+        <aside class="account-sidebar" role="navigation" aria-label="Account navigatie">
+          <div class="account-sidebar__profile">
+            <div class="account-sidebar__avatar" aria-hidden="true">JD</div>
+            <h3 class="account-sidebar__name" data-i18n="account-name">Jan de Vries</h3>
+            <p class="account-sidebar__email" data-i18n="account-email">jan@email.nl</p>
+          </div>
+          <nav class="account-sidebar__nav">
+            <a href="account.html" class="account-sidebar__link active"><i class="fas fa-gauge-high"></i><span data-i18n="account-dashboard">Dashboard</span></a>
+            <a href="account.html#orders" class="account-sidebar__link"><i class="fas fa-box"></i><span data-i18n="nav-orders">Bestellingen</span></a>
+            <a href="account.html#wishlist" class="account-sidebar__link"><i class="fas fa-heart"></i><span data-i18n="account-wishlist">Verlanglijstje</span></a>
+            <a href="account.html#addresses" class="account-sidebar__link"><i class="fas fa-location-dot"></i><span data-i18n="account-addresses">Adressen</span></a>
+            <a href="account.html#payment" class="account-sidebar__link"><i class="fas fa-credit-card"></i><span data-i18n="account-payment-methods">Betaalmethodes</span></a>
+            <a href="account.html#sell-history" class="account-sidebar__link"><i class="fas fa-hand-holding-dollar"></i><span data-i18n="account-sell-history">Verkoop geschiedenis</span></a>
+            <a href="account.html#trade-history" class="account-sidebar__link"><i class="fas fa-arrows-rotate"></i><span data-i18n="account-trade-history">Inruil geschiedenis</span></a>
+            <a href="account.html#settings" class="account-sidebar__link"><i class="fas fa-gear"></i><span data-i18n="account-settings">Instellingen</span></a>
+            <a href="index.html" class="account-sidebar__link"><i class="fas fa-sign-out-alt"></i><span data-i18n="account-logout">Uitloggen</span></a>
+          </nav>
+        </aside>
+
+        <!-- Right Content -->
+        <div class="account-content">
+          <section class="account-welcome" aria-labelledby="welcome-heading">
+            <h1 id="welcome-heading" class="account-welcome__title" data-i18n="account-welcome">Welkom terug, Jan!</h1>
+          </section>
+
+          <!-- Dashboard Stats -->
+          <section class="dashboard-stats" aria-labelledby="stats-heading">
+            <h2 id="stats-heading" class="visually-hidden" data-i18n="account-stats-heading">Overzicht</h2>
+            <div class="dashboard-grid">
+              <article class="dashboard-card">
+                <div class="dashboard-card__icon"><i class="fas fa-box"></i></div>
+                <p class="dashboard-card__number">12</p>
+                <p class="dashboard-card__label" data-i18n="account-total-orders">Totaal bestellingen</p>
+              </article>
+              <article class="dashboard-card">
+                <div class="dashboard-card__icon"><i class="fas fa-arrows-rotate"></i></div>
+                <p class="dashboard-card__number">2</p>
+                <p class="dashboard-card__label" data-i18n="account-active-trades">Actieve inruilen</p>
+              </article>
+              <article class="dashboard-card">
+                <div class="dashboard-card__icon"><i class="fas fa-heart"></i></div>
+                <p class="dashboard-card__number">5</p>
+                <p class="dashboard-card__label" data-i18n="account-wishlist-items">Verlanglijst items</p>
+              </article>
+            </div>
+          </section>
+
+          <!-- Recent Orders -->
+          <section id="orders" class="account-section" aria-labelledby="orders-heading">
+            <h2 id="orders-heading" class="account-section__title" data-i18n="account-recent-orders">Recente Bestellingen</h2>
+            <div class="account-section__content">
+              <div class="orders-table-wrapper">
+                <table class="orders-table" role="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" data-i18n="account-order-id">Bestelling</th>
+                      <th scope="col" data-i18n="account-order-product">Product</th>
+                      <th scope="col" data-i18n="account-order-date">Datum</th>
+                      <th scope="col" data-i18n="account-order-status">Status</th>
+                      <th scope="col" data-i18n="account-order-total">Totaal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="account.html#order-1234">#HOL-2024-1234</a></td>
+                      <td>iPhone 15 Pro 128GB</td>
+                      <td>12 feb 2026</td>
+                      <td><span class="badge badge--success" data-i18n="order-status-delivered">Delivered</span></td>
+                      <td>€899.00</td>
+                    </tr>
+                    <tr>
+                      <td><a href="account.html#order-1198">#HOL-2024-1198</a></td>
+                      <td>MacBook Pro M3</td>
+                      <td>5 feb 2026</td>
+                      <td><span class="badge badge--info" data-i18n="order-status-shipped">Shipped</span></td>
+                      <td>€1,549.00</td>
+                    </tr>
+                    <tr>
+                      <td><a href="account.html#order-1156">#HOL-2024-1156</a></td>
+                      <td>AirPods Pro</td>
+                      <td>28 jan 2026</td>
+                      <td><span class="badge badge--warning" data-i18n="order-status-processing">Processing</span></td>
+                      <td>€189.00</td>
+                    </tr>
+                    <tr>
+                      <td><a href="account.html#order-1089">#HOL-2024-1089</a></td>
+                      <td>iPad Pro 12.9"</td>
+                      <td>15 jan 2026</td>
+                      <td><span class="badge badge--success" data-i18n="order-status-delivered">Delivered</span></td>
+                      <td>€849.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Wishlist -->
+          <section id="wishlist" class="account-section" aria-labelledby="wishlist-heading">
+            <h2 id="wishlist-heading" class="account-section__title" data-i18n="account-wishlist">Verlanglijstje</h2>
+            <div class="account-section__content">
+              <div class="products-grid products-grid--compact">
+                <article class="product-card product-card--compact">
+                  <button class="product-card__wishlist product-card__wishlist--active" aria-label="Remove from wishlist"><i class="fas fa-heart"></i></button>
+                  <a href="product-detail.html" class="product-card__image-wrapper">
+                    <img class="product-card__image" src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=300&h=300&fit=crop" alt="Samsung Galaxy S24 Ultra" loading="lazy">
+                  </a>
+                  <div class="product-card__body">
+                    <h3 class="product-card__title">Samsung Galaxy S24 Ultra</h3>
+                    <div class="product-card__pricing">
+                      <span class="product-card__price">€749</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="product-card product-card--compact">
+                  <button class="product-card__wishlist product-card__wishlist--active" aria-label="Remove from wishlist"><i class="fas fa-heart"></i></button>
+                  <a href="product-detail.html" class="product-card__image-wrapper">
+                    <img class="product-card__image" src="https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=300&h=300&fit=crop" alt="Apple Watch Series 9" loading="lazy">
+                  </a>
+                  <div class="product-card__body">
+                    <h3 class="product-card__title">Apple Watch Series 9</h3>
+                    <div class="product-card__pricing">
+                      <span class="product-card__price">€349</span>
+                    </div>
+                  </div>
+                </article>
+                <article class="product-card product-card--compact">
+                  <button class="product-card__wishlist product-card__wishlist--active" aria-label="Remove from wishlist"><i class="fas fa-heart"></i></button>
+                  <a href="product-detail.html" class="product-card__image-wrapper">
+                    <img class="product-card__image" src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=300&h=300&fit=crop" alt="Google Pixel 8 Pro" loading="lazy">
+                  </a>
+                  <div class="product-card__body">
+                    <h3 class="product-card__title">Google Pixel 8 Pro</h3>
+                    <div class="product-card__pricing">
+                      <span class="product-card__price">€599</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="header__logo" style="margin-bottom:var(--space-2)"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text" style="color:white">gsm<span>stunter</span></div></a>
+          <p data-i18n="footer-desc">Premium refurbished elektronica voor een duurzamere wereld.</p>
+          <div class="footer__social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a></div>
+        </div>
+        <div class="footer__column"><h4 data-i18n="footer-products">Producten</h4><a href="products.html" class="footer__link" data-i18n="footer-smartphones">Smartphones</a><a href="products.html" class="footer__link" data-i18n="footer-laptops">Laptops</a><a href="products.html" class="footer__link" data-i18n="footer-tablets">Tablets</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-services">Diensten</h4><a href="products.html" class="footer__link" data-i18n="footer-buy">Kopen</a><a href="sell.html" class="footer__link" data-i18n="footer-sell">Verkopen</a><a href="trade.html" class="footer__link" data-i18n="footer-trade">Inruilen</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-support">Klantenservice</h4><a href="#" class="footer__link" data-i18n="footer-help">Help & FAQ</a><a href="#" class="footer__link" data-i18n="footer-warranty-link">Garantie</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-company">Bedrijf</h4><a href="#" class="footer__link" data-i18n="footer-about">Over ons</a><a href="#" class="footer__link" data-i18n="footer-sustainability-link">Duurzaamheid</a></div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__bottom-left" data-i18n="footer-copyright">© 2026 GSMStunter. Alle rechten voorbehouden.</div>
+        <div class="footer__payments"><span style="background:#1A1F71;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">VISA</span><span style="background:#EB001B;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">MC</span><span style="background:#FF5F00;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">iDEAL</span><span style="background:#FFB3C7;color:#0A0B09;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">Klarna</span><span style="background:#003087;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">PayPal</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

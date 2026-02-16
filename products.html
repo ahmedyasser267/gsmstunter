@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GSMStunter - Bekijk ons volledige aanbod refurbished smartphones, laptops, tablets en smartwatches. Premium kwaliteit, scherpe prijzen.">
+  <meta name="keywords" content="refurbished, smartphones, laptops, tablets, tweedehands, duurzaam, garantie">
+  <meta name="author" content="GSMStunter">
+
+  <title>Producten - GSMStunter Refurbished Elektronica</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
+</head>
+<body>
+
+  <!-- ═══ Top Bar ═══ -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar__left">
+        <span class="top-bar__item">
+          <i class="fas fa-truck"></i>
+          <span data-i18n="topbar-shipping">Gratis verzending vanaf €50</span>
+        </span>
+        <span class="top-bar__item">
+          <i class="fas fa-shield-halved"></i>
+          <span data-i18n="topbar-warranty">Tot 3 jaar garantie</span>
+        </span>
+        <span class="top-bar__item">
+          <i class="fas fa-rotate-left"></i>
+          <span data-i18n="topbar-returns">30 dagen retourneren</span>
+        </span>
+      </div>
+      <div class="top-bar__right">
+        <a href="account.html" class="top-bar__item">
+          <i class="fas fa-headset"></i>
+          <span data-i18n="nav-help">Hulp</span>
+        </a>
+        <a href="account.html" class="top-bar__item">
+          <i class="fas fa-box"></i>
+          <span data-i18n="nav-orders">Bestellingen</span>
+        </a>
+        <div style="position: relative;">
+          <div class="lang-switcher" aria-label="Language selector">
+            <img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="20" height="15">
+            <span class="lang-switcher__text">NL</span>
+            <i class="fas fa-chevron-down" style="font-size: 0.6rem; margin-left: 2px;"></i>
+          </div>
+          <div class="lang-dropdown">
+            <div class="lang-dropdown__item active" data-lang="nl">
+              <img src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="24" height="18" style="border-radius: 2px;">
+              <span>Nederlands</span>
+            </div>
+            <div class="lang-dropdown__item" data-lang="en">
+              <img src="https://flagcdn.com/w40/gb.png" alt="English" width="24" height="18" style="border-radius: 2px;">
+              <span>English</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Header ═══ -->
+  <header class="header" role="banner">
+    <div class="container">
+      <a href="index.html" class="header__logo" aria-label="GSMStunter Home">
+        <div class="header__logo-icon">
+          <i class="fas fa-recycle"></i>
+        </div>
+        <div class="header__logo-text">gsm<span>stunter</span></div>
+      </a>
+
+      <div class="search-bar">
+        <div class="search-bar__input-wrapper">
+          <i class="fas fa-search search-bar__icon"></i>
+          <input type="search" class="search-bar__input" data-i18n-placeholder="search-placeholder" placeholder="Zoek smartphones, laptops, tablets..." aria-label="Search products">
+        </div>
+        <div class="search-autocomplete"></div>
+      </div>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="products.html" class="main-nav__link active" data-mega-menu="mega-buy">
+          <i class="fas fa-shopping-bag"></i>
+          <span data-i18n="nav-buy">Kopen</span>
+        </a>
+        <a href="sell.html" class="main-nav__link">
+          <i class="fas fa-hand-holding-dollar"></i>
+          <span data-i18n="nav-sell">Verkopen</span>
+        </a>
+        <a href="trade.html" class="main-nav__link">
+          <i class="fas fa-arrows-rotate"></i>
+          <span data-i18n="nav-trade">Inruilen</span>
+        </a>
+      </nav>
+
+      <div class="header__actions">
+        <a href="account.html" class="header__action" aria-label="Account" data-i18n-title="nav-account">
+          <i class="far fa-user"></i>
+        </a>
+        <a href="account.html#wishlist" class="header__action" aria-label="Wishlist">
+          <i class="far fa-heart"></i>
+        </a>
+        <a href="cart.html" class="header__action" aria-label="Cart" data-i18n-title="nav-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="header__action-count cart-count" style="display: none;">0</span>
+        </a>
+      </div>
+
+      <button class="mobile-menu-toggle" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mega Menu -->
+    <div class="mega-menu" id="mega-buy">
+      <div class="container">
+        <div class="mega-menu__grid">
+          <div class="mega-menu__category">
+            <h4>Smartphones</h4>
+            <a href="products.html?brand=apple" class="mega-menu__link"><i class="fab fa-apple"></i> iPhone</a>
+            <a href="products.html?brand=samsung" class="mega-menu__link"><i class="fas fa-mobile-screen-button"></i> Samsung Galaxy</a>
+            <a href="products.html?brand=google" class="mega-menu__link"><i class="fab fa-google"></i> Google Pixel</a>
+            <a href="products.html?brand=oneplus" class="mega-menu__link"><i class="fas fa-mobile-screen-button"></i> OnePlus</a>
+          </div>
+          <div class="mega-menu__category">
+            <h4>Laptops</h4>
+            <a href="products.html?type=laptop" class="mega-menu__link"><i class="fab fa-apple"></i> MacBook</a>
+            <a href="products.html?type=laptop" class="mega-menu__link"><i class="fas fa-laptop"></i> Dell</a>
+            <a href="products.html?type=laptop" class="mega-menu__link"><i class="fas fa-laptop"></i> Lenovo ThinkPad</a>
+            <a href="products.html?type=laptop" class="mega-menu__link"><i class="fas fa-laptop"></i> HP EliteBook</a>
+          </div>
+          <div class="mega-menu__category">
+            <h4>Tablets</h4>
+            <a href="products.html?type=tablet" class="mega-menu__link"><i class="fab fa-apple"></i> iPad Pro</a>
+            <a href="products.html?type=tablet" class="mega-menu__link"><i class="fab fa-apple"></i> iPad Air</a>
+            <a href="products.html?type=tablet" class="mega-menu__link"><i class="fas fa-tablet-screen-button"></i> Samsung Galaxy Tab</a>
+          </div>
+          <div class="mega-menu__category">
+            <h4>Meer</h4>
+            <a href="products.html?type=smartwatch" class="mega-menu__link"><i class="far fa-clock"></i> Smartwatches</a>
+            <a href="products.html?type=headphones" class="mega-menu__link"><i class="fas fa-headphones"></i> Koptelefoons</a>
+            <a href="products.html?type=accessories" class="mega-menu__link"><i class="fas fa-plug"></i> Accessoires</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ Mobile Menu ═══ -->
+  <div class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <div class="mobile-menu__overlay"></div>
+    <div class="mobile-menu__panel">
+      <button class="mobile-menu__close" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+      <nav class="mobile-menu__nav">
+        <a href="index.html" class="mobile-menu__link"><i class="fas fa-home"></i> <span data-i18n="nav-home">Home</span></a>
+        <a href="products.html" class="mobile-menu__link"><i class="fas fa-shopping-bag"></i> <span data-i18n="nav-buy">Kopen</span></a>
+        <a href="sell.html" class="mobile-menu__link"><i class="fas fa-hand-holding-dollar"></i> <span data-i18n="nav-sell">Verkopen</span></a>
+        <a href="trade.html" class="mobile-menu__link"><i class="fas fa-arrows-rotate"></i> <span data-i18n="nav-trade">Inruilen</span></a>
+        <a href="account.html" class="mobile-menu__link"><i class="fas fa-user"></i> <span data-i18n="nav-account">Account</span></a>
+        <a href="cart.html" class="mobile-menu__link"><i class="fas fa-shopping-cart"></i> <span data-i18n="nav-cart">Winkelwagen</span></a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <!-- ═══ Page Header & Breadcrumb ═══ -->
+    <header class="page-header" aria-labelledby="page-title">
+      <div class="container">
+        <nav class="page-header__breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html" data-i18n="breadcrumb-home">Home</a>
+          <i class="fas fa-chevron-right" style="font-size: 0.65rem; opacity: 0.6;"></i>
+          <span data-i18n="breadcrumb-products">Producten</span>
+        </nav>
+        <h1 id="page-title" class="page-header__title" data-i18n="products-page-title">Alle Producten</h1>
+      </div>
+    </header>
+
+    <!-- ═══ Products Layout (Sidebar + Grid) ═══ -->
+    <div class="container">
+      <div class="products-layout">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar" aria-label="Product filters">
+          <div class="filter-group">
+            <div class="filter-group__header">
+              <span class="filter-group__title" data-i18n="filter-brand">Merk</span>
+              <i class="fas fa-chevron-down filter-group__toggle"></i>
+            </div>
+            <div class="filter-group__body" style="max-height: 500px;">
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="brand" value="apple">
+                <span>Apple</span>
+                <span class="filter-option__count">(5)</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="brand" value="samsung">
+                <span>Samsung</span>
+                <span class="filter-option__count">(3)</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="brand" value="google">
+                <span>Google</span>
+                <span class="filter-option__count">(1)</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="brand" value="oneplus">
+                <span>OnePlus</span>
+                <span class="filter-option__count">(1)</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="brand" value="xiaomi">
+                <span>Xiaomi</span>
+                <span class="filter-option__count">(2)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group__header">
+              <span class="filter-group__title" data-i18n="filter-condition">Conditie</span>
+              <i class="fas fa-chevron-down filter-group__toggle"></i>
+            </div>
+            <div class="filter-group__body" style="max-height: 500px;">
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="condition" value="like-new">
+                <span data-i18n="product-condition-like-new">Als nieuw</span>
+                <span class="filter-option__count">(4)</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="condition" value="excellent">
+                <span data-i18n="product-condition-excellent">Uitstekend</span>
+                <span class="filter-option__count">(5)</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="condition" value="good">
+                <span data-i18n="product-condition-good">Goed</span>
+                <span class="filter-option__count">(2)</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="condition" value="fair">
+                <span data-i18n="product-condition-fair">Redelijk</span>
+                <span class="filter-option__count">(1)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group__header">
+              <span class="filter-group__title" data-i18n="filter-price">Prijs</span>
+              <i class="fas fa-chevron-down filter-group__toggle"></i>
+            </div>
+            <div class="filter-group__body" style="max-height: 200px;">
+              <div class="price-range">
+                <div class="price-range__values">
+                  <span data-i18n="filter-price-min">Min</span>
+                  <span>€0 - €2.000</span>
+                  <span data-i18n="filter-price-max">Max</span>
+                </div>
+                <div class="price-range__slider">
+                  <input type="range" min="0" max="2000" value="0" aria-label="Minimum price">
+                  <input type="range" min="0" max="2000" value="2000" aria-label="Maximum price">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group__header">
+              <span class="filter-group__title" data-i18n="filter-storage">Opslag</span>
+              <i class="fas fa-chevron-down filter-group__toggle"></i>
+            </div>
+            <div class="filter-group__body" style="max-height: 500px;">
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="storage" value="64gb">
+                <span>64GB</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="storage" value="128gb">
+                <span>128GB</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="storage" value="256gb">
+                <span>256GB</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="storage" value="512gb">
+                <span>512GB</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="storage" value="1tb">
+                <span>1TB</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group__header">
+              <span class="filter-group__title" data-i18n="filter-color">Kleur</span>
+              <i class="fas fa-chevron-down filter-group__toggle"></i>
+            </div>
+            <div class="filter-group__body" style="max-height: 500px;">
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="color" value="zwart">
+                <span>Zwart</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="color" value="wit">
+                <span>Wit</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="color" value="blauw">
+                <span>Blauw</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="color" value="goud">
+                <span>Goud</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group__header">
+              <span class="filter-group__title" data-i18n="filter-os">Besturingssysteem</span>
+              <i class="fas fa-chevron-down filter-group__toggle"></i>
+            </div>
+            <div class="filter-group__body" style="max-height: 500px;">
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="os" value="ios">
+                <span>iOS</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" data-filter-group="os" value="android">
+                <span>Android</span>
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Products Content -->
+        <section class="products-content" aria-labelledby="page-title">
+          <!-- Products Toolbar -->
+          <div class="products-toolbar">
+            <p class="products-toolbar__count">
+              <span>12</span> <span data-i18n="products-count">producten gevonden</span>
+            </p>
+            <div class="products-toolbar__actions">
+              <div class="products-toolbar__sort">
+                <label for="sort-select" data-i18n="sort-label">Sorteer op:</label>
+                <select id="sort-select" class="products-toolbar__sort-select">
+                  <option value="popular" data-i18n="sort-popular">Meest populair</option>
+                  <option value="price-low" data-i18n="sort-price-low">Prijs: laag-hoog</option>
+                  <option value="price-high" data-i18n="sort-price-high">Prijs: hoog-laag</option>
+                  <option value="newest" data-i18n="sort-newest">Nieuwste</option>
+                  <option value="rating" data-i18n="sort-rating">Beste beoordeling</option>
+                </select>
+              </div>
+              <div class="view-toggle">
+                <button class="view-toggle__btn active" data-view="grid" aria-label="Grid view">
+                  <i class="fas fa-th-large"></i>
+                </button>
+                <button class="view-toggle__btn" data-view="list" aria-label="List view">
+                  <i class="fas fa-list"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="products-grid" id="products-grid">
+            <!-- Product 1 - iPhone 15 Pro -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="like-new" data-storage="128gb" data-color="zwart" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="iphone15pro" aria-label="Add to wishlist" onclick="toggleWishlist('iphone15pro')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop" alt="iPhone 15 Pro" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
+                </div>
+                <h3 class="product-card__title">iPhone 15 Pro</h3>
+                <p class="product-card__specs">128GB · Space Black · iOS 17</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€899</span>
+                  <span class="product-card__price-original">€1.199</span>
+                  <span class="product-card__savings">-25%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone15pro',name:'iPhone 15 Pro',price:899,image:'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'128GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 2 - iPhone 14 -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="excellent" data-storage="128gb" data-color="wit" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="iphone14" aria-label="Add to wishlist" onclick="toggleWishlist('iphone14')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?w=400&h=400&fit=crop" alt="iPhone 14" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+                </div>
+                <h3 class="product-card__title">iPhone 14</h3>
+                <p class="product-card__specs">128GB · Midnight · iOS 17</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€649</span>
+                  <span class="product-card__price-original">€899</span>
+                  <span class="product-card__savings">-28%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone14',name:'iPhone 14',price:649,image:'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'128GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 3 - Samsung Galaxy S24 -->
+            <article class="product-card fade-in" data-brand="samsung" data-condition="good" data-storage="256gb" data-color="zwart" data-os="android">
+              <button class="product-card__wishlist" data-wishlist-id="galaxys24" aria-label="Add to wishlist" onclick="toggleWishlist('galaxys24')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--good" data-i18n="product-condition-good">Goed</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=400&fit=crop" alt="Samsung Galaxy S24 Ultra" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--good" data-i18n="product-condition-good">Goed</span>
+                </div>
+                <h3 class="product-card__title">Samsung Galaxy S24 Ultra</h3>
+                <p class="product-card__specs">256GB · Titanium Gray · Android 14</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€749</span>
+                  <span class="product-card__price-original">€1.099</span>
+                  <span class="product-card__savings">-32%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxys24',name:'Samsung Galaxy S24 Ultra',price:749,image:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 4 - MacBook Pro -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="excellent" data-storage="512gb" data-color="zwart" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="macbookprom3" aria-label="Add to wishlist" onclick="toggleWishlist('macbookprom3')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop" alt="MacBook Pro M3" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+                </div>
+                <h3 class="product-card__title">MacBook Pro 14" M3</h3>
+                <p class="product-card__specs">512GB SSD · 18GB RAM · Space Gray</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€1.549</span>
+                  <span class="product-card__price-original">€2.099</span>
+                  <span class="product-card__savings">-26%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookprom3',name:'MacBook Pro 14 M3',price:1549,image:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'512GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 5 - iPad Pro -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="excellent" data-storage="256gb" data-color="zwart" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="ipadpro" aria-label="Add to wishlist" onclick="toggleWishlist('ipadpro')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop" alt="iPad Pro" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+                </div>
+                <h3 class="product-card__title">iPad Pro 12.9" M2</h3>
+                <p class="product-card__specs">256GB · WiFi · Space Gray</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€849</span>
+                  <span class="product-card__price-original">€1.249</span>
+                  <span class="product-card__savings">-32%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'ipadpro',name:'iPad Pro 12.9 M2',price:849,image:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'256GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 6 - Apple Watch -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="like-new" data-storage="64gb" data-color="zwart" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="applewatch" aria-label="Add to wishlist" onclick="toggleWishlist('applewatch')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=400&h=400&fit=crop" alt="Apple Watch Series 9" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
+                </div>
+                <h3 class="product-card__title">Apple Watch Series 9</h3>
+                <p class="product-card__specs">45mm · GPS · Midnight</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€329</span>
+                  <span class="product-card__price-original">€449</span>
+                  <span class="product-card__savings">-27%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'applewatch',name:'Apple Watch Series 9',price:329,image:'https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'-'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 7 - Headphones -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="excellent" data-storage="64gb" data-color="wit" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="airpods" aria-label="Add to wishlist" onclick="toggleWishlist('airpods')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop" alt="AirPods Pro" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+                </div>
+                <h3 class="product-card__title">AirPods Pro (2e gen)</h3>
+                <p class="product-card__specs">Active Noise Cancellation · MagSafe</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€199</span>
+                  <span class="product-card__price-original">€279</span>
+                  <span class="product-card__savings">-29%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'airpods',name:'AirPods Pro 2',price:199,image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'-'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 8 - Phone -->
+            <article class="product-card fade-in" data-brand="samsung" data-condition="fair" data-storage="128gb" data-color="blauw" data-os="android">
+              <button class="product-card__wishlist" data-wishlist-id="galaxya54" aria-label="Add to wishlist" onclick="toggleWishlist('galaxya54')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--fair" data-i18n="product-condition-fair">Redelijk</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&h=400&fit=crop" alt="Samsung Galaxy A54" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--fair" data-i18n="product-condition-fair">Redelijk</span>
+                </div>
+                <h3 class="product-card__title">Samsung Galaxy A54 5G</h3>
+                <p class="product-card__specs">128GB · Awesome Violet · Android 14</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€299</span>
+                  <span class="product-card__price-original">€449</span>
+                  <span class="product-card__savings">-33%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxya54',name:'Samsung Galaxy A54',price:299,image:'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=200&h=200&fit=crop',condition:'Redelijk',storage:'128GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 9 - Laptop -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="good" data-storage="256gb" data-color="zwart" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="macbookair" aria-label="Add to wishlist" onclick="toggleWishlist('macbookair')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--good" data-i18n="product-condition-good">Goed</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop" alt="MacBook" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--good" data-i18n="product-condition-good">Goed</span>
+                </div>
+                <h3 class="product-card__title">MacBook Air 13" M2</h3>
+                <p class="product-card__specs">256GB SSD · 8GB RAM · Midnight</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€949</span>
+                  <span class="product-card__price-original">€1.249</span>
+                  <span class="product-card__savings">-24%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookair',name:'MacBook Air 13 M2',price:949,image:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 10 - MacBook Air -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="like-new" data-storage="512gb" data-color="goud" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="macbookair15" aria-label="Add to wishlist" onclick="toggleWishlist('macbookair15')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=400&h=400&fit=crop" alt="MacBook Air 15" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
+                </div>
+                <h3 class="product-card__title">MacBook Air 15" M3</h3>
+                <p class="product-card__specs">512GB SSD · 8GB RAM · Starlight</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€1.199</span>
+                  <span class="product-card__price-original">€1.499</span>
+                  <span class="product-card__savings">-20%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookair15',name:'MacBook Air 15 M3',price:1199,image:'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'512GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 11 - Google Pixel -->
+            <article class="product-card fade-in" data-brand="google" data-condition="excellent" data-storage="128gb" data-color="zwart" data-os="android">
+              <button class="product-card__wishlist" data-wishlist-id="pixel8" aria-label="Add to wishlist" onclick="toggleWishlist('pixel8')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&h=400&fit=crop" alt="Google Pixel 8" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+                </div>
+                <h3 class="product-card__title">Google Pixel 8</h3>
+                <p class="product-card__specs">128GB · Obsidian · Android 14</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€549</span>
+                  <span class="product-card__price-original">€699</span>
+                  <span class="product-card__savings">-21%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'pixel8',name:'Google Pixel 8',price:549,image:'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'128GB'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product 12 - Apple Watch -->
+            <article class="product-card fade-in" data-brand="apple" data-condition="excellent" data-storage="64gb" data-color="wit" data-os="ios">
+              <button class="product-card__wishlist" data-wishlist-id="applewatchultra" aria-label="Add to wishlist" onclick="toggleWishlist('applewatchultra')">
+                <i class="far fa-heart"></i>
+              </button>
+              <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+              <a href="product-detail.html" class="product-card__image-wrapper">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop" alt="Apple Watch Ultra" loading="lazy">
+                <div class="product-card__quick-view">
+                  <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
+                </div>
+              </a>
+              <div class="product-card__body">
+                <div class="product-card__condition">
+                  <span class="badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
+                </div>
+                <h3 class="product-card__title">Apple Watch Ultra 2</h3>
+                <p class="product-card__specs">49mm · GPS + Cellular · Titanium</p>
+                <div class="product-card__pricing">
+                  <span class="product-card__price">€699</span>
+                  <span class="product-card__price-original">€899</span>
+                  <span class="product-card__savings">-22%</span>
+                </div>
+                <div class="product-card__meta">
+                  <span class="product-card__warranty">
+                    <i class="fas fa-shield-halved"></i>
+                    <span data-i18n="product-warranty">2 jaar garantie</span>
+                  </span>
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'applewatchultra',name:'Apple Watch Ultra 2',price:699,image:'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'-'})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Pagination -->
+          <nav class="pagination" aria-label="Product pagination">
+            <button class="pagination__btn" disabled data-i18n-aria-label="pagination-prev" aria-label="Vorige">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="pagination__btn active" aria-current="page">1</button>
+            <button class="pagination__btn">2</button>
+            <button class="pagination__btn" data-i18n-aria-label="pagination-next" aria-label="Volgende">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </nav>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="header__logo" style="margin-bottom: var(--space-2);">
+            <div class="header__logo-icon">
+              <i class="fas fa-recycle"></i>
+            </div>
+            <div class="header__logo-text" style="color: white;">gsm<span>stunter</span></div>
+          </a>
+          <p data-i18n="footer-desc">Premium refurbished elektronica voor een duurzamere wereld. Koop, verkoop en ruil met vertrouwen.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer__column">
+          <h4 data-i18n="footer-products">Producten</h4>
+          <a href="products.html?type=smartphone" class="footer__link" data-i18n="footer-smartphones">Smartphones</a>
+          <a href="products.html?type=laptop" class="footer__link" data-i18n="footer-laptops">Laptops</a>
+          <a href="products.html?type=tablet" class="footer__link" data-i18n="footer-tablets">Tablets</a>
+          <a href="products.html?type=smartwatch" class="footer__link" data-i18n="footer-watches">Smartwatches</a>
+          <a href="products.html?type=headphones" class="footer__link" data-i18n="footer-headphones">Koptelefoons</a>
+          <a href="products.html?type=accessories" class="footer__link" data-i18n="footer-accessories">Accessoires</a>
+        </div>
+
+        <div class="footer__column">
+          <h4 data-i18n="footer-services">Diensten</h4>
+          <a href="products.html" class="footer__link" data-i18n="footer-buy">Kopen</a>
+          <a href="sell.html" class="footer__link" data-i18n="footer-sell">Verkopen</a>
+          <a href="trade.html" class="footer__link" data-i18n="footer-trade">Inruilen</a>
+          <a href="#" class="footer__link" data-i18n="footer-business">Zakelijk</a>
+        </div>
+
+        <div class="footer__column">
+          <h4 data-i18n="footer-support">Klantenservice</h4>
+          <a href="#" class="footer__link" data-i18n="footer-help">Help & FAQ</a>
+          <a href="#" class="footer__link" data-i18n="footer-delivery">Bezorgen</a>
+          <a href="#" class="footer__link" data-i18n="footer-returns-link">Retourneren</a>
+          <a href="#" class="footer__link" data-i18n="footer-warranty-link">Garantie</a>
+          <a href="#" class="footer__link" data-i18n="footer-payment">Betaalmethodes</a>
+          <a href="#" class="footer__link" data-i18n="footer-contact-link">Contact</a>
+        </div>
+
+        <div class="footer__column">
+          <h4 data-i18n="footer-company">Bedrijf</h4>
+          <a href="#" class="footer__link" data-i18n="footer-about">Over ons</a>
+          <a href="#" class="footer__link" data-i18n="footer-sustainability-link">Duurzaamheid</a>
+          <a href="#" class="footer__link" data-i18n="footer-careers">Vacatures</a>
+          <a href="#" class="footer__link" data-i18n="footer-press">Pers</a>
+          <a href="#" class="footer__link" data-i18n="footer-blog">Blog</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__bottom-left" data-i18n="footer-copyright">
+          © 2026 GSMStunter. Alle rechten voorbehouden.
+        </div>
+        <div class="footer__payments">
+          <img src="https://cdn.jsdelivr.net/gh/nicepay-dev/nicepay-node@main/public/visa.svg" alt="Visa" class="footer__payment-icon" width="40" height="28" onerror="this.outerHTML='<span style=&quot;background:#1A1F71;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700&quot;>VISA</span>'">
+          <img src="https://cdn.jsdelivr.net/gh/nicepay-dev/nicepay-node@main/public/mastercard.svg" alt="Mastercard" class="footer__payment-icon" width="40" height="28" onerror="this.outerHTML='<span style=&quot;background:#EB001B;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700&quot;>MC</span>'">
+          <span style="background: #FF5F00; color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700;">iDEAL</span>
+          <span style="background: #FFB3C7; color: #0A0B09; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700;">Klarna</span>
+          <span style="background: #003087; color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700;">PayPal</span>
+        </div>
+        <div class="footer__bottom-links">
+          <a href="#" data-i18n="footer-terms">Algemene voorwaarden</a>
+          <a href="#" data-i18n="footer-privacy">Privacybeleid</a>
+          <a href="#" data-i18n="footer-cookies">Cookiebeleid</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ Chat Widget ═══ -->
+  <div class="chat-widget">
+    <button class="chat-widget__trigger" aria-label="Live chat support">
+      <i class="fas fa-comment-dots"></i>
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSMStunter - Ruil je Device In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar__left">
+        <span class="top-bar__item"><i class="fas fa-truck"></i><span data-i18n="topbar-shipping">Gratis verzending vanaf €50</span></span>
+        <span class="top-bar__item"><i class="fas fa-shield-halved"></i><span data-i18n="topbar-warranty">Tot 3 jaar garantie</span></span>
+        <span class="top-bar__item"><i class="fas fa-rotate-left"></i><span data-i18n="topbar-returns">30 dagen retourneren</span></span>
+      </div>
+      <div class="top-bar__right">
+        <a href="account.html" class="top-bar__item"><i class="fas fa-headset"></i><span data-i18n="nav-help">Hulp</span></a>
+        <a href="account.html" class="top-bar__item"><i class="fas fa-box"></i><span data-i18n="nav-orders">Bestellingen</span></a>
+        <div style="position: relative;">
+          <div class="lang-switcher"><img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="20" height="15"><span class="lang-switcher__text">NL</span><i class="fas fa-chevron-down" style="font-size: 0.6rem; margin-left: 2px;"></i></div>
+          <div class="lang-dropdown">
+            <div class="lang-dropdown__item active" data-lang="nl"><img src="https://flagcdn.com/w40/nl.png" alt="NL" width="24" height="18" style="border-radius:2px"><span>Nederlands</span></div>
+            <div class="lang-dropdown__item" data-lang="en"><img src="https://flagcdn.com/w40/gb.png" alt="EN" width="24" height="18" style="border-radius:2px"><span>English</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <header class="header" role="banner">
+    <div class="container">
+      <a href="index.html" class="header__logo"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text">gsm<span>stunter</span></div></a>
+      <div class="search-bar"><div class="search-bar__input-wrapper"><i class="fas fa-search search-bar__icon"></i><input type="search" class="search-bar__input" data-i18n-placeholder="search-placeholder" placeholder="Zoek smartphones, laptops, tablets..."></div><div class="search-autocomplete"></div></div>
+      <nav class="main-nav"><a href="products.html" class="main-nav__link"><i class="fas fa-shopping-bag"></i><span data-i18n="nav-buy">Kopen</span></a><a href="sell.html" class="main-nav__link"><i class="fas fa-hand-holding-dollar"></i><span data-i18n="nav-sell">Verkopen</span></a><a href="trade.html" class="main-nav__link"><i class="fas fa-arrows-rotate"></i><span data-i18n="nav-trade">Inruilen</span></a></nav>
+      <div class="header__actions"><a href="account.html" class="header__action"><i class="far fa-user"></i></a><a href="account.html#wishlist" class="header__action"><i class="far fa-heart"></i></a><a href="cart.html" class="header__action"><i class="fas fa-shopping-cart"></i><span class="header__action-count cart-count" style="display:none;">0</span></a></div>
+      <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="trade-hero" style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #7dd3fc 100%); padding: var(--space-8) 0; text-align: center; color: white;">
+      <div class="container">
+        <h1 class="trade-hero__title" data-i18n="trade-hero-title">Ruil je Device In</h1>
+        <p class="trade-hero__subtitle" data-i18n="trade-hero-subtitle">Ruil je oude apparaat in voor een nieuw refurbished model. Bespaar geld en draag bij aan een duurzamere wereld.</p>
+      </div>
+    </section>
+
+    <section class="trade-calculator" style="padding: var(--space-8) 0;">
+      <div class="container">
+        <h2 data-i18n="trade-calc-title">Bereken je inruilwaarde</h2>
+        <div class="trade-calculator__grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: start; margin-top: var(--space-6);">
+          <div class="trade-calculator__column">
+            <h3 data-i18n="trade-your-device">Jouw huidige apparaat</h3>
+            <div class="trade-calculator__form">
+              <div class="form-group">
+                <label data-i18n="trade-device-type">Apparaattype</label>
+                <select class="trade-select" data-trade-type>
+                  <option value="" data-i18n="trade-select-type">Selecteer type</option>
+                  <option value="smartphone">Smartphone</option>
+                  <option value="laptop">Laptop</option>
+                  <option value="tablet">Tablet</option>
+                  <option value="smartwatch">Smartwatch</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label data-i18n="trade-brand">Merk</label>
+                <select class="trade-select" data-trade-brand>
+                  <option value="" data-i18n="trade-select-brand">Selecteer merk</option>
+                  <option value="apple">Apple</option>
+                  <option value="samsung">Samsung</option>
+                  <option value="google">Google</option>
+                  <option value="oneplus">OnePlus</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label data-i18n="trade-model">Model</label>
+                <select class="trade-select" data-trade-model>
+                  <option value="" data-i18n="trade-select-model">Selecteer model</option>
+                  <option value="iphone-15-pro">iPhone 15 Pro</option>
+                  <option value="iphone-15">iPhone 15</option>
+                  <option value="iphone-14-pro">iPhone 14 Pro</option>
+                  <option value="iphone-14">iPhone 14</option>
+                  <option value="iphone-13">iPhone 13</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label data-i18n="trade-condition">Conditie</label>
+                <select class="trade-select" data-trade-condition>
+                  <option value="" data-i18n="trade-select-condition">Selecteer conditie</option>
+                  <option value="excellent">Uitstekend</option>
+                  <option value="good">Goed</option>
+                  <option value="fair">Redelijk</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="trade-calculator__column">
+            <h3 data-i18n="trade-wanted-device">Je gewenste apparaat</h3>
+            <div class="trade-calculator__form">
+              <div class="form-group">
+                <label data-i18n="trade-wanted-product">Gewenst product</label>
+                <select class="trade-select" data-trade-wanted>
+                  <option value="" data-i18n="trade-select-wanted">Selecteer product</option>
+                  <option value="iphone-15-pro-256">iPhone 15 Pro 256GB - €899</option>
+                  <option value="iphone-15-128">iPhone 15 128GB - €699</option>
+                  <option value="iphone-14-pro-256">iPhone 14 Pro 256GB - €749</option>
+                  <option value="samsung-s24">Samsung Galaxy S24 - €649</option>
+                  <option value="ipad-pro">iPad Pro 11" - €799</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="trade-calculator__actions" style="text-align: center; margin-top: var(--space-6);">
+          <button class="btn btn--primary" data-trade-calculate data-i18n="trade-calculate">Bereken inruilwaarde</button>
+        </div>
+
+        <div class="trade-result" style="display: none; margin-top: var(--space-8); padding: var(--space-6); background: var(--gray-50, #f9fafb); border-radius: 12px; text-align: center;">
+          <div class="trade-result__value">
+            <span data-i18n="trade-in-value">Inruilwaarde</span>
+            <span class="trade-value__amount">€285</span>
+          </div>
+          <div class="trade-result__topay">
+            <span data-i18n="trade-additional-payment">Te betalen</span>
+            <span class="trade-topay__amount">€614</span>
+          </div>
+          <button class="btn btn--primary" data-i18n="trade-start">Start inruil</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="trade-how" style="padding: var(--space-8) 0; background: var(--gray-50, #f9fafb);">
+      <div class="container">
+        <h2 data-i18n="trade-how-title">Hoe werkt inruilen?</h2>
+        <div class="trade-how__steps" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-top: var(--space-6);">
+          <div class="trade-how__step">
+            <span class="trade-how__number">1</span>
+            <h4 data-i18n="trade-how-step1-title">Selecteer apparaten</h4>
+            <p data-i18n="trade-how-step1-desc">Kies je huidige apparaat en het gewenste refurbished model.</p>
+          </div>
+          <div class="trade-how__step">
+            <span class="trade-how__number">2</span>
+            <h4 data-i18n="trade-how-step2-title">Ontvang inruilwaarde</h4>
+            <p data-i18n="trade-how-step2-desc">Bereken direct je inruilwaarde en zie wat je nog moet betalen.</p>
+          </div>
+          <div class="trade-how__step">
+            <span class="trade-how__number">3</span>
+            <h4 data-i18n="trade-how-step3-title">Verstuur & ontvang</h4>
+            <p data-i18n="trade-how-step3-desc">Verstuur je oude apparaat met gratis label en ontvang je nieuwe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trade-benefits" style="padding: var(--space-8) 0;">
+      <div class="container">
+        <h2 data-i18n="trade-benefits-title">Voordelen van inruilen</h2>
+        <div class="trade-benefits__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-top: var(--space-6);">
+          <div class="trade-benefit">
+            <i class="fas fa-piggy-bank" style="font-size: 2rem; color: var(--blue-600, #0ea5e9);"></i>
+            <h4 data-i18n="trade-benefit1-title">Bespaar op je upgrade</h4>
+            <p data-i18n="trade-benefit1-desc">Verlaag de prijs van je nieuwe apparaat met je inruilwaarde.</p>
+          </div>
+          <div class="trade-benefit">
+            <i class="fas fa-leaf" style="font-size: 2rem; color: var(--blue-600, #0ea5e9);"></i>
+            <h4 data-i18n="trade-benefit2-title">Duurzaam</h4>
+            <p data-i18n="trade-benefit2-desc">Geef je apparaat een tweede leven en verminder e-waste.</p>
+          </div>
+          <div class="trade-benefit">
+            <i class="fas fa-shield-halved" style="font-size: 2rem; color: var(--blue-600, #0ea5e9);"></i>
+            <h4 data-i18n="trade-benefit3-title">Gecertificeerd refurbished</h4>
+            <p data-i18n="trade-benefit3-desc">Ontvang een als-nieuw apparaat met garantie.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trade-faq" style="padding: var(--space-8) 0;">
+      <div class="container">
+        <h2 data-i18n="trade-faq-title">Veelgestelde vragen over inruilen</h2>
+        <div class="faq-accordion" data-faq="trade">
+          <div class="faq-item">
+            <button class="faq-item__question" data-i18n="trade-faq1-q">Hoe wordt mijn inruilwaarde bepaald?</button>
+            <div class="faq-item__answer"><p data-i18n="trade-faq1-a">De waarde hangt af van het merk, model, opslag en conditie van je apparaat. Onze calculator geeft een indicatie; de definitieve waarde volgt na inspectie.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-item__question" data-i18n="trade-faq2-q">Kan ik meerdere apparaten inruilen?</button>
+            <div class="faq-item__answer"><p data-i18n="trade-faq2-a">Ja, je kunt meerdere apparaten inruilen. De totale inruilwaarde wordt van de aankoopprijs afgetrokken.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-item__question" data-i18n="trade-faq3-q">Wanneer ontvang ik mijn nieuwe apparaat?</button>
+            <div class="faq-item__answer"><p data-i18n="trade-faq3-a">Na ontvangst en goedkeuring van je inruil sturen we je nieuwe refurbished apparaat binnen 2-3 werkdagen.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="header__logo" style="margin-bottom: var(--space-2);"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text" style="color: white;">gsm<span>stunter</span></div></a>
+          <p data-i18n="footer-desc">Premium refurbished elektronica voor een duurzamere wereld.</p>
+          <div class="footer__social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div>
+        </div>
+        <div class="footer__column"><h4 data-i18n="footer-products">Producten</h4><a href="products.html" class="footer__link">Smartphones</a><a href="products.html" class="footer__link">Laptops</a><a href="products.html" class="footer__link">Tablets</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-services">Diensten</h4><a href="products.html" class="footer__link" data-i18n="footer-buy">Kopen</a><a href="sell.html" class="footer__link" data-i18n="footer-sell">Verkopen</a><a href="trade.html" class="footer__link" data-i18n="footer-trade">Inruilen</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-support">Klantenservice</h4><a href="#" class="footer__link" data-i18n="footer-help">Help & FAQ</a><a href="#" class="footer__link" data-i18n="footer-delivery">Bezorgen</a><a href="#" class="footer__link" data-i18n="footer-returns-link">Retourneren</a><a href="#" class="footer__link" data-i18n="footer-warranty-link">Garantie</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-company">Bedrijf</h4><a href="#" class="footer__link" data-i18n="footer-about">Over ons</a><a href="#" class="footer__link" data-i18n="footer-sustainability-link">Duurzaamheid</a><a href="#" class="footer__link" data-i18n="footer-blog">Blog</a></div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__bottom-left" data-i18n="footer-copyright">© 2026 GSMStunter. Alle rechten voorbehouden.</div>
+        <div class="footer__payments"><span style="background:#1A1F71;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">VISA</span><span style="background:#EB001B;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">MC</span><span style="background:#FF5F00;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">iDEAL</span><span style="background:#FFB3C7;color:#0A0B09;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">Klarna</span><span style="background:#003087;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">PayPal</span></div>
+        <div class="footer__bottom-links"><a href="#" data-i18n="footer-terms">Algemene voorwaarden</a><a href="#" data-i18n="footer-privacy">Privacybeleid</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

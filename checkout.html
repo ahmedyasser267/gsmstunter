@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSMStunter - Afrekenen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar__left">
+        <span class="top-bar__item"><i class="fas fa-truck"></i><span data-i18n="topbar-shipping">Gratis verzending vanaf €50</span></span>
+        <span class="top-bar__item"><i class="fas fa-shield-halved"></i><span data-i18n="topbar-warranty">Tot 3 jaar garantie</span></span>
+        <span class="top-bar__item"><i class="fas fa-rotate-left"></i><span data-i18n="topbar-returns">30 dagen retourneren</span></span>
+      </div>
+      <div class="top-bar__right">
+        <a href="account.html" class="top-bar__item"><i class="fas fa-headset"></i><span data-i18n="nav-help">Hulp</span></a>
+        <a href="account.html" class="top-bar__item"><i class="fas fa-box"></i><span data-i18n="nav-orders">Bestellingen</span></a>
+        <div style="position: relative;">
+          <div class="lang-switcher"><img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="20" height="15"><span class="lang-switcher__text">NL</span><i class="fas fa-chevron-down" style="font-size: 0.6rem; margin-left: 2px;"></i></div>
+          <div class="lang-dropdown">
+            <div class="lang-dropdown__item active" data-lang="nl"><img src="https://flagcdn.com/w40/nl.png" alt="NL" width="24" height="18" style="border-radius:2px"><span>Nederlands</span></div>
+            <div class="lang-dropdown__item" data-lang="en"><img src="https://flagcdn.com/w40/gb.png" alt="EN" width="24" height="18" style="border-radius:2px"><span>English</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <header class="header" role="banner">
+    <div class="container">
+      <a href="index.html" class="header__logo"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text">gsm<span>stunter</span></div></a>
+      <div class="search-bar"><div class="search-bar__input-wrapper"><i class="fas fa-search search-bar__icon"></i><input type="search" class="search-bar__input" placeholder="Zoek smartphones, laptops, tablets..."></div><div class="search-autocomplete"></div></div>
+      <nav class="main-nav"><a href="products.html" class="main-nav__link"><i class="fas fa-shopping-bag"></i><span data-i18n="nav-buy">Kopen</span></a><a href="sell.html" class="main-nav__link"><i class="fas fa-hand-holding-dollar"></i><span data-i18n="nav-sell">Verkopen</span></a><a href="trade.html" class="main-nav__link"><i class="fas fa-arrows-rotate"></i><span data-i18n="nav-trade">Inruilen</span></a></nav>
+      <div class="header__actions"><a href="account.html" class="header__action"><i class="far fa-user"></i></a><a href="cart.html" class="header__action"><i class="fas fa-shopping-cart"></i><span class="header__action-count cart-count" style="display:none;">0</span></a></div>
+      <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main class="main" role="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="cart.html" data-i18n="cart-title">Winkelwagen</a>
+        <span class="breadcrumb__sep">›</span>
+        <span data-i18n="checkout-title">Afrekenen</span>
+      </nav>
+
+      <h1 class="page-title" data-i18n="checkout-title">Afrekenen</h1>
+
+      <div class="checkout-steps" role="tablist">
+        <div class="checkout-step active" data-step="1" role="tab">
+          <span class="checkout-step__num">1</span>
+          <span class="checkout-step__label" data-i18n="checkout-contact">Contact</span>
+        </div>
+        <div class="checkout-step" data-step="2" role="tab">
+          <span class="checkout-step__num">2</span>
+          <span class="checkout-step__label" data-i18n="checkout-shipping">Verzending</span>
+        </div>
+        <div class="checkout-step" data-step="3" role="tab">
+          <span class="checkout-step__num">3</span>
+          <span class="checkout-step__label" data-i18n="checkout-payment">Betaling</span>
+        </div>
+        <div class="checkout-step" data-step="4" role="tab">
+          <span class="checkout-step__num">4</span>
+          <span class="checkout-step__label" data-i18n="checkout-review">Overzicht</span>
+        </div>
+      </div>
+
+      <form class="checkout-layout" id="checkout-form">
+        <div class="checkout-layout__left">
+          <div class="checkout-form">
+            <section class="checkout-form__section" id="section-contact" data-section="1">
+              <h2 class="checkout-form__heading" data-i18n="checkout-contact">Contact</h2>
+              <div class="form-group">
+                <label for="checkout-email" data-i18n="checkout-email">E-mailadres</label>
+                <input type="email" id="checkout-email" name="email" required placeholder="naam@voorbeeld.nl" aria-required="true">
+              </div>
+              <div class="form-group">
+                <label for="checkout-phone" data-i18n="checkout-phone">Telefoonnummer</label>
+                <input type="tel" id="checkout-phone" name="phone" placeholder="+31 6 12345678">
+              </div>
+              <button type="button" class="btn btn--primary" onclick="checkoutNext()" data-i18n="checkout-next">Volgende</button>
+            </section>
+
+            <section class="checkout-form__section" id="section-shipping" data-section="2" style="display:none;">
+              <h2 class="checkout-form__heading" data-i18n="checkout-shipping">Verzending</h2>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="checkout-firstname" data-i18n="checkout-firstname">Voornaam</label>
+                  <input type="text" id="checkout-firstname" name="firstname" required aria-required="true">
+                </div>
+                <div class="form-group">
+                  <label for="checkout-lastname" data-i18n="checkout-lastname">Achternaam</label>
+                  <input type="text" id="checkout-lastname" name="lastname" required aria-required="true">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="checkout-address" data-i18n="checkout-address">Adres</label>
+                <input type="text" id="checkout-address" name="address" required placeholder="Straat en huisnummer" aria-required="true">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="checkout-city" data-i18n="checkout-city">Plaats</label>
+                  <input type="text" id="checkout-city" name="city" required aria-required="true">
+                </div>
+                <div class="form-group">
+                  <label for="checkout-postal" data-i18n="checkout-postal">Postcode</label>
+                  <input type="text" id="checkout-postal" name="postal" required placeholder="1234 AB" aria-required="true">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="checkout-country" data-i18n="checkout-country">Land</label>
+                <select id="checkout-country" name="country" required aria-required="true">
+                  <option value="nl">Nederland</option>
+                  <option value="be">België</option>
+                  <option value="de">Duitsland</option>
+                </select>
+              </div>
+              <fieldset class="form-group checkout-shipping-options">
+                <legend data-i18n="checkout-shipping-method">Verzendmethode</legend>
+                <label class="payment-method">
+                  <input type="radio" name="shipping" value="standard" checked>
+                  <span class="payment-method__label">
+                    <strong>Standard</strong> – Gratis, 2–3 werkdagen
+                  </span>
+                </label>
+                <label class="payment-method">
+                  <input type="radio" name="shipping" value="express">
+                  <span class="payment-method__label">
+                    <strong>Express</strong> – €7.95, volgende werkdag
+                  </span>
+                </label>
+              </fieldset>
+              <div class="checkout-form__buttons">
+                <button type="button" class="btn btn--secondary" onclick="checkoutPrev()" data-i18n="checkout-back">Terug</button>
+                <button type="button" class="btn btn--primary" onclick="checkoutNext()" data-i18n="checkout-next">Volgende</button>
+              </div>
+            </section>
+
+            <section class="checkout-form__section" id="section-payment" data-section="3" style="display:none;">
+              <h2 class="checkout-form__heading" data-i18n="checkout-payment">Betaling</h2>
+              <div class="checkout-payment-methods">
+                <label class="payment-method">
+                  <input type="radio" name="payment" value="ideal" checked>
+                  <span class="payment-method__label"><span style="background:#FF5F00;color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700">iDEAL</span> iDEAL</span>
+                </label>
+                <label class="payment-method">
+                  <input type="radio" name="payment" value="card">
+                  <span class="payment-method__label"><span style="background:#1A1F71;color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700">VISA</span> <span style="background:#EB001B;color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700">MC</span> Credit Card</span>
+                </label>
+                <label class="payment-method">
+                  <input type="radio" name="payment" value="paypal">
+                  <span class="payment-method__label"><span style="background:#003087;color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700">PayPal</span> PayPal</span>
+                </label>
+                <label class="payment-method">
+                  <input type="radio" name="payment" value="klarna">
+                  <span class="payment-method__label"><span style="background:#FFB3C7;color:#0A0B09;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700">Klarna</span> Achteraf betalen</span>
+                </label>
+              </div>
+              <div class="checkout-card-fields" id="card-fields" style="display:none;">
+                <div class="form-group">
+                  <label for="checkout-card-number" data-i18n="checkout-card-number">Kaartnummer</label>
+                  <input type="text" id="checkout-card-number" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="checkout-card-expiry" data-i18n="checkout-card-expiry">Vervaldatum</label>
+                    <input type="text" id="checkout-card-expiry" name="cardExpiry" placeholder="MM/JJ" maxlength="5">
+                  </div>
+                  <div class="form-group">
+                    <label for="checkout-card-cvc" data-i18n="checkout-card-cvc">CVC</label>
+                    <input type="text" id="checkout-card-cvc" name="cardCvc" placeholder="123" maxlength="4">
+                  </div>
+                </div>
+              </div>
+              <div class="checkout-form__buttons">
+                <button type="button" class="btn btn--secondary" onclick="checkoutPrev()" data-i18n="checkout-back">Terug</button>
+                <button type="button" class="btn btn--primary" onclick="checkoutNext()" data-i18n="checkout-next">Volgende</button>
+              </div>
+            </section>
+
+            <section class="checkout-form__section" id="section-review" data-section="4" style="display:none;">
+              <h2 class="checkout-form__heading" data-i18n="checkout-review">Overzicht</h2>
+              <div class="checkout-review">
+                <div class="checkout-review__items">
+                  <h3 data-i18n="checkout-order-items">Bestelling</h3>
+                  <div class="checkout-review__item">
+                    <span>iPhone 15 Pro · 128GB</span>
+                    <span>€899</span>
+                  </div>
+                  <div class="checkout-review__item">
+                    <span>MacBook Pro M3 · 512GB</span>
+                    <span>€1,549</span>
+                  </div>
+                </div>
+                <div class="checkout-review__address">
+                  <h3 data-i18n="checkout-shipping-address">Verzendadres</h3>
+                  <p id="review-address-preview">—</p>
+                </div>
+                <div class="checkout-review__payment">
+                  <h3 data-i18n="checkout-payment-method">Betaalmethode</h3>
+                  <p id="review-payment-preview">iDEAL</p>
+                </div>
+              </div>
+              <p class="checkout-security" data-i18n="checkout-security">Veilig afrekenen met SSL-versleuteling</p>
+              <button type="submit" class="btn btn--primary btn--large" data-i18n="checkout-place-order">Bestelling plaatsen</button>
+            </section>
+          </div>
+        </div>
+
+        <aside class="checkout-layout__right">
+          <div class="checkout-summary">
+            <h2 class="checkout-summary__title" data-i18n="cart-summary-title">Overzicht</h2>
+            <div class="checkout-summary__items">
+              <div class="checkout-summary__item">
+                <div class="checkout-summary__item-info">
+                  <span>iPhone 15 Pro</span>
+                  <span class="checkout-summary__item-specs">128GB · Als nieuw</span>
+                </div>
+                <span class="checkout-summary__item-price">€899</span>
+              </div>
+              <div class="checkout-summary__item">
+                <div class="checkout-summary__item-info">
+                  <span>MacBook Pro M3</span>
+                  <span class="checkout-summary__item-specs">512GB · Uitstekend</span>
+                </div>
+                <span class="checkout-summary__item-price">€1,549</span>
+              </div>
+            </div>
+            <div class="checkout-summary__totals">
+              <div class="summary-subtotal">
+                <span data-i18n="cart-subtotal">Subtotaal</span>
+                <span>€2,448.00</span>
+              </div>
+              <div class="summary-shipping">
+                <span data-i18n="cart-shipping">Verzending</span>
+                <span>Gratis</span>
+              </div>
+              <div class="summary-tax">
+                <span data-i18n="cart-tax">BTW (incl.)</span>
+                <span>€514.08</span>
+              </div>
+              <div class="summary-total">
+                <span data-i18n="cart-total">Totaal</span>
+                <span>€2,448.00</span>
+              </div>
+            </div>
+            <div class="checkout-summary__trust">
+              <span><i class="fas fa-lock"></i> SSL beveiligd</span>
+              <span><i class="fas fa-rotate-left"></i> 30 dagen retour</span>
+              <span><i class="fas fa-shield-halved"></i> 3 jaar garantie</span>
+            </div>
+          </div>
+        </aside>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="header__logo" style="margin-bottom:var(--space-2)"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text" style="color:white">gsm<span>stunter</span></div></a>
+          <p data-i18n="footer-desc">Premium refurbished elektronica voor een duurzamere wereld.</p>
+          <div class="footer__social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div>
+        </div>
+        <div class="footer__column"><h4 data-i18n="footer-products">Producten</h4><a href="products.html" class="footer__link">Smartphones</a><a href="products.html" class="footer__link">Laptops</a><a href="products.html" class="footer__link">Tablets</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-services">Diensten</h4><a href="products.html" class="footer__link" data-i18n="footer-buy">Kopen</a><a href="sell.html" class="footer__link" data-i18n="footer-sell">Verkopen</a><a href="trade.html" class="footer__link" data-i18n="footer-trade">Inruilen</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-support">Klantenservice</h4><a href="#" class="footer__link" data-i18n="footer-help">Help & FAQ</a><a href="#" class="footer__link" data-i18n="footer-delivery">Bezorgen</a><a href="#" class="footer__link" data-i18n="footer-warranty-link">Garantie</a></div>
+        <div class="footer__column"><h4 data-i18n="footer-company">Bedrijf</h4><a href="#" class="footer__link" data-i18n="footer-about">Over ons</a><a href="#" class="footer__link" data-i18n="footer-sustainability-link">Duurzaamheid</a></div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__bottom-left" data-i18n="footer-copyright">© 2026 GSMStunter. Alle rechten voorbehouden.</div>
+        <div class="footer__payments"><span style="background:#1A1F71;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">VISA</span><span style="background:#EB001B;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">MC</span><span style="background:#FF5F00;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">iDEAL</span><span style="background:#FFB3C7;color:#0A0B09;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">Klarna</span><span style="background:#003087;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">PayPal</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    let currentStep = 1;
+    function checkoutNext() {
+      if (currentStep < 4) {
+        document.getElementById('section-' + ['contact','shipping','payment','review'][currentStep - 1]).style.display = 'none';
+        currentStep++;
+        document.getElementById('section-' + ['contact','shipping','payment','review'][currentStep - 1]).style.display = 'block';
+        document.querySelectorAll('.checkout-step').forEach((s,i) => s.classList.toggle('active', i + 1 === currentStep));
+        if (currentStep === 4) {
+          document.getElementById('review-address-preview').textContent = [document.getElementById('checkout-address').value, document.getElementById('checkout-postal').value + ' ' + document.getElementById('checkout-city').value].filter(Boolean).join(', ') || '—';
+          document.getElementById('review-payment-preview').textContent = document.querySelector('input[name="payment"]:checked').nextElementSibling.textContent.trim();
+        }
+      }
+    }
+    function checkoutPrev() {
+      if (currentStep > 1) {
+        document.getElementById('section-' + ['contact','shipping','payment','review'][currentStep - 1]).style.display = 'none';
+        currentStep--;
+        document.getElementById('section-' + ['contact','shipping','payment','review'][currentStep - 1]).style.display = 'block';
+        document.querySelectorAll('.checkout-step').forEach((s,i) => s.classList.toggle('active', i + 1 === currentStep));
+      }
+    }
+    document.querySelectorAll('input[name="payment"]').forEach(r => r.addEventListener('change', function() {
+      document.getElementById('card-fields').style.display = this.value === 'card' ? 'block' : 'none';
+    }));
+    document.getElementById('checkout-form').addEventListener('submit', function(e) { e.preventDefault(); alert('Bestelling geplaatst! (demo)'); });
+  </script>
+</body>
+</html>
