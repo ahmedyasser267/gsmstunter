@@ -18,10 +18,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
+  <script>if(!localStorage.getItem('gsmstunter-lang-v2')){localStorage.setItem('gsmstunter-lang','nl');localStorage.setItem('gsmstunter-lang-v2','1');}</script>
 </head>
 <body>
 
@@ -53,18 +54,22 @@
         </a>
         <div style="position: relative;">
           <div class="lang-switcher" aria-label="Language selector">
-            <img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="20" height="15">
+            <img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="NL" width="22" height="16">
             <span class="lang-switcher__text">NL</span>
-            <i class="fas fa-chevron-down" style="font-size: 0.6rem; margin-left: 2px;"></i>
+            <i class="fas fa-chevron-down" style="font-size: 0.65rem; margin-left: 4px; opacity: 0.8;"></i>
           </div>
           <div class="lang-dropdown">
             <div class="lang-dropdown__item active" data-lang="nl">
-              <img src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="24" height="18" style="border-radius: 2px;">
+              <img src="https://flagcdn.com/w40/nl.png" alt="NL" width="28" height="20">
               <span>Nederlands</span>
             </div>
-            <div class="lang-dropdown__item" data-lang="en">
-              <img src="https://flagcdn.com/w40/gb.png" alt="English" width="24" height="18" style="border-radius: 2px;">
-              <span>English</span>
+            <div class="lang-dropdown__item" data-lang="de">
+              <img src="https://flagcdn.com/w40/de.png" alt="DE" width="28" height="20">
+              <span>Deutsch</span>
+            </div>
+            <div class="lang-dropdown__item" data-lang="fr">
+              <img src="https://flagcdn.com/w40/be.png" alt="FR" width="28" height="20">
+              <span>Français (BE)</span>
             </div>
           </div>
         </div>
@@ -387,7 +392,7 @@
               </button>
               <span class="product-card__badge badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop" alt="iPhone 15 Pro" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=400&h=400&fit=crop" alt="iPhone 15 Pro" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -408,7 +413,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone15pro',name:'iPhone 15 Pro',price:899,image:'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'128GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone15pro',name:'iPhone 15 Pro',price:899,image:'https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'128GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -422,7 +427,7 @@
               </button>
               <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?w=400&h=400&fit=crop" alt="iPhone 14" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1580910051074-3eb694886f8b?w=400&h=400&fit=crop" alt="iPhone 14" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -443,7 +448,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone14',name:'iPhone 14',price:649,image:'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'128GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone14',name:'iPhone 14',price:649,image:'https://images.unsplash.com/photo-1580910051074-3eb694886f8b?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'128GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -457,7 +462,7 @@
               </button>
               <span class="product-card__badge badge badge--good" data-i18n="product-condition-good">Goed</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=400&fit=crop" alt="Samsung Galaxy S24 Ultra" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop" alt="Samsung Galaxy S24 Ultra" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -478,7 +483,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxys24',name:'Samsung Galaxy S24 Ultra',price:749,image:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxys24',name:'Samsung Galaxy S24 Ultra',price:749,image:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -492,7 +497,7 @@
               </button>
               <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop" alt="MacBook Pro M3" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&h=400&fit=crop" alt="MacBook Pro M3" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -513,7 +518,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookprom3',name:'MacBook Pro 14 M3',price:1549,image:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'512GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookprom3',name:'MacBook Pro 14 M3',price:1549,image:'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'512GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -527,7 +532,7 @@
               </button>
               <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop" alt="iPad Pro" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=400&h=400&fit=crop" alt="iPad Pro" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -548,7 +553,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'ipadpro',name:'iPad Pro 12.9 M2',price:849,image:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'256GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'ipadpro',name:'iPad Pro 12.9 M2',price:849,image:'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'256GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -562,7 +567,7 @@
               </button>
               <span class="product-card__badge badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=400&h=400&fit=crop" alt="Apple Watch Series 9" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop" alt="Apple Watch Series 9" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -583,7 +588,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'applewatch',name:'Apple Watch Series 9',price:329,image:'https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'-'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'applewatch',name:'Apple Watch Series 9',price:329,image:'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'-'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -597,7 +602,7 @@
               </button>
               <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop" alt="AirPods Pro" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=400&fit=crop" alt="AirPods Pro" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -618,7 +623,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'airpods',name:'AirPods Pro 2',price:199,image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'-'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'airpods',name:'AirPods Pro 2',price:199,image:'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'-'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -632,7 +637,7 @@
               </button>
               <span class="product-card__badge badge badge--fair" data-i18n="product-condition-fair">Redelijk</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&h=400&fit=crop" alt="Samsung Galaxy A54" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&h=400&fit=crop" alt="Samsung Galaxy A54" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -653,7 +658,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxya54',name:'Samsung Galaxy A54',price:299,image:'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=200&h=200&fit=crop',condition:'Redelijk',storage:'128GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxya54',name:'Samsung Galaxy A54',price:299,image:'https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=200&h=200&fit=crop',condition:'Redelijk',storage:'128GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -667,7 +672,7 @@
               </button>
               <span class="product-card__badge badge badge--good" data-i18n="product-condition-good">Goed</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop" alt="MacBook" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400&h=400&fit=crop" alt="MacBook" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -688,7 +693,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookair',name:'MacBook Air 13 M2',price:949,image:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookair',name:'MacBook Air 13 M2',price:949,image:'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -702,7 +707,7 @@
               </button>
               <span class="product-card__badge badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=400&h=400&fit=crop" alt="MacBook Air 15" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?w=400&h=400&fit=crop" alt="MacBook Air 15" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -723,7 +728,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookair15',name:'MacBook Air 15 M3',price:1199,image:'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'512GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookair15',name:'MacBook Air 15 M3',price:1199,image:'https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'512GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -737,7 +742,7 @@
               </button>
               <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
               <a href="product-detail.html" class="product-card__image-wrapper">
-                <img class="product-card__image" src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&h=400&fit=crop" alt="Google Pixel 8" loading="lazy">
+                <img class="product-card__image" src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&h=400&fit=crop" alt="Google Pixel 8" loading="lazy">
                 <div class="product-card__quick-view">
                   <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
                 </div>
@@ -758,7 +763,7 @@
                     <i class="fas fa-shield-halved"></i>
                     <span data-i18n="product-warranty">2 jaar garantie</span>
                   </span>
-                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'pixel8',name:'Google Pixel 8',price:549,image:'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'128GB'})">
+                  <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'pixel8',name:'Google Pixel 8',price:549,image:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'128GB'})">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -904,6 +909,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="script.js"></script>
+  <script src="assets/js/lang/nl.js"></script>
+  <script src="assets/js/lang/de.js"></script>
+  <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>

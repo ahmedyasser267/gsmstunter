@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>if(!localStorage.getItem('gsmstunter-lang-v2')){localStorage.setItem('gsmstunter-lang','nl');localStorage.setItem('gsmstunter-lang-v2','1');}</script>
 </head>
 <body>
   <div class="top-bar">
@@ -22,10 +23,24 @@
         <a href="account.html" class="top-bar__item"><i class="fas fa-headset"></i><span data-i18n="nav-help">Hulp</span></a>
         <a href="account.html" class="top-bar__item"><i class="fas fa-box"></i><span data-i18n="nav-orders">Bestellingen</span></a>
         <div style="position: relative;">
-          <div class="lang-switcher"><img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="20" height="15"><span class="lang-switcher__text">NL</span><i class="fas fa-chevron-down" style="font-size: 0.6rem; margin-left: 2px;"></i></div>
+          <div class="lang-switcher" aria-label="Language selector">
+            <img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="NL" width="22" height="16">
+            <span class="lang-switcher__text">NL</span>
+            <i class="fas fa-chevron-down" style="font-size: 0.65rem; margin-left: 4px; opacity: 0.8;"></i>
+          </div>
           <div class="lang-dropdown">
-            <div class="lang-dropdown__item active" data-lang="nl"><img src="https://flagcdn.com/w40/nl.png" alt="NL" width="24" height="18" style="border-radius:2px"><span>Nederlands</span></div>
-            <div class="lang-dropdown__item" data-lang="en"><img src="https://flagcdn.com/w40/gb.png" alt="EN" width="24" height="18" style="border-radius:2px"><span>English</span></div>
+            <div class="lang-dropdown__item active" data-lang="nl">
+              <img src="https://flagcdn.com/w40/nl.png" alt="NL" width="28" height="20">
+              <span>Nederlands</span>
+            </div>
+            <div class="lang-dropdown__item" data-lang="de">
+              <img src="https://flagcdn.com/w40/de.png" alt="DE" width="28" height="20">
+              <span>Deutsch</span>
+            </div>
+            <div class="lang-dropdown__item" data-lang="fr">
+              <img src="https://flagcdn.com/w40/be.png" alt="FR" width="28" height="20">
+              <span>Français (BE)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -282,7 +297,10 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="assets/js/lang/nl.js"></script>
+  <script src="assets/js/lang/de.js"></script>
+  <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/script.js"></script>
   <script>
     let currentStep = 1;
     function checkoutNext() {

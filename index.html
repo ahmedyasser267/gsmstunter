@@ -10,7 +10,7 @@
   <!-- Open Graph -->
   <meta property="og:title" content="GSMStunter - Premium Refurbished Elektronica">
   <meta property="og:description" content="Koop, verkoop en ruil refurbished apparaten. Bespaar tot 40% en maak een duurzame keuze.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=1200&h=630&fit=crop">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=1200&h=630&fit=crop">
   <meta property="og:type" content="website">
 
   <title>GSMStunter - Premium Refurbished Elektronica</title>
@@ -24,10 +24,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
+
+  <script>
+    if(!localStorage.getItem('gsmstunter-lang-v2')){localStorage.setItem('gsmstunter-lang','nl');localStorage.setItem('gsmstunter-lang-v2','1');}
+  </script>
 </head>
 <body>
 
@@ -59,18 +63,22 @@
         </a>
         <div style="position: relative;">
           <div class="lang-switcher" aria-label="Language selector">
-            <img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="20" height="15">
+            <img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="NL" width="22" height="16">
             <span class="lang-switcher__text">NL</span>
-            <i class="fas fa-chevron-down" style="font-size: 0.6rem; margin-left: 2px;"></i>
+            <i class="fas fa-chevron-down" style="font-size: 0.65rem; margin-left: 4px; opacity: 0.8;"></i>
           </div>
           <div class="lang-dropdown">
             <div class="lang-dropdown__item active" data-lang="nl">
-              <img src="https://flagcdn.com/w40/nl.png" alt="Nederlands" width="24" height="18" style="border-radius: 2px;">
+              <img src="https://flagcdn.com/w40/nl.png" alt="NL" width="28" height="20">
               <span>Nederlands</span>
             </div>
-            <div class="lang-dropdown__item" data-lang="en">
-              <img src="https://flagcdn.com/w40/gb.png" alt="English" width="24" height="18" style="border-radius: 2px;">
-              <span>English</span>
+            <div class="lang-dropdown__item" data-lang="de">
+              <img src="https://flagcdn.com/w40/de.png" alt="DE" width="28" height="20">
+              <span>Deutsch</span>
+            </div>
+            <div class="lang-dropdown__item" data-lang="fr">
+              <img src="https://flagcdn.com/w40/be.png" alt="FR" width="28" height="20">
+              <span>Français (BE)</span>
             </div>
           </div>
         </div>
@@ -237,7 +245,7 @@
         <div class="hero__image fade-in" style="animation-delay: 0.2s;">
           <div class="hero__image-glow"></div>
           <img class="hero__image-main"
-               src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&h=800&fit=crop&q=85"
+               src="https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=800&h=800&fit=crop&q=90"
                alt="Refurbished smartphones en laptops"
                width="500" height="500"
                fetchpriority="high">
@@ -300,6 +308,9 @@
         <div class="services__grid">
           <!-- Buy -->
           <div class="service-card fade-in">
+            <div style="width: 100%; height: 180px; background: linear-gradient(135deg, #E8F7F3, #C5EDE2); border-radius: var(--radius-lg); margin-bottom: var(--space-6); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&h=300&fit=crop&q=85" alt="Kopen" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg);">
+            </div>
             <div class="service-card__icon">
               <i class="fas fa-shopping-bag"></i>
             </div>
@@ -311,6 +322,9 @@
           </div>
           <!-- Sell -->
           <div class="service-card fade-in" style="transition-delay: 0.1s;">
+            <div style="width: 100%; height: 180px; background: linear-gradient(135deg, #FFF7ED, #FFEDD5); border-radius: var(--radius-lg); margin-bottom: var(--space-6); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&h=300&fit=crop&q=85" alt="Verkopen" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg);">
+            </div>
             <div class="service-card__icon" style="background: #FFF7ED; color: #EA580C;">
               <i class="fas fa-hand-holding-dollar"></i>
             </div>
@@ -322,6 +336,9 @@
           </div>
           <!-- Trade -->
           <div class="service-card fade-in" style="transition-delay: 0.2s;">
+            <div style="width: 100%; height: 180px; background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-radius: var(--radius-lg); margin-bottom: var(--space-6); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1580910051074-3eb694886f8b?w=400&h=300&fit=crop&q=85" alt="Inruilen" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg);">
+            </div>
             <div class="service-card__icon" style="background: #F0FDF4; color: #16A34A;">
               <i class="fas fa-arrows-rotate"></i>
             </div>
@@ -345,32 +362,32 @@
         </div>
         <div class="categories__grid">
           <a href="products.html?type=smartphone" class="category-card fade-in">
-            <img class="category-card__image" src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=200&h=200&fit=crop&q=80" alt="Smartphones" loading="lazy">
+            <img class="category-card__image" src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop&q=80" alt="Smartphones" loading="lazy">
             <h3 class="category-card__name" data-i18n="cat-smartphones">Smartphones</h3>
             <span class="category-card__count">245+ producten</span>
           </a>
           <a href="products.html?type=laptop" class="category-card fade-in" style="transition-delay: 0.05s;">
-            <img class="category-card__image" src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200&h=200&fit=crop&q=80" alt="Laptops" loading="lazy">
+            <img class="category-card__image" src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=200&h=200&fit=crop&q=80" alt="Laptops" loading="lazy">
             <h3 class="category-card__name" data-i18n="cat-laptops">Laptops</h3>
             <span class="category-card__count">180+ producten</span>
           </a>
           <a href="products.html?type=tablet" class="category-card fade-in" style="transition-delay: 0.1s;">
-            <img class="category-card__image" src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&h=200&fit=crop&q=80" alt="Tablets" loading="lazy">
+            <img class="category-card__image" src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=200&h=200&fit=crop&q=80" alt="Tablets" loading="lazy">
             <h3 class="category-card__name" data-i18n="cat-tablets">Tablets</h3>
             <span class="category-card__count">96+ producten</span>
           </a>
           <a href="products.html?type=smartwatch" class="category-card fade-in" style="transition-delay: 0.15s;">
-            <img class="category-card__image" src="https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=200&h=200&fit=crop&q=80" alt="Smartwatches" loading="lazy">
+            <img class="category-card__image" src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=200&h=200&fit=crop&q=80" alt="Smartwatches" loading="lazy">
             <h3 class="category-card__name" data-i18n="cat-smartwatches">Smartwatches</h3>
             <span class="category-card__count">64+ producten</span>
           </a>
           <a href="products.html?type=headphones" class="category-card fade-in" style="transition-delay: 0.2s;">
-            <img class="category-card__image" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop&q=80" alt="Koptelefoons" loading="lazy">
+            <img class="category-card__image" src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=200&h=200&fit=crop&q=80" alt="Koptelefoons" loading="lazy">
             <h3 class="category-card__name" data-i18n="cat-headphones">Koptelefoons</h3>
             <span class="category-card__count">78+ producten</span>
           </a>
           <a href="products.html?type=accessories" class="category-card fade-in" style="transition-delay: 0.25s;">
-            <img class="category-card__image" src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=200&h=200&fit=crop&q=80" alt="Accessoires" loading="lazy">
+            <img class="category-card__image" src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=200&h=200&fit=crop&q=80" alt="Accessoires" loading="lazy">
             <h3 class="category-card__name" data-i18n="cat-accessories">Accessoires</h3>
             <span class="category-card__count">120+ producten</span>
           </a>
@@ -394,7 +411,7 @@
             </button>
             <span class="product-card__badge badge badge--like-new" data-i18n="product-condition-like-new">Als nieuw</span>
             <a href="product-detail.html" class="product-card__image-wrapper">
-              <img class="product-card__image" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop&q=85" alt="iPhone 15 Pro" loading="lazy">
+              <img class="product-card__image" src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=400&h=400&fit=crop&q=85" alt="iPhone 15 Pro" loading="lazy">
               <div class="product-card__quick-view">
                 <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
               </div>
@@ -415,7 +432,7 @@
                   <i class="fas fa-shield-halved"></i>
                   <span data-i18n="product-warranty">2 jaar garantie</span>
                 </span>
-                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone15pro',name:'iPhone 15 Pro',price:899,image:'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'128GB'})">
+                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'iphone15pro',name:'iPhone 15 Pro',price:899,image:'https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop',condition:'Als nieuw',storage:'128GB'})">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
@@ -429,7 +446,7 @@
             </button>
             <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
             <a href="product-detail.html" class="product-card__image-wrapper">
-              <img class="product-card__image" src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop&q=85" alt="MacBook Pro M3" loading="lazy">
+              <img class="product-card__image" src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&h=400&fit=crop&q=85" alt="MacBook Pro M3" loading="lazy">
               <div class="product-card__quick-view">
                 <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
               </div>
@@ -450,7 +467,7 @@
                   <i class="fas fa-shield-halved"></i>
                   <span data-i18n="product-warranty">2 jaar garantie</span>
                 </span>
-                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookprom3',name:'MacBook Pro 14 M3',price:1549,image:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'512GB'})">
+                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'macbookprom3',name:'MacBook Pro 14 M3',price:1549,image:'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'512GB'})">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
@@ -464,7 +481,7 @@
             </button>
             <span class="product-card__badge badge badge--good" data-i18n="product-condition-good">Goed</span>
             <a href="product-detail.html" class="product-card__image-wrapper">
-              <img class="product-card__image" src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=400&fit=crop&q=85" alt="Samsung Galaxy S24" loading="lazy">
+              <img class="product-card__image" src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop&q=85" alt="Samsung Galaxy S24" loading="lazy">
               <div class="product-card__quick-view">
                 <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
               </div>
@@ -485,7 +502,7 @@
                   <i class="fas fa-shield-halved"></i>
                   <span data-i18n="product-warranty">2 jaar garantie</span>
                 </span>
-                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxys24',name:'Samsung Galaxy S24 Ultra',price:749,image:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
+                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'galaxys24',name:'Samsung Galaxy S24 Ultra',price:749,image:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=200&h=200&fit=crop',condition:'Goed',storage:'256GB'})">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
@@ -499,7 +516,7 @@
             </button>
             <span class="product-card__badge badge badge--excellent" data-i18n="product-condition-excellent">Uitstekend</span>
             <a href="product-detail.html" class="product-card__image-wrapper">
-              <img class="product-card__image" src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop&q=85" alt="iPad Pro" loading="lazy">
+              <img class="product-card__image" src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=400&h=400&fit=crop&q=85" alt="iPad Pro" loading="lazy">
               <div class="product-card__quick-view">
                 <button class="btn btn--sm btn--primary" data-i18n="product-quick-view">Snel bekijken</button>
               </div>
@@ -520,7 +537,7 @@
                   <i class="fas fa-shield-halved"></i>
                   <span data-i18n="product-warranty">2 jaar garantie</span>
                 </span>
-                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'ipadpro',name:'iPad Pro 12.9 M2',price:849,image:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'256GB'})">
+                <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'ipadpro',name:'iPad Pro 12.9 M2',price:849,image:'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=200&h=200&fit=crop',condition:'Uitstekend',storage:'256GB'})">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
@@ -810,6 +827,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="script.js"></script>
+  <script src="assets/js/lang/nl.js"></script>
+  <script src="assets/js/lang/de.js"></script>
+  <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
