@@ -3843,6 +3843,99 @@ ul, ol {
   font-weight: 400;
 }
 
+/* Visual option cards for condition step */
+.sell-wizard__question-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.sell-wizard__question-step {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.sell-wizard__question-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.sell-wizard__option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-4);
+}
+
+.sell-wizard__option-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.sell-wizard__option-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sell-wizard__option-media {
+  width: 100%;
+  height: 90px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sell-wizard__option-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sell-wizard__option-title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  margin-bottom: 2px;
+}
+
+.sell-wizard__option-example {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.sell-wizard__option-card:hover {
+  border-color: var(--color-primary-200);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.sell-wizard__option-card:has(input:checked) {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+  background: var(--color-primary-50);
+}
+
 .sell-wizard__quote {
   text-align: center;
   padding: var(--space-10);

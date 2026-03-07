@@ -112,32 +112,89 @@
 
             <div class="sell-wizard__panel" data-panel="2">
               <h3 data-i18n="sell-step2-title">Kies model</h3>
-              <div class="sell-wizard__brand-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+              <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);" data-i18n="sell-select-brand">
+                Kies eerst een merk en selecteer daarna je exacte model, net als bij rebuy.
+              </p>
+              <div class="sell-wizard__brand-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: var(--space-5);">
                 <div class="device-option" data-brand="apple" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fab fa-apple" style="font-size: 2rem; color: #333; margin-bottom: 0.5rem; display: block;"></i>
-                  <span style="font-weight: 600;">Apple</span>
+                  <i class="fab fa-apple" style="font-size: 2rem; color: #111827; margin-bottom: 0.5rem; display: block;"></i>
+                  <span style="font-weight: 600;">Apple iPhone</span>
                 </div>
                 <div class="device-option" data-brand="samsung" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fas fa-mobile-screen" style="font-size: 2rem; color: #1428A0; margin-bottom: 0.5rem; display: block;"></i>
-                  <span style="font-weight: 600;">Samsung</span>
+                  <i class="fas fa-mobile-screen" style="font-size: 2rem; color: #0F172A; margin-bottom: 0.5rem; display: block;"></i>
+                  <span style="font-weight: 600;">Samsung Galaxy</span>
                 </div>
                 <div class="device-option" data-brand="google" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fab fa-google" style="font-size: 2rem; color: #4285F4; margin-bottom: 0.5rem; display: block;"></i>
-                  <span style="font-weight: 600;">Google</span>
+                  <i class="fab fa-google" style="font-size: 2rem; color: #1D4ED8; margin-bottom: 0.5rem; display: block;"></i>
+                  <span style="font-weight: 600;">Google Pixel</span>
                 </div>
                 <div class="device-option" data-brand="oneplus" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fas fa-mobile-screen-button" style="font-size: 2rem; color: #EB0028; margin-bottom: 0.5rem; display: block;"></i>
+                  <i class="fas fa-mobile-screen-button" style="font-size: 2rem; color: #DC2626; margin-bottom: 0.5rem; display: block;"></i>
                   <span style="font-weight: 600;">OnePlus</span>
                 </div>
               </div>
-              <div class="sell-wizard__model-list" style="margin-top: var(--space-4);">
-                <h4 data-i18n="sell-models">Modellen</h4>
+              <div class="sell-wizard__model-list" style="margin-top: var(--space-2);">
+                <h4 data-i18n="sell-models" style="margin-bottom: var(--space-3);">Modellen</h4>
                 <div class="sell-wizard__model-grid">
-                  <div class="device-option" data-model="iphone-15-pro">iPhone 15 Pro</div>
-                  <div class="device-option" data-model="iphone-15">iPhone 15</div>
-                  <div class="device-option" data-model="iphone-14-pro">iPhone 14 Pro</div>
-                  <div class="device-option" data-model="iphone-14">iPhone 14</div>
-                  <div class="device-option" data-model="iphone-13">iPhone 13</div>
+                  <!-- Apple iPhone models -->
+                  <div class="device-option" data-model="iphone-15-pro" data-brand="apple" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 15 Pro" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 15 Pro</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €720</div>
+                  </div>
+                  <div class="device-option" data-model="iphone-15" data-brand="apple" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1695048133142-0b9ea0c6848d?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 15" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 15</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €660</div>
+                  </div>
+                  <div class="device-option" data-model="iphone-14-pro" data-brand="apple" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1663677928040-9a5efc628f59?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 14 Pro" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 14 Pro</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2022</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €580</div>
+                  </div>
+                  <div class="device-option" data-model="iphone-14" data-brand="apple" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1663677928040-9a5efc628f59?w=220&h=220&fit=crop&q=80&sat=-40" alt="Apple iPhone 14" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 14</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2022</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €520</div>
+                  </div>
+                  <div class="device-option" data-model="iphone-13" data-brand="apple" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 13" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 13</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2021</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €420</div>
+                  </div>
+
+                  <!-- Samsung examples -->
+                  <div class="device-option" data-model="galaxy-s24-ultra" data-brand="samsung" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=220&h=220&fit=crop&q=85" alt="Samsung Galaxy S24 Ultra" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">Galaxy S24 Ultra</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">256GB · 2024</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €600</div>
+                  </div>
+                  <div class="device-option" data-model="galaxy-s23" data-brand="samsung" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1608622440470-191e5eee7949?w=220&h=220&fit=crop&q=85" alt="Samsung Galaxy S23" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">Galaxy S23</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €430</div>
+                  </div>
+
+                  <!-- Google & OnePlus examples -->
+                  <div class="device-option" data-model="pixel-8-pro" data-brand="google" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=220&h=220&fit=crop&q=85" alt="Google Pixel 8 Pro" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">Pixel 8 Pro</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €480</div>
+                  </div>
+                  <div class="device-option" data-model="oneplus-12" data-brand="oneplus" style="padding: 1rem; text-align: left;">
+                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=220&h=220&fit=crop&q=85" alt="OnePlus 12" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 600; font-size: 0.95rem;">OnePlus 12</div>
+                    <div style="font-size: 0.8rem; color: #64748B;">256GB · 2024</div>
+                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €420</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -146,27 +203,252 @@
               <h3 data-i18n="sell-step3-title">Beschrijf conditie</h3>
               <div class="sell-wizard__condition">
                 <div class="sell-wizard__question">
-                  <label data-i18n="sell-q1-screen">Hoe is de conditie van het scherm?</label>
-                  <div class="sell-wizard__radios">
-                    <label><input type="radio" name="screen" value="perfect"><span data-i18n="sell-condition-perfect">Perfect</span></label>
-                    <label><input type="radio" name="screen" value="minor"><span data-i18n="sell-condition-minor">Kleine krassen</span></label>
-                    <label><input type="radio" name="screen" value="cracked"><span data-i18n="sell-condition-cracked">Barst of breuk</span></label>
+                  <div class="sell-wizard__question-header">
+                    <span class="sell-wizard__question-step">1</span>
+                    <div>
+                      <label data-i18n="sell-q1-screen">Hoe is de conditie van het scherm?</label>
+                      <p class="sell-wizard__question-hint">Kijk naar je iPhone scherm en kies het voorbeeld dat het beste past.</p>
+                    </div>
+                  </div>
+                  <div class="sell-wizard__option-grid">
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="screen" value="perfect">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=250&fit=crop&q=90" alt="iPhone met perfect scherm">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-condition-perfect">Perfect</div>
+                      <div class="sell-wizard__option-example">Geen krassen, geen barsten – lijkt als nieuw.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="screen" value="minor">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=250&fit=crop&q=90&sat=-20" alt="iPhone met lichte krasjes">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-condition-minor">Kleine krassen</div>
+                      <div class="sell-wizard__option-example">Enkele lichte gebruikerssporen, zichtbaar in het licht.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="screen" value="cracked">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1512390262810-03cb2d5c5fbb?w=400&h=250&fit=crop&q=90" alt="iPhone met gebarsten scherm">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-condition-cracked">Barst of breuk</div>
+                      <div class="sell-wizard__option-example">Scherm heeft één of meerdere barsten of hoekscheuren.</div>
+                    </label>
                   </div>
                 </div>
                 <div class="sell-wizard__question">
-                  <label data-i18n="sell-q2-function">Werkt alles naar behoren?</label>
-                  <div class="sell-wizard__radios">
-                    <label><input type="radio" name="function" value="yes"><span data-i18n="sell-yes">Ja</span></label>
-                    <label><input type="radio" name="function" value="minor"><span data-i18n="sell-minor-issues">Kleine problemen</span></label>
-                    <label><input type="radio" name="function" value="no"><span data-i18n="sell-no">Nee</span></label>
+                  <div class="sell-wizard__question-header">
+                    <span class="sell-wizard__question-step">2</span>
+                    <div>
+                      <label data-i18n="sell-q2-function">Werkt alles naar behoren?</label>
+                      <p class="sell-wizard__question-hint">Denk aan Face ID, knoppen, speakers, camera en opladen.</p>
+                    </div>
+                  </div>
+                  <div class="sell-wizard__option-grid">
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="function" value="yes">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400&h=250&fit=crop&q=90&sat=-10" alt="iPhone die normaal gebruikt wordt">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-yes">Ja</div>
+                      <div class="sell-wizard__option-example">Alle functies werken zonder problemen.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="function" value="minor">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90" alt="iPhone met kleine functionele problemen">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-minor-issues">Kleine problemen</div>
+                      <div class="sell-wizard__option-example">Bijvoorbeeld: knopje voelt stroef, speaker iets zachter, Face ID soms.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="function" value="no">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=250&fit=crop&q=90&sat=-100" alt="iPhone die niet goed werkt">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-no">Nee</div>
+                      <div class="sell-wizard__option-example">Toestel start niet, laadt niet of belangrijke functies werken niet.</div>
+                    </label>
                   </div>
                 </div>
                 <div class="sell-wizard__question">
-                  <label data-i18n="sell-q3-cosmetic">Cosmetische schade?</label>
-                  <div class="sell-wizard__radios">
-                    <label><input type="radio" name="cosmetic" value="none"><span data-i18n="sell-condition-none">Geen</span></label>
-                    <label><input type="radio" name="cosmetic" value="light"><span data-i18n="sell-condition-light">Lichte slijtage</span></label>
-                    <label><input type="radio" name="cosmetic" value="heavy"><span data-i18n="sell-condition-heavy">Duidelijke schade</span></label>
+                  <div class="sell-wizard__question-header">
+                    <span class="sell-wizard__question-step">3</span>
+                    <div>
+                      <label data-i18n="sell-q3-cosmetic">Cosmetische schade?</label>
+                      <p class="sell-wizard__question-hint">Bekijk de achterkant en randen van je iPhone.</p>
+                    </div>
+                  </div>
+                  <div class="sell-wizard__option-grid">
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="cosmetic" value="none">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=250&fit=crop&q=90&sat=10" alt="iPhone zonder krassen of deuken">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-condition-none">Geen</div>
+                      <div class="sell-wizard__option-example">Vrij van krassen en deuken, ook langs de randen.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="cosmetic" value="light">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90&sat=-10" alt="iPhone met lichte gebruikerssporen">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-condition-light">Lichte slijtage</div>
+                      <div class="sell-wizard__option-example">Kleine krasjes of mini deukjes, geen diepe schade.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="cosmetic" value="heavy">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1592750475338-074b0f70a5c0?w=400&h=250&fit=crop&q=90" alt="iPhone met duidelijke schade">
+                      </div>
+                      <div class="sell-wizard__option-title" data-i18n="sell-condition-heavy">Duidelijke schade</div>
+                      <div class="sell-wizard__option-example">Zichtbare deuken, diepe krassen of verbogen frame.</div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="sell-wizard__question">
+                  <div class="sell-wizard__question-header">
+                    <span class="sell-wizard__question-step">4</span>
+                    <div>
+                      <label>Hoe is de batterijconditie?</label>
+                      <p class="sell-wizard__question-hint">Je kunt dit zien via Instellingen &gt; Batterij &gt; Batterijconditie.</p>
+                    </div>
+                  </div>
+                  <div class="sell-wizard__option-grid">
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="battery" value="like-new">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1517309249042-3199bcb2e273?w=400&h=250&fit=crop&q=90" alt="Batterij bijna als nieuw">
+                      </div>
+                      <div class="sell-wizard__option-title">90–100% (als nieuw)</div>
+                      <div class="sell-wizard__option-example">Dagt door op één lading, batterijconditie &gt;= 90%.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="battery" value="normal">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=400&h=250&fit=crop&q=90" alt="Batterij met normale slijtage">
+                      </div>
+                      <div class="sell-wizard__option-title">80–89% (normaal)</div>
+                      <div class="sell-wizard__option-example">Normale slijtage, moet soms tussentijds laden.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="battery" value="weak">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=250&fit=crop&q=90&sat=-50" alt="Batterij die snel leeg is">
+                      </div>
+                      <div class="sell-wizard__option-title">&lt; 80% (zwak / batterij vervangen)</div>
+                      <div class="sell-wizard__option-example">Batterij gaat snel leeg of toestel valt soms uit.</div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="sell-wizard__question">
+                  <div class="sell-wizard__question-header">
+                    <span class="sell-wizard__question-step">5</span>
+                    <div>
+                      <label>Wat zit er bij je iPhone?</label>
+                      <p class="sell-wizard__question-hint">Hoe completer de set, hoe hoger je bod.</p>
+                    </div>
+                  </div>
+                  <div class="sell-wizard__option-grid">
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="accessories" value="complete">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1580915411954-282cb1c9c450?w=400&h=250&fit=crop&q=90" alt="iPhone met doos, oplader, kabel en case">
+                      </div>
+                      <div class="sell-wizard__option-title">Originele doos, oplader &amp; kabel, case</div>
+                      <div class="sell-wizard__option-example">Volledige set, zoals je hem ooit nieuw kocht.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="accessories" value="no-charger">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1580711969734-9f63422a0d79?w=400&h=250&fit=crop&q=90" alt="iPhone met doos en kabel">
+                      </div>
+                      <div class="sell-wizard__option-title">Doos + kabel, geen oplader</div>
+                      <div class="sell-wizard__option-example">Originele verpakking en kabel, adapter ontbreekt.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="accessories" value="device-only">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1592750475338-74b9dc9d2b0c?w=400&h=250&fit=crop&q=90" alt="Alleen een losse iPhone">
+                      </div>
+                      <div class="sell-wizard__option-title">Alleen het toestel</div>
+                      <div class="sell-wizard__option-example">Geen doos of accessoires, enkel je iPhone.</div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="sell-wizard__question">
+                  <div class="sell-wizard__question-header">
+                    <span class="sell-wizard__question-step">6</span>
+                    <div>
+                      <label>Is het toestel ooit in contact geweest met water?</label>
+                      <p class="sell-wizard__question-hint">Bijvoorbeeld gevallen in water of langdurig regen/badkamer.</p>
+                    </div>
+                  </div>
+                  <div class="sell-wizard__option-grid">
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="water" value="no">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400&h=250&fit=crop&q=90&sat=-5" alt="Droge iPhone zonder waterschade">
+                      </div>
+                      <div class="sell-wizard__option-title">Nee</div>
+                      <div class="sell-wizard__option-example">Nooit in water gevallen, geen waterschade.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="water" value="yes">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=250&fit=crop&q=90" alt="iPhone met water op de tafel">
+                      </div>
+                      <div class="sell-wizard__option-title">Ja, (mogelijk) waterschade</div>
+                      <div class="sell-wizard__option-example">Bijvoorbeeld ooit in water gevallen of erg nat geweest.</div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="sell-wizard__question">
+                  <div class="sell-wizard__question-header">
+                    <span class="sell-wizard__question-step">7</span>
+                    <div>
+                      <label>Hoe oud is je toestel ongeveer?</label>
+                      <p class="sell-wizard__question-hint">Je vindt de aankoopdatum vaak terug in je account of factuur.</p>
+                    </div>
+                  </div>
+                  <div class="sell-wizard__option-grid">
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="age" value="lt1">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1512206079843-b4a5b65b6265?w=400&h=250&fit=crop&q=90" alt="Nieuwe iPhone uit de doos">
+                      </div>
+                      <div class="sell-wizard__option-title">Minder dan 1 jaar</div>
+                      <div class="sell-wizard__option-example">Recent gekocht model, bijna nieuw.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="age" value="1-2">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90&sat=-10" alt="iPhone van 1–2 jaar oud">
+                      </div>
+                      <div class="sell-wizard__option-title">1–2 jaar</div>
+                      <div class="sell-wizard__option-example">Normale gebruiksduur, recente generatie.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="age" value="2-3">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=250&fit=crop&q=90&sat=-20" alt="iPhone van 2–3 jaar oud">
+                      </div>
+                      <div class="sell-wizard__option-title">2–3 jaar</div>
+                      <div class="sell-wizard__option-example">Iets ouder model, nog steeds goed bruikbaar.</div>
+                    </label>
+                    <label class="sell-wizard__option-card">
+                      <input type="radio" name="age" value="gt3">
+                      <div class="sell-wizard__option-media">
+                        <img src="https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=400&h=250&fit=crop&q=90&sat=-40" alt="Oudere iPhone generatie">
+                      </div>
+                      <div class="sell-wizard__option-title">Ouder dan 3 jaar</div>
+                      <div class="sell-wizard__option-example">Oudere generatie iPhone (bijv. iPhone X, 8 of ouder).</div>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -193,21 +475,33 @@
     <section class="sell-benefits" style="padding: var(--space-8) 0; background: var(--gray-50, #f9fafb);">
       <div class="container">
         <h2 data-i18n="sell-benefits-title">Waarom verkopen bij GSMStunter?</h2>
-        <div class="sell-benefits__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-top: var(--space-6);">
-          <div class="sell-benefit">
-            <i class="fas fa-tag" style="font-size: 2rem; color: var(--green-600, #059669);"></i>
-            <h4 data-i18n="sell-benefit1-title">Gratis verzendlabel</h4>
-            <p data-i18n="sell-benefit1-desc">Wij sturen je een gratis verzendlabel. Verpak en verstuur.</p>
+        <div class="sell-benefits__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); margin-top: var(--space-6);">
+          <div class="sell-benefit" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);">
+            <div style="height: 170px; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1580915411954-282cb1c9c450?w=600&h=400&fit=crop&q=90" alt="iPhone veilig verpakken in een doos" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="padding: 1.5rem;">
+              <h4 data-i18n="sell-benefit1-title">Gratis verzendlabel &amp; stevige doos</h4>
+              <p data-i18n="sell-benefit1-desc">Print je label, leg je iPhone in de doos met case en stuur hem gratis naar ons op.</p>
+            </div>
           </div>
-          <div class="sell-benefit">
-            <i class="fas fa-bolt" style="font-size: 2rem; color: var(--green-600, #059669);"></i>
-            <h4 data-i18n="sell-benefit2-title">Snel uitbetaald</h4>
-            <p data-i18n="sell-benefit2-desc">Ontvang je geld binnen 48 uur na ontvangst.</p>
+          <div class="sell-benefit" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);">
+            <div style="height: 170px; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=600&h=400&fit=crop&q=90" alt="Pakket afgeven bij een pakketpunt" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="padding: 1.5rem;">
+              <h4 data-i18n="sell-benefit2-title">Inleveren bij een pakketpunt</h4>
+              <p data-i18n="sell-benefit2-desc">Lever je pakket in bij het dichtstbijzijnde pakketpunt – track &amp; trace inbegrepen.</p>
+            </div>
           </div>
-          <div class="sell-benefit">
-            <i class="fas fa-euro-sign" style="font-size: 2rem; color: var(--green-600, #059669);"></i>
-            <h4 data-i18n="sell-benefit3-title">Tot €500 voor je apparaat</h4>
-            <p data-i18n="sell-benefit3-desc">Eerlijke prijzen voor al je apparaten.</p>
+          <div class="sell-benefit" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);">
+            <div style="height: 170px; overflow: hidden;">
+              <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop&q=90" alt="Snelle uitbetaling op je rekening" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="padding: 1.5rem;">
+              <h4 data-i18n="sell-benefit3-title">Snel uitbetaald</h4>
+              <p data-i18n="sell-benefit3-desc">Na controle storten wij het bedrag razendsnel op je rekening of als shoptegoed.</p>
+            </div>
           </div>
         </div>
       </div>

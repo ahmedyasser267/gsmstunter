@@ -614,7 +614,25 @@ function initSellWizard() {
   let currentStep = 1;
   const totalSteps = 4;
 
+  const state = {
+    device: null,
+    brand: null,
+    model: null,
+    screen: null,
+    function: null,
+    cosmetic: null,
+    battery: null,
+    accessories: null,
+    water: null,
+    age: null
+  };
+
+  const quoteAmountEl = wizard.querySelector('.sell-wizard__quote-amount');
+  const modelGrid = wizard.querySelector('.sell-wizard__model-grid');
+  const modelOptions = modelGrid ? Array.from(modelGrid.querySelectorAll('.device-option')) : [];
+
   window.sellWizardNext = function () {
+    if (!canGoNext()) return;
     if (currentStep < totalSteps) {
       currentStep++;
       updateWizardStep();
@@ -628,6 +646,43 @@ function initSellWizard() {
     }
   };
 
+  function canGoNext() {
+    if (currentStep === 1) {
+      if (!state.device) {
+        showToast('warning', translate('sell-device-type'));
+        return false;
+      }
+    }
+
+    if (currentStep === 2) {
+      if (!state.brand) {
+        showToast('warning', translate('sell-select-brand'));
+        return false;
+      }
+      if (!state.model) {
+        showToast('warning', translate('sell-select-model'));
+        return false;
+      }
+    }
+
+    if (currentStep === 3) {
+      if (
+        !state.screen ||
+        !state.function ||
+        !state.cosmetic ||
+        !state.battery ||
+        !state.accessories ||
+        !state.water ||
+        !state.age
+      ) {
+        showToast('warning', translate('sell-step3-title'));
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   function updateWizardStep() {
     wizard.querySelectorAll('.sell-wizard__panel').forEach((panel, index) => {
       panel.classList.toggle('active', index === currentStep - 1);
@@ -638,17 +693,173 @@ function initSellWizard() {
       if (index + 1 === currentStep) step.classList.add('active');
       else if (index + 1 < currentStep) step.classList.add('completed');
     });
+
+    if (currentStep === 4) {
+      updateQuote();
+    }
   }
 
-  wizard.querySelectorAll('.device-option').forEach(option => {
-    option.addEventListener('click', () => {
-      const parent = option.closest('.sell-wizard__device-grid, .sell-wizard__brand-grid, .sell-wizard__model-grid');
-      if (parent) {
-        parent.querySelectorAll('.device-option').forEach(o => o.classList.remove('selected'));
+  function filterModelsByBrand() {
+    if (!modelOptions.length) return;
+    modelOptions.forEach(option => {
+      const brand = option.dataset.brand;
+      if (!state.brand || !brand || brand === state.brand) {
+        option.style.display = '';
+      } else {
+        option.style.display = 'none';
+        option.classList.remove('selected');
+        if (state.model === option.dataset.model) {
+          state.model = null;
+        }
+      }
+    });
+  }
+
+  function calculateQuote() {
+    if (!state.device || !state.brand) return null;
+
+    const basePrices = {
+      smartphone: { apple: 620, samsung: 520, google: 480, oneplus: 450 },
+      laptop: { apple: 950, samsung: 800, google: 0, oneplus: 0 },
+      tablet: { apple: 520, samsung: 430, google: 0, oneplus: 0 },
+      smartwatch: { apple: 260, samsung: 210, google: 0, oneplus: 0 }
+    };
+
+    let base = basePrices[state.device]?.[state.brand] || 200;
+
+    // Model fine‑tuning
+    if (state.model) {
+      if (state.model.includes('15-pro')) base += 80;
+      else if (state.model.includes('15')) base += 40;
+      else if (state.model.includes('14-pro')) base += 50;
+      else if (state.model.includes('14')) base += 20;
+      else if (state.model.includes('13')) base -= 30;
+    }
+
+    let multiplier = 1;
+
+    // Screen condition
+    switch (state.screen) {
+      case 'perfect': multiplier *= 1; break;
+      case 'minor': multiplier *= 0.85; break;
+      case 'cracked': multiplier *= 0.45; break;
+    }
+
+    // Functional state
+    switch (state.function) {
+      case 'yes': multiplier *= 1; break;
+      case 'minor': multiplier *= 0.8; break;
+      case 'no': multiplier *= 0.4; break;
+    }
+
+    // Cosmetic damage
+    switch (state.cosmetic) {
+      case 'none': multiplier *= 1; break;
+      case 'light': multiplier *= 0.9; break;
+      case 'heavy': multiplier *= 0.7; break;
+    }
+
+    // Battery health
+    switch (state.battery) {
+      case 'like-new': multiplier *= 1.05; break;
+      case 'normal': multiplier *= 1; break;
+      case 'weak': multiplier *= 0.75; break;
+    }
+
+    // Accessories / completeness
+    switch (state.accessories) {
+      case 'complete': multiplier *= 1.03; break;
+      case 'no-charger': multiplier *= 0.95; break;
+      case 'device-only': multiplier *= 0.9; break;
+    }
+
+    // Water damage
+    if (state.water === 'yes') {
+      multiplier *= 0.5;
+    }
+
+    // Age of device
+    switch (state.age) {
+      case 'lt1': multiplier *= 1.05; break;
+      case '1-2': multiplier *= 1; break;
+      case '2-3': multiplier *= 0.85; break;
+      case 'gt3': multiplier *= 0.7; break;
+    }
+
+    let value = base * multiplier;
+    if (!isFinite(value) || value <= 0) value = 20;
+    value = Math.max(15, Math.round(value / 5) * 5);
+    return value;
+  }
+
+  function updateQuote() {
+    const amount = calculateQuote();
+    const targetEl = quoteAmountEl || wizard.querySelector('.sell-wizard__quote-amount') || wizard.querySelector('.sell-wizard__quote-amount, .sell-wizard__quote-amount');
+    if (!targetEl) return;
+    if (amount == null) {
+      targetEl.textContent = '€—';
+    } else {
+      targetEl.textContent = '€' + amount;
+    }
+  }
+
+  // Device selection
+  const deviceGrid = wizard.querySelector('.sell-wizard__device-grid');
+  if (deviceGrid) {
+    deviceGrid.querySelectorAll('.device-option').forEach(option => {
+      option.addEventListener('click', () => {
+        deviceGrid.querySelectorAll('.device-option').forEach(o => o.classList.remove('selected'));
         option.classList.add('selected');
+        state.device = option.dataset.device || null;
+      });
+    });
+  }
+
+  // Brand selection
+  const brandGrid = wizard.querySelector('.sell-wizard__brand-grid');
+  if (brandGrid) {
+    brandGrid.querySelectorAll('.device-option').forEach(option => {
+      option.addEventListener('click', () => {
+        brandGrid.querySelectorAll('.device-option').forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        state.brand = option.dataset.brand || null;
+        filterModelsByBrand();
+      });
+    });
+  }
+
+  // Model selection
+  if (modelGrid) {
+    modelOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        modelGrid.querySelectorAll('.device-option').forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        state.model = option.dataset.model || null;
+      });
+    });
+  }
+
+  // Condition & detail radios
+  ['screen', 'function', 'cosmetic', 'battery', 'accessories', 'water', 'age'].forEach(name => {
+    wizard.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+      input.addEventListener('change', () => {
+        state[name] = input.value;
+      });
+    });
+  });
+
+  // Allow clicking steps to jump
+  wizard.querySelectorAll('.sell-wizard__step').forEach(stepEl => {
+    stepEl.addEventListener('click', () => {
+      const stepNum = parseInt(stepEl.dataset.step, 10);
+      if (!Number.isNaN(stepNum)) {
+        currentStep = stepNum;
+        updateWizardStep();
       }
     });
   });
+
+  updateWizardStep();
 }
 
 /* ── Trade Calculator ── */
