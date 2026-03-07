@@ -10,37 +10,389 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>if(!localStorage.getItem('gsmstunter-lang-v2')){localStorage.setItem('gsmstunter-lang','nl');localStorage.setItem('gsmstunter-lang-v2','1');}</script>
+  <style>
+    :root {
+      --rebuy-bg: #f5f6f8;
+      --rebuy-primary: #1e293b;
+      --rebuy-accent: #f97316; /* GSM Stunter Orange instead of Rebuy Teal */
+    }
+    body { background-color: var(--rebuy-bg); }
+    
+    /* Progress Bar */
+    .rb-progress {
+      background: #fff;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .rb-progress__track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .rb-progress__track::-webkit-scrollbar { display: none; }
+    
+    .rb-step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      border: 2px solid transparent;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .rb-step.active {
+      background: var(--rebuy-primary);
+      border-color: var(--rebuy-primary);
+      color: #fff;
+    }
+    .rb-step.completed {
+      background: #fff;
+      border-color: var(--rebuy-primary);
+      color: var(--rebuy-primary);
+    }
+    .rb-step-line {
+      height: 2px;
+      background: #e2e8f0;
+      flex-grow: 1;
+      min-width: 20px;
+      max-width: 40px;
+      transition: all 0.3s;
+    }
+    .rb-step-line.active {
+      background: var(--rebuy-primary);
+    }
+    
+    /* Hero Carousel */
+    .rb-hero {
+      padding: 4rem 1rem;
+      text-align: center;
+      background: linear-gradient(180deg, var(--rebuy-bg) 0%, #fff 100%);
+      overflow: hidden;
+      position: relative;
+    }
+    .rb-hero__title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--rebuy-primary);
+      margin-bottom: 3rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .rb-carousel-container {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .rb-carousel-track {
+      display: flex;
+      align-items: center;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+    
+    .rb-slide {
+      width: 400px;
+      height: 550px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      opacity: 0.4;
+      transform: scale(0.8);
+      position: relative;
+      z-index: 1;
+    }
+    .rb-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 10;
+    }
+    
+    .rb-slide__header {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 100px;
+      padding: 0.5rem 1.5rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: opacity 0.3s;
+    }
+    .rb-slide.active .rb-slide__header {
+      opacity: 0;
+    }
+    
+    .rb-slide__device {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-height: 450px;
+    }
+    .rb-slide__img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 25px 30px rgba(0,0,0,0.15));
+      transition: all 0.6s ease;
+      cursor: pointer;
+    }
+    .rb-slide.active .rb-slide__img {
+      filter: drop-shadow(0 30px 40px rgba(0,0,0,0.25));
+    }
+    
+    .rb-chips-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 70%;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      transition-delay: 0.2s;
+      z-index: 15;
+    }
+    .rb-slide.active .rb-chips-container {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .rb-chip {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid #e2e8f0;
+      border-radius: 100px;
+      padding: 1rem;
+      font-weight: 700;
+      color: var(--rebuy-primary);
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s;
+      font-size: 1.05rem;
+    }
+    .rb-chip:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: #fff;
+      border-color: #cbd5e1;
+      box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15);
+      color: var(--rebuy-accent);
+    }
+    
+    /* Carousel Navigation */
+    .rb-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 3rem;
+      cursor: pointer;
+      z-index: 20;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rb-nav-btn:hover {
+      color: var(--rebuy-primary);
+    }
+    .rb-nav-btn.prev { left: 10%; }
+    .rb-nav-btn.next { right: 10%; }
+
+    /* Questionnaire Forms */
+    .rb-questionnaire {
+      padding: 5rem 1rem;
+      background: var(--rebuy-bg);
+      min-height: 60vh;
+    }
+    .rb-form-step {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .rb-form-step.active {
+      display: block;
+    }
+    
+    .rb-form-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .rb-form-header h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--rebuy-primary);
+      margin-bottom: 1rem;
+    }
+    .rb-form-header p {
+      font-size: 1.15rem;
+      color: #64748b;
+    }
+    
+    .rb-option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .rb-option-card {
+      background: #fff;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .rb-option-card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .rb-option-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .rb-option-card:has(input[type="radio"]:checked) {
+      border-color: var(--rebuy-accent);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+    }
+    .rb-option-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .rb-option-content {
+      padding: 1.5rem;
+    }
+    .rb-option-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--rebuy-primary);
+      margin-bottom: 0.5rem;
+    }
+    .rb-option-desc {
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    
+    .rb-form-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+    .rb-btn {
+      padding: 0.875rem 2rem;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .rb-btn-secondary {
+      background: transparent;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+    }
+    .rb-btn-secondary:hover {
+      background: #f1f5f9;
+      color: var(--rebuy-primary);
+    }
+    .rb-btn-primary {
+      background: var(--rebuy-accent);
+      color: #fff;
+      border: none;
+    }
+    .rb-btn-primary:hover {
+      background: #ea580c;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(234, 88, 12, 0.2);
+    }
+    .rb-btn-primary:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Result Step */
+    .rb-result-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .rb-result-price {
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--rebuy-primary);
+      margin: 1rem 0 2rem;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
+  <!-- Existing Header -->
   <div class="top-bar">
     <div class="container">
       <div class="top-bar__left">
-        <span class="top-bar__item"><i class="fas fa-truck"></i><span data-i18n="topbar-shipping">Gratis verzending vanaf €50</span></span>
-        <span class="top-bar__item"><i class="fas fa-shield-halved"></i><span data-i18n="topbar-warranty">Tot 3 jaar garantie</span></span>
-        <span class="top-bar__item"><i class="fas fa-rotate-left"></i><span data-i18n="topbar-returns">30 dagen retourneren</span></span>
+        <span class="top-bar__item"><i class="fas fa-truck"></i><span>Gratis verzending vanaf €50</span></span>
+        <span class="top-bar__item"><i class="fas fa-shield-halved"></i><span>Tot 3 jaar garantie</span></span>
+        <span class="top-bar__item"><i class="fas fa-rotate-left"></i><span>30 dagen retourneren</span></span>
       </div>
       <div class="top-bar__right">
-        <a href="account.html" class="top-bar__item"><i class="fas fa-headset"></i><span data-i18n="nav-help">Hulp</span></a>
-        <a href="account.html" class="top-bar__item"><i class="fas fa-box"></i><span data-i18n="nav-orders">Bestellingen</span></a>
+        <a href="account.html" class="top-bar__item"><i class="fas fa-headset"></i><span>Hulp</span></a>
+        <a href="account.html" class="top-bar__item"><i class="fas fa-box"></i><span>Bestellingen</span></a>
         <div style="position: relative;">
           <div class="lang-switcher" aria-label="Language selector">
             <img class="lang-switcher__flag" src="https://flagcdn.com/w40/nl.png" alt="NL" width="22" height="16">
             <span class="lang-switcher__text">NL</span>
             <i class="fas fa-chevron-down" style="font-size: 0.65rem; margin-left: 4px; opacity: 0.8;"></i>
-          </div>
-          <div class="lang-dropdown">
-            <div class="lang-dropdown__item active" data-lang="nl">
-              <img src="https://flagcdn.com/w40/nl.png" alt="NL" width="28" height="20">
-              <span>Nederlands</span>
-            </div>
-            <div class="lang-dropdown__item" data-lang="de">
-              <img src="https://flagcdn.com/w40/de.png" alt="DE" width="28" height="20">
-              <span>Deutsch</span>
-            </div>
-            <div class="lang-dropdown__item" data-lang="fr">
-              <img src="https://flagcdn.com/w40/be.png" alt="FR" width="28" height="20">
-              <span>Français (BE)</span>
-            </div>
           </div>
         </div>
       </div>
@@ -49,509 +401,543 @@
   <header class="header" role="banner">
     <div class="container">
       <a href="index.html" class="header__logo"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text">gsm<span>stunter</span></div></a>
-      <div class="search-bar"><div class="search-bar__input-wrapper"><i class="fas fa-search search-bar__icon"></i><input type="search" class="search-bar__input" data-i18n-placeholder="search-placeholder" placeholder="Zoek smartphones, laptops, tablets..."></div><div class="search-autocomplete"></div></div>
-      <nav class="main-nav"><a href="products.html" class="main-nav__link"><i class="fas fa-shopping-bag"></i><span data-i18n="nav-buy">Kopen</span></a><a href="sell.html" class="main-nav__link"><i class="fas fa-hand-holding-dollar"></i><span data-i18n="nav-sell">Verkopen</span></a><a href="trade.html" class="main-nav__link"><i class="fas fa-arrows-rotate"></i><span data-i18n="nav-trade">Inruilen</span></a></nav>
+      <div class="search-bar"><div class="search-bar__input-wrapper"><i class="fas fa-search search-bar__icon"></i><input type="search" class="search-bar__input" placeholder="Zoek smartphones, laptops, tablets..."></div></div>
+      <nav class="main-nav"><a href="products.html" class="main-nav__link"><i class="fas fa-shopping-bag"></i><span>Kopen</span></a><a href="sell.html" class="main-nav__link"><i class="fas fa-hand-holding-dollar"></i><span>Verkopen</span></a><a href="trade.html" class="main-nav__link"><i class="fas fa-arrows-rotate"></i><span>Inruilen</span></a></nav>
       <div class="header__actions"><a href="account.html" class="header__action"><i class="far fa-user"></i></a><a href="account.html#wishlist" class="header__action"><i class="far fa-heart"></i></a><a href="cart.html" class="header__action"><i class="fas fa-shopping-cart"></i><span class="header__action-count cart-count" style="display:none;">0</span></a></div>
       <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
   <main>
-    <section class="sell-hero" style="background: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FB923C 100%); padding: var(--space-10) 0; color: white;">
-      <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: center;">
-        <div>
-          <h1 class="sell-hero__title" data-i18n="sell-hero-title" style="font-size: 2.75rem; font-weight: 800; line-height: 1.15; margin-bottom: var(--space-4);">Verkoop je Device</h1>
-          <p class="sell-hero__subtitle" data-i18n="sell-hero-subtitle" style="font-size: 1.125rem; opacity: 0.9; max-width: 500px; margin-bottom: var(--space-6);">Ontvang binnen enkele minuten een eerlijke prijs voor je apparaat. Gratis verzending en snel uitbetaald.</p>
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); padding: 0.5rem 1rem; border-radius: 100px;"><i class="fas fa-bolt"></i><span data-i18n="sell-hero-benefit1">Direct bod ontvangen</span></div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); padding: 0.5rem 1rem; border-radius: 100px;"><i class="fas fa-truck"></i><span data-i18n="sell-hero-benefit2">Gratis verzending</span></div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); padding: 0.5rem 1rem; border-radius: 100px;"><i class="fas fa-money-bill-wave"></i><span data-i18n="sell-hero-benefit3">Snel uitbetaald</span></div>
+    <!-- Progress Tracker (9 Steps total) -->
+    <div class="rb-progress" id="progressContainer">
+      <div class="rb-progress__track">
+        <!-- JS will populate the steps -->
+      </div>
+    </div>
+
+    <!-- Step 1: Model Selection (Hero / Carousel) -->
+    <section class="rb-hero" id="step_1">
+      <h1 class="rb-hero__title">Welke iPhone verkoop je?</h1>
+      
+      <div class="rb-carousel-container" id="carouselContainer">
+        <button class="rb-nav-btn prev" id="btnPrev"><i class="fas fa-chevron-left"></i></button>
+        <button class="rb-nav-btn next" id="btnNext"><i class="fas fa-chevron-right"></i></button>
+
+        <div class="rb-carousel-track" id="carouselTrack" style="transform: translateX(0px);">
+          
+          <!-- Slide: iPhone 16 -->
+          <div class="rb-slide" data-index="0">
+            <div class="rb-slide__header">iPhone 16</div>
+            <div class="rb-slide__device">
+              <img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-16.jpg" alt="iPhone 16" class="rb-slide__img">
+              <div class="rb-chips-container">
+                <div class="rb-chip">16</div>
+                <div class="rb-chip">16 Plus</div>
+                <div class="rb-chip">16 Pro</div>
+                <div class="rb-chip">16 Pro Max</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center; position: relative;">
-          <img src="https://images.unsplash.com/photo-1580910051074-3eb694886f8b?w=400&h=500&fit=crop&q=85" alt="Sell your phone" style="width: 300px; height: 380px; object-fit: cover; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.3);">
-          <div style="position: absolute; bottom: -20px; right: 10px; background: white; color: #EA580C; padding: 1rem 1.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); font-weight: 700; font-size: 1.25rem;">
-            <i class="fas fa-euro-sign"></i> <span data-i18n="sell-hero-badge">Tot €750 waarde</span>
+
+          <!-- Slide: iPhone 15 -->
+          <div class="rb-slide active" data-index="1">
+            <div class="rb-slide__header">iPhone 15</div>
+            <div class="rb-slide__device">
+              <img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-15.jpg" alt="iPhone 15" class="rb-slide__img">
+              <div class="rb-chips-container">
+                <div class="rb-chip">15</div>
+                <div class="rb-chip">15 Plus</div>
+                <div class="rb-chip">15 Pro</div>
+                <div class="rb-chip">15 Pro Max</div>
+              </div>
+            </div>
           </div>
+
+          <!-- Slide: iPhone 14 -->
+          <div class="rb-slide" data-index="2">
+            <div class="rb-slide__header">iPhone 14</div>
+            <div class="rb-slide__device">
+              <img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-14.jpg" alt="iPhone 14" class="rb-slide__img">
+              <div class="rb-chips-container">
+                <div class="rb-chip">14</div>
+                <div class="rb-chip">14 Plus</div>
+                <div class="rb-chip">14 Pro</div>
+                <div class="rb-chip">14 Pro Max</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide: iPhone 13 -->
+          <div class="rb-slide" data-index="3">
+            <div class="rb-slide__header">iPhone 13</div>
+            <div class="rb-slide__device">
+              <img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13.jpg" alt="iPhone 13" class="rb-slide__img">
+              <div class="rb-chips-container">
+                <div class="rb-chip">13 mini</div>
+                <div class="rb-chip">13</div>
+                <div class="rb-chip">13 Pro</div>
+                <div class="rb-chip">13 Pro Max</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Slide: iPhone 12 -->
+          <div class="rb-slide" data-index="4">
+            <div class="rb-slide__header">iPhone 12</div>
+            <div class="rb-slide__device">
+              <img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-12.jpg" alt="iPhone 12" class="rb-slide__img">
+              <div class="rb-chips-container">
+                <div class="rb-chip">12 mini</div>
+                <div class="rb-chip">12</div>
+                <div class="rb-chip">12 Pro</div>
+                <div class="rb-chip">12 Pro Max</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <section class="sell-wizard-section" style="padding: var(--space-8) 0;">
-      <div class="container">
-        <div class="sell-wizard">
-          <div class="sell-wizard__progress">
-            <div class="sell-wizard__step active" data-step="1"><span>1</span><span data-i18n="sell-step1">Selecteer apparaat</span></div>
-            <div class="sell-wizard__step" data-step="2"><span>2</span><span data-i18n="sell-step2">Kies model</span></div>
-            <div class="sell-wizard__step" data-step="3"><span>3</span><span data-i18n="sell-step3">Beschrijf conditie</span></div>
-            <div class="sell-wizard__step" data-step="4"><span>4</span><span data-i18n="sell-step4">Ontvang bod</span></div>
+    <!-- Questionnaire Sections -->
+    <section class="rb-questionnaire" id="questionnaireSection" style="display: none;">
+      <div class="container" style="max-width: 900px; margin: 0 auto;">
+        
+        <!-- Step 2: Screen Condition -->
+        <div class="rb-form-step" id="step_2">
+          <div class="rb-form-header">
+            <h2>Hoe is de conditie van het scherm?</h2>
+            <p>Kijk naar het scherm van je <span class="selected-model-text fw-bold" style="color: var(--rebuy-primary); font-weight: 700;">iPhone</span> en kies de beste match.</p>
           </div>
-
-          <div class="sell-wizard__content">
-            <div class="sell-wizard__panel active" data-panel="1">
-              <h3 data-i18n="sell-step1-title">Selecteer apparaat</h3>
-              <div class="sell-wizard__device-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
-                <div class="device-option" data-device="smartphone" style="padding: 1.5rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <img src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=120&h=120&fit=crop&q=80" alt="Smartphone" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; margin: 0 auto 0.75rem;">
-                  <span data-i18n="sell-device-smartphone" style="font-weight: 600; display: block;">Smartphone</span>
-                </div>
-                <div class="device-option" data-device="laptop" style="padding: 1.5rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=120&h=120&fit=crop&q=80" alt="Laptop" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; margin: 0 auto 0.75rem;">
-                  <span data-i18n="sell-device-laptop" style="font-weight: 600; display: block;">Laptop</span>
-                </div>
-                <div class="device-option" data-device="tablet" style="padding: 1.5rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <img src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=120&h=120&fit=crop&q=80" alt="Tablet" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; margin: 0 auto 0.75rem;">
-                  <span data-i18n="sell-device-tablet" style="font-weight: 600; display: block;">Tablet</span>
-                </div>
-                <div class="device-option" data-device="smartwatch" style="padding: 1.5rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=120&h=120&fit=crop&q=80" alt="Smartwatch" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; margin: 0 auto 0.75rem;">
-                  <span data-i18n="sell-device-smartwatch" style="font-weight: 600; display: block;">Smartwatch</span>
-                </div>
+          
+          <div class="rb-option-grid">
+            <label class="rb-option-card">
+              <input type="radio" name="screen" value="perfect" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?w=400&h=250&fit=crop&q=90" alt="Perfect" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Perfect</div>
+                <div class="rb-option-desc">Geen krassen, geen barsten – lijkt als nieuw.</div>
               </div>
-            </div>
-
-            <div class="sell-wizard__panel" data-panel="2">
-              <h3 data-i18n="sell-step2-title">Kies model</h3>
-              <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);" data-i18n="sell-select-brand">
-                Kies eerst een merk en selecteer daarna je exacte model, net als bij rebuy.
-              </p>
-              <div class="sell-wizard__brand-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: var(--space-5);">
-                <div class="device-option" data-brand="apple" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fab fa-apple" style="font-size: 2rem; color: #111827; margin-bottom: 0.5rem; display: block;"></i>
-                  <span style="font-weight: 600;">Apple iPhone</span>
-                </div>
-                <div class="device-option" data-brand="samsung" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fas fa-mobile-screen" style="font-size: 2rem; color: #0F172A; margin-bottom: 0.5rem; display: block;"></i>
-                  <span style="font-weight: 600;">Samsung Galaxy</span>
-                </div>
-                <div class="device-option" data-brand="google" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fab fa-google" style="font-size: 2rem; color: #1D4ED8; margin-bottom: 0.5rem; display: block;"></i>
-                  <span style="font-weight: 600;">Google Pixel</span>
-                </div>
-                <div class="device-option" data-brand="oneplus" style="padding: 1.25rem; border: 2px solid #E2E8F0; border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.25s ease;">
-                  <i class="fas fa-mobile-screen-button" style="font-size: 2rem; color: #DC2626; margin-bottom: 0.5rem; display: block;"></i>
-                  <span style="font-weight: 600;">OnePlus</span>
-                </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="screen" value="minor" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1603588289870-ab19e13d9cf9?w=400&h=250&fit=crop&q=90&sat=-20" alt="Kleine krassen" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Kleine krassen</div>
+                <div class="rb-option-desc">Enkele lichte gebruikerssporen, zichtbaar in het licht.</div>
               </div>
-              <div class="sell-wizard__model-list" style="margin-top: var(--space-2);">
-                <h4 data-i18n="sell-models" style="margin-bottom: var(--space-3);">Modellen</h4>
-                <div class="sell-wizard__model-grid">
-                  <!-- Apple iPhone models -->
-                  <div class="device-option" data-model="iphone-15-pro" data-brand="apple" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 15 Pro" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 15 Pro</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €720</div>
-                  </div>
-                  <div class="device-option" data-model="iphone-15" data-brand="apple" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1695048133142-0b9ea0c6848d?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 15" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 15</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €660</div>
-                  </div>
-                  <div class="device-option" data-model="iphone-14-pro" data-brand="apple" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1663677928040-9a5efc628f59?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 14 Pro" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 14 Pro</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2022</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €580</div>
-                  </div>
-                  <div class="device-option" data-model="iphone-14" data-brand="apple" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1663677928040-9a5efc628f59?w=220&h=220&fit=crop&q=80&sat=-40" alt="Apple iPhone 14" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 14</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2022</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €520</div>
-                  </div>
-                  <div class="device-option" data-model="iphone-13" data-brand="apple" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=220&h=220&fit=crop&q=85" alt="Apple iPhone 13" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">iPhone 13</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2021</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €420</div>
-                  </div>
-
-                  <!-- Samsung examples -->
-                  <div class="device-option" data-model="galaxy-s24-ultra" data-brand="samsung" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=220&h=220&fit=crop&q=85" alt="Samsung Galaxy S24 Ultra" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">Galaxy S24 Ultra</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">256GB · 2024</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €600</div>
-                  </div>
-                  <div class="device-option" data-model="galaxy-s23" data-brand="samsung" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1608622440470-191e5eee7949?w=220&h=220&fit=crop&q=85" alt="Samsung Galaxy S23" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">Galaxy S23</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €430</div>
-                  </div>
-
-                  <!-- Google & OnePlus examples -->
-                  <div class="device-option" data-model="pixel-8-pro" data-brand="google" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=220&h=220&fit=crop&q=85" alt="Google Pixel 8 Pro" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">Pixel 8 Pro</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">128GB · 2023</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €480</div>
-                  </div>
-                  <div class="device-option" data-model="oneplus-12" data-brand="oneplus" style="padding: 1rem; text-align: left;">
-                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=220&h=220&fit=crop&q=85" alt="OnePlus 12" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <div style="font-weight: 600; font-size: 0.95rem;">OnePlus 12</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">256GB · 2024</div>
-                    <div style="font-size: 0.8rem; color: #16A34A; margin-top: 0.25rem;">bis zu €420</div>
-                  </div>
-                </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="screen" value="cracked" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1601004128031-ac0954930e46?w=400&h=250&fit=crop&q=90" alt="Gebarsten" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Barst of breuk</div>
+                <div class="rb-option-desc">Scherm heeft één of meerdere barsten of hoekscheuren.</div>
               </div>
-            </div>
-
-            <div class="sell-wizard__panel" data-panel="3">
-              <h3 data-i18n="sell-step3-title">Beschrijf conditie</h3>
-              <div class="sell-wizard__condition">
-                <div class="sell-wizard__question">
-                  <div class="sell-wizard__question-header">
-                    <span class="sell-wizard__question-step">1</span>
-                    <div>
-                      <label data-i18n="sell-q1-screen">Hoe is de conditie van het scherm?</label>
-                      <p class="sell-wizard__question-hint">Kijk naar je iPhone scherm en kies het voorbeeld dat het beste past.</p>
-                    </div>
-                  </div>
-                  <div class="sell-wizard__option-grid">
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="screen" value="perfect">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=250&fit=crop&q=90" alt="iPhone met perfect scherm">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-condition-perfect">Perfect</div>
-                      <div class="sell-wizard__option-example">Geen krassen, geen barsten – lijkt als nieuw.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="screen" value="minor">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=250&fit=crop&q=90&sat=-20" alt="iPhone met lichte krasjes">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-condition-minor">Kleine krassen</div>
-                      <div class="sell-wizard__option-example">Enkele lichte gebruikerssporen, zichtbaar in het licht.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="screen" value="cracked">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1512390262810-03cb2d5c5fbb?w=400&h=250&fit=crop&q=90" alt="iPhone met gebarsten scherm">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-condition-cracked">Barst of breuk</div>
-                      <div class="sell-wizard__option-example">Scherm heeft één of meerdere barsten of hoekscheuren.</div>
-                    </label>
-                  </div>
-                </div>
-                <div class="sell-wizard__question">
-                  <div class="sell-wizard__question-header">
-                    <span class="sell-wizard__question-step">2</span>
-                    <div>
-                      <label data-i18n="sell-q2-function">Werkt alles naar behoren?</label>
-                      <p class="sell-wizard__question-hint">Denk aan Face ID, knoppen, speakers, camera en opladen.</p>
-                    </div>
-                  </div>
-                  <div class="sell-wizard__option-grid">
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="function" value="yes">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400&h=250&fit=crop&q=90&sat=-10" alt="iPhone die normaal gebruikt wordt">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-yes">Ja</div>
-                      <div class="sell-wizard__option-example">Alle functies werken zonder problemen.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="function" value="minor">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90" alt="iPhone met kleine functionele problemen">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-minor-issues">Kleine problemen</div>
-                      <div class="sell-wizard__option-example">Bijvoorbeeld: knopje voelt stroef, speaker iets zachter, Face ID soms.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="function" value="no">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=250&fit=crop&q=90&sat=-100" alt="iPhone die niet goed werkt">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-no">Nee</div>
-                      <div class="sell-wizard__option-example">Toestel start niet, laadt niet of belangrijke functies werken niet.</div>
-                    </label>
-                  </div>
-                </div>
-                <div class="sell-wizard__question">
-                  <div class="sell-wizard__question-header">
-                    <span class="sell-wizard__question-step">3</span>
-                    <div>
-                      <label data-i18n="sell-q3-cosmetic">Cosmetische schade?</label>
-                      <p class="sell-wizard__question-hint">Bekijk de achterkant en randen van je iPhone.</p>
-                    </div>
-                  </div>
-                  <div class="sell-wizard__option-grid">
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="cosmetic" value="none">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=250&fit=crop&q=90&sat=10" alt="iPhone zonder krassen of deuken">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-condition-none">Geen</div>
-                      <div class="sell-wizard__option-example">Vrij van krassen en deuken, ook langs de randen.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="cosmetic" value="light">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90&sat=-10" alt="iPhone met lichte gebruikerssporen">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-condition-light">Lichte slijtage</div>
-                      <div class="sell-wizard__option-example">Kleine krasjes of mini deukjes, geen diepe schade.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="cosmetic" value="heavy">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1592750475338-074b0f70a5c0?w=400&h=250&fit=crop&q=90" alt="iPhone met duidelijke schade">
-                      </div>
-                      <div class="sell-wizard__option-title" data-i18n="sell-condition-heavy">Duidelijke schade</div>
-                      <div class="sell-wizard__option-example">Zichtbare deuken, diepe krassen of verbogen frame.</div>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="sell-wizard__question">
-                  <div class="sell-wizard__question-header">
-                    <span class="sell-wizard__question-step">4</span>
-                    <div>
-                      <label>Hoe is de batterijconditie?</label>
-                      <p class="sell-wizard__question-hint">Je kunt dit zien via Instellingen &gt; Batterij &gt; Batterijconditie.</p>
-                    </div>
-                  </div>
-                  <div class="sell-wizard__option-grid">
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="battery" value="like-new">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1517309249042-3199bcb2e273?w=400&h=250&fit=crop&q=90" alt="Batterij bijna als nieuw">
-                      </div>
-                      <div class="sell-wizard__option-title">90–100% (als nieuw)</div>
-                      <div class="sell-wizard__option-example">Dagt door op één lading, batterijconditie &gt;= 90%.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="battery" value="normal">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=400&h=250&fit=crop&q=90" alt="Batterij met normale slijtage">
-                      </div>
-                      <div class="sell-wizard__option-title">80–89% (normaal)</div>
-                      <div class="sell-wizard__option-example">Normale slijtage, moet soms tussentijds laden.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="battery" value="weak">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=250&fit=crop&q=90&sat=-50" alt="Batterij die snel leeg is">
-                      </div>
-                      <div class="sell-wizard__option-title">&lt; 80% (zwak / batterij vervangen)</div>
-                      <div class="sell-wizard__option-example">Batterij gaat snel leeg of toestel valt soms uit.</div>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="sell-wizard__question">
-                  <div class="sell-wizard__question-header">
-                    <span class="sell-wizard__question-step">5</span>
-                    <div>
-                      <label>Wat zit er bij je iPhone?</label>
-                      <p class="sell-wizard__question-hint">Hoe completer de set, hoe hoger je bod.</p>
-                    </div>
-                  </div>
-                  <div class="sell-wizard__option-grid">
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="accessories" value="complete">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1580915411954-282cb1c9c450?w=400&h=250&fit=crop&q=90" alt="iPhone met doos, oplader, kabel en case">
-                      </div>
-                      <div class="sell-wizard__option-title">Originele doos, oplader &amp; kabel, case</div>
-                      <div class="sell-wizard__option-example">Volledige set, zoals je hem ooit nieuw kocht.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="accessories" value="no-charger">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1580711969734-9f63422a0d79?w=400&h=250&fit=crop&q=90" alt="iPhone met doos en kabel">
-                      </div>
-                      <div class="sell-wizard__option-title">Doos + kabel, geen oplader</div>
-                      <div class="sell-wizard__option-example">Originele verpakking en kabel, adapter ontbreekt.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="accessories" value="device-only">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1592750475338-74b9dc9d2b0c?w=400&h=250&fit=crop&q=90" alt="Alleen een losse iPhone">
-                      </div>
-                      <div class="sell-wizard__option-title">Alleen het toestel</div>
-                      <div class="sell-wizard__option-example">Geen doos of accessoires, enkel je iPhone.</div>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="sell-wizard__question">
-                  <div class="sell-wizard__question-header">
-                    <span class="sell-wizard__question-step">6</span>
-                    <div>
-                      <label>Is het toestel ooit in contact geweest met water?</label>
-                      <p class="sell-wizard__question-hint">Bijvoorbeeld gevallen in water of langdurig regen/badkamer.</p>
-                    </div>
-                  </div>
-                  <div class="sell-wizard__option-grid">
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="water" value="no">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400&h=250&fit=crop&q=90&sat=-5" alt="Droge iPhone zonder waterschade">
-                      </div>
-                      <div class="sell-wizard__option-title">Nee</div>
-                      <div class="sell-wizard__option-example">Nooit in water gevallen, geen waterschade.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="water" value="yes">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=250&fit=crop&q=90" alt="iPhone met water op de tafel">
-                      </div>
-                      <div class="sell-wizard__option-title">Ja, (mogelijk) waterschade</div>
-                      <div class="sell-wizard__option-example">Bijvoorbeeld ooit in water gevallen of erg nat geweest.</div>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="sell-wizard__question">
-                  <div class="sell-wizard__question-header">
-                    <span class="sell-wizard__question-step">7</span>
-                    <div>
-                      <label>Hoe oud is je toestel ongeveer?</label>
-                      <p class="sell-wizard__question-hint">Je vindt de aankoopdatum vaak terug in je account of factuur.</p>
-                    </div>
-                  </div>
-                  <div class="sell-wizard__option-grid">
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="age" value="lt1">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1512206079843-b4a5b65b6265?w=400&h=250&fit=crop&q=90" alt="Nieuwe iPhone uit de doos">
-                      </div>
-                      <div class="sell-wizard__option-title">Minder dan 1 jaar</div>
-                      <div class="sell-wizard__option-example">Recent gekocht model, bijna nieuw.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="age" value="1-2">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90&sat=-10" alt="iPhone van 1–2 jaar oud">
-                      </div>
-                      <div class="sell-wizard__option-title">1–2 jaar</div>
-                      <div class="sell-wizard__option-example">Normale gebruiksduur, recente generatie.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="age" value="2-3">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=250&fit=crop&q=90&sat=-20" alt="iPhone van 2–3 jaar oud">
-                      </div>
-                      <div class="sell-wizard__option-title">2–3 jaar</div>
-                      <div class="sell-wizard__option-example">Iets ouder model, nog steeds goed bruikbaar.</div>
-                    </label>
-                    <label class="sell-wizard__option-card">
-                      <input type="radio" name="age" value="gt3">
-                      <div class="sell-wizard__option-media">
-                        <img src="https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=400&h=250&fit=crop&q=90&sat=-40" alt="Oudere iPhone generatie">
-                      </div>
-                      <div class="sell-wizard__option-title">Ouder dan 3 jaar</div>
-                      <div class="sell-wizard__option-example">Oudere generatie iPhone (bijv. iPhone X, 8 of ouder).</div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="sell-wizard__panel" data-panel="4">
-              <h3 data-i18n="sell-step4-title">Ontvang bod</h3>
-              <div class="sell-wizard__quote">
-                <p class="sell-wizard__quote-label" data-i18n="sell-estimated-value">Geschatte waarde</p>
-                <p class="sell-wizard__quote-amount">€285</p>
-                <button class="btn btn--primary" data-i18n="sell-accept-offer">Bod accepteren</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="sell-wizard__nav">
-            <button class="btn btn--secondary" onclick="sellWizardBack()" data-i18n="sell-back">Terug</button>
-            <button class="btn btn--primary" onclick="sellWizardNext()" data-i18n="sell-next">Volgende</button>
+            </label>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="sell-benefits" style="padding: var(--space-8) 0; background: var(--gray-50, #f9fafb);">
-      <div class="container">
-        <h2 data-i18n="sell-benefits-title">Waarom verkopen bij GSMStunter?</h2>
-        <div class="sell-benefits__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); margin-top: var(--space-6);">
-          <div class="sell-benefit" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);">
-            <div style="height: 170px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1580915411954-282cb1c9c450?w=600&h=400&fit=crop&q=90" alt="iPhone veilig verpakken in een doos" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="padding: 1.5rem;">
-              <h4 data-i18n="sell-benefit1-title">Gratis verzendlabel &amp; stevige doos</h4>
-              <p data-i18n="sell-benefit1-desc">Print je label, leg je iPhone in de doos met case en stuur hem gratis naar ons op.</p>
-            </div>
+        <!-- Step 3: Functionality -->
+        <div class="rb-form-step" id="step_3">
+          <div class="rb-form-header">
+            <h2>Werkt alles naar behoren?</h2>
+            <p>Denk aan Face ID/Touch ID, alle knoppen, speakers, camera's en de oplaadpoort.</p>
           </div>
-          <div class="sell-benefit" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);">
-            <div style="height: 170px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=600&h=400&fit=crop&q=90" alt="Pakket afgeven bij een pakketpunt" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="padding: 1.5rem;">
-              <h4 data-i18n="sell-benefit2-title">Inleveren bij een pakketpunt</h4>
-              <p data-i18n="sell-benefit2-desc">Lever je pakket in bij het dichtstbijzijnde pakketpunt – track &amp; trace inbegrepen.</p>
-            </div>
+          <div class="rb-option-grid">
+            <label class="rb-option-card">
+              <input type="radio" name="function" value="yes" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=400&h=250&fit=crop&q=90" alt="Ja" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Ja, werkt perfect</div>
+                <div class="rb-option-desc">Alle functies werken probleemloos en snel.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="function" value="minor" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90" alt="Kleine problemen" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Kleine problemen</div>
+                <div class="rb-option-desc">Bijv. knopje voelt stroef, speaker is zacht, of Face ID faalt soms.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="function" value="no" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1634591783584-699741a33a41?w=400&h=250&fit=crop&q=90&sat=-100" alt="Nee" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Nee</div>
+                <div class="rb-option-desc">Toestel start niet goed op of een belangrijke functie is volledig defect.</div>
+              </div>
+            </label>
           </div>
-          <div class="sell-benefit" style="background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);">
-            <div style="height: 170px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=400&fit=crop&q=90" alt="Snelle uitbetaling op je rekening" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="padding: 1.5rem;">
-              <h4 data-i18n="sell-benefit3-title">Snel uitbetaald</h4>
-              <p data-i18n="sell-benefit3-desc">Na controle storten wij het bedrag razendsnel op je rekening of als shoptegoed.</p>
+        </div>
+
+        <!-- Step 4: Cosmetic Damage -->
+        <div class="rb-form-step" id="step_4">
+          <div class="rb-form-header">
+            <h2>Is er cosmetische schade aan de behuizing?</h2>
+            <p>Bekijk aandachtig de achterkant en de metalen/aluminium randen.</p>
+          </div>
+          <div class="rb-option-grid">
+            <label class="rb-option-card">
+              <input type="radio" name="cosmetic" value="none" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1616422285623-14bf9bf1b147?w=400&h=250&fit=crop&q=90" alt="Geen" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Geen schade</div>
+                <div class="rb-option-desc">Vrij van krassen, vlekken en deuken, ook in de hoeken.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="cosmetic" value="light" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90&sat=-10" alt="Licht" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Lichte slijtage</div>
+                <div class="rb-option-desc">Kleine (ondiepe) krasjes of stipjes. Geen voelbare deuken.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="cosmetic" value="heavy" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1598006456086-444453b061db?w=400&h=250&fit=crop&q=90" alt="Zwaar" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Zichtbare schade</div>
+                <div class="rb-option-desc">Duidelijke krassen, diepe deuken, of een verbogen rand.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 5: Battery -->
+        <div class="rb-form-step" id="step_5">
+          <div class="rb-form-header">
+            <h2>Wat is de maximumcapaciteit van de batterij?</h2>
+            <p>Ga naar Instellingen > Batterij > Batterijconditie om dit percentage te zien.</p>
+          </div>
+          <div class="rb-option-grid">
+            <label class="rb-option-card">
+              <input type="radio" name="battery" value="new" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1583228858294-6741cbbfdb45?w=400&h=250&fit=crop&q=90" alt="Batterij goed" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">90% - 100%</div>
+                <div class="rb-option-desc">De batterij is in topconditie (als nieuw).</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="battery" value="normal" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=250&fit=crop&q=90" alt="Batterij normaal" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">80% - 89%</div>
+                <div class="rb-option-desc">Normale slijtage, gaat vaak nog een dag mee.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="battery" value="weak" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1542487354-feaf93476caa?w=400&h=250&fit=crop&q=90&sat=-50" alt="Batterij zwak" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Lager dan 80%</div>
+                <div class="rb-option-desc">Batterij is aan vervanging toe of geeft een reparatiemelding.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 6: Accessories -->
+        <div class="rb-form-step" id="step_6">
+          <div class="rb-form-header">
+            <h2>Lever je de originele accessoires erbij?</h2>
+            <p>Hoe completer je set, hoe meer geld we je kunnen bieden.</p>
+          </div>
+          <div class="rb-option-grid">
+            <label class="rb-option-card">
+              <input type="radio" name="accessories" value="complete" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cd8d6?w=400&h=250&fit=crop&q=90" alt="Compleet" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Doos & Oplader</div>
+                <div class="rb-option-desc">Je levert de originele verpakking mee, inclusief kabel.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="accessories" value="box" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1580711969734-9f63422a0d79?w=400&h=250&fit=crop&q=90" alt="Doos" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Enkel de originele doos</div>
+                <div class="rb-option-desc">Verpakking is aanwezig, maar oplaadkabel ontbreekt.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="accessories" value="none" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1592750475338-74b9dc9d2b0c?w=400&h=250&fit=crop&q=90" alt="Niets" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Alleen het toestel</div>
+                <div class="rb-option-desc">Geen doos en geen oplader, uitsluitend de iPhone.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Step 7: Water Damage -->
+        <div class="rb-form-step" id="step_7">
+          <div class="rb-form-header">
+            <h2>Is het toestel in contact met water geweest?</h2>
+            <p>Denk aan in het toilet vallen, wasmachine, of hevige regen.</p>
+          </div>
+          <div class="rb-option-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <label class="rb-option-card">
+              <input type="radio" name="water" value="no" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&h=250&fit=crop&q=90&sat=-5" alt="Nee" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Nee, toestel is vochtvrij</div>
+                <div class="rb-option-desc">Het apparaat heeft nooit schade opgelopen door vloeistoffen.</div>
+              </div>
+            </label>
+            <label class="rb-option-card">
+              <input type="radio" name="water" value="yes" onchange="enableNext()">
+              <img src="https://images.unsplash.com/photo-1629851722822-03932fa5a782?w=500&h=250&fit=crop&q=90" alt="Ja" class="rb-option-img">
+              <div class="rb-option-content">
+                <div class="rb-option-title">Ja, (mogelijk) waterschade</div>
+                <div class="rb-option-desc">Het apparaat is in het water gevallen of extreem vochtig geweest.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 8: Final Offer / Result -->
+        <div class="rb-form-step" id="step_8">
+          <div class="rb-form-header">
+            <h2>Jouw aanbod is klaar!</h2>
+            <p>Op basis van jouw antwoorden hebben wij de volgende inschatting gemaakt voor de <span class="selected-model-text fw-bold" style="color: var(--rebuy-primary); font-weight: 700;">iPhone</span>.</p>
+          </div>
+          
+          <div class="rb-result-card">
+            <div style="font-size: 1.1rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Geschatte Inruilwaarde</div>
+            <div class="rb-result-price" id="priceDisplay">€ 420,-</div>
+            <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.6;">De daadwerkelijke prijs wordt bepaald na ontvangst en controle van het toestel door onze experts. De verzending is altijd 100% gratis en verzekerd.</p>
+            
+            <button class="rb-btn rb-btn-primary" style="padding: 1rem 3rem; font-size: 1.15rem; width: 100%;">Nu gratis opsturen</button>
+            <div style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #16a34a; font-weight: 600; font-size: 0.95rem;">
+              <i class="fas fa-check-circle"></i> Direct uitbetaald in 48 uur na keuring
             </div>
           </div>
         </div>
+
+        <!-- Navigation Buttons -->
+        <div class="rb-form-nav" id="formNav" style="display: none;">
+          <button class="rb-btn rb-btn-secondary" id="btnBack">Terug</button>
+          <button class="rb-btn rb-btn-primary" id="btnNextStep" disabled>Volgende</button>
+        </div>
+
       </div>
     </section>
 
-    <section class="sell-faq" style="padding: var(--space-8) 0;">
-      <div class="container">
-        <h2 data-i18n="sell-faq-title">Veelgestelde vragen over verkopen</h2>
-        <div class="faq-accordion" data-faq="sell">
-          <div class="faq-item">
-            <button class="faq-item__question" data-i18n="sell-faq1-q">Hoe werkt het verkoopproces?</button>
-            <div class="faq-item__answer"><p data-i18n="sell-faq1-a">Selecteer je apparaat, kies het model, beschrijf de conditie en ontvang direct een bod. Accepteer het bod, verstuur je apparaat met het gratis verzendlabel en ontvang je geld binnen 48 uur.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-item__question" data-i18n="sell-faq2-q">Is verzending gratis?</button>
-            <div class="faq-item__answer"><p data-i18n="sell-faq2-a">Ja, wij sturen je een gratis verzendlabel. Je hoeft alleen je apparaat te verpakken en af te geven bij een PostNL-punt.</p></div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-item__question" data-i18n="sell-faq3-q">Wanneer krijg ik mijn geld?</button>
-            <div class="faq-item__answer"><p data-i18n="sell-faq3-a">Na inspectie van je apparaat ontvang je het bedrag binnen 48 uur op je rekening via iDEAL of bankoverschrijving.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <a href="index.html" class="header__logo" style="margin-bottom: var(--space-2);"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text" style="color: white;">gsm<span>stunter</span></div></a>
-          <p data-i18n="footer-desc">Premium refurbished elektronica voor een duurzamere wereld.</p>
+          <a href="index.html" class="header__logo" style="margin-bottom: 0.5rem;"><div class="header__logo-icon"><i class="fas fa-recycle"></i></div><div class="header__logo-text" style="color: white;">gsm<span>stunter</span></div></a>
+          <p>Premium refurbished elektronica voor een duurzamere wereld.</p>
           <div class="footer__social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div>
         </div>
-        <div class="footer__column"><h4 data-i18n="footer-products">Producten</h4><a href="products.html" class="footer__link">Smartphones</a><a href="products.html" class="footer__link">Laptops</a><a href="products.html" class="footer__link">Tablets</a></div>
-        <div class="footer__column"><h4 data-i18n="footer-services">Diensten</h4><a href="products.html" class="footer__link" data-i18n="footer-buy">Kopen</a><a href="sell.html" class="footer__link" data-i18n="footer-sell">Verkopen</a><a href="trade.html" class="footer__link" data-i18n="footer-trade">Inruilen</a></div>
-        <div class="footer__column"><h4 data-i18n="footer-support">Klantenservice</h4><a href="#" class="footer__link" data-i18n="footer-help">Help & FAQ</a><a href="#" class="footer__link" data-i18n="footer-delivery">Bezorgen</a><a href="#" class="footer__link" data-i18n="footer-returns-link">Retourneren</a><a href="#" class="footer__link" data-i18n="footer-warranty-link">Garantie</a></div>
-        <div class="footer__column"><h4 data-i18n="footer-company">Bedrijf</h4><a href="#" class="footer__link" data-i18n="footer-about">Over ons</a><a href="#" class="footer__link" data-i18n="footer-sustainability-link">Duurzaamheid</a><a href="#" class="footer__link" data-i18n="footer-blog">Blog</a></div>
       </div>
       <div class="footer__bottom">
-        <div class="footer__bottom-left" data-i18n="footer-copyright">© 2026 GSMStunter. Alle rechten voorbehouden.</div>
-        <div class="footer__payments"><span style="background:#1A1F71;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">VISA</span><span style="background:#EB001B;color:white;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700">MC</span><span style="background:#FF5F00;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">iDEAL</span><span style="background:#FFB3C7;color:#0A0B09;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">Klarna</span><span style="background:#003087;color:white;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700">PayPal</span></div>
-        <div class="footer__bottom-links"><a href="#" data-i18n="footer-terms">Algemene voorwaarden</a><a href="#" data-i18n="footer-privacy">Privacybeleid</a></div>
+        <div class="footer__bottom-left">© 2026 GSMStunter. Alle rechten voorbehouden.</div>
+        <div class="footer__bottom-links"><a href="#">Algemene voorwaarden</a><a href="#">Privacybeleid</a></div>
       </div>
     </div>
   </footer>
 
-  <script src="assets/js/lang/nl.js"></script>
-  <script src="assets/js/lang/de.js"></script>
-  <script src="assets/js/lang/fr.js"></script>
-  <script src="assets/js/script.js"></script>
+  <script>
+    // --- State Management ---
+    const totalSteps = 8; // 1 Carousel + 6 Question Steps + 1 Result
+    let currentStep = 1;
+    let selectedModel = "";
+
+    // --- Progress Bar Initialization ---
+    const progressTrack = document.querySelector('.rb-progress__track');
+    for (let i = 1; i <= totalSteps; i++) {
+      const stepEl = document.createElement('div');
+      stepEl.className = `rb-step ${i === 1 ? 'active' : ''}`;
+      stepEl.dataset.stepIndex = i;
+      stepEl.innerText = i;
+      
+      // Click progress bar to navigate back
+      stepEl.addEventListener('click', () => {
+        if(i < currentStep) {
+          goToStep(i);
+        }
+      });
+
+      progressTrack.appendChild(stepEl);
+
+      if (i < totalSteps) {
+        const lineEl = document.createElement('div');
+        lineEl.className = 'rb-step-line';
+        lineEl.dataset.lineIndex = i;
+        progressTrack.appendChild(lineEl);
+      }
+    }
+
+    // --- Navigation Logic ---
+    function updateProgressUI() {
+      // Update Bubbles and Lines
+      document.querySelectorAll('.rb-step').forEach(step => {
+        const idx = parseInt(step.dataset.stepIndex);
+        step.classList.remove('active', 'completed');
+        if (idx < currentStep) step.classList.add('completed');
+        if (idx === currentStep) step.classList.add('active');
+        
+        // Hide past steps on mobile to keep centered
+        step.style.display = 'flex';
+      });
+      document.querySelectorAll('.rb-step-line').forEach(line => {
+        const idx = parseInt(line.dataset.lineIndex);
+        line.classList.toggle('active', idx < currentStep);
+      });
+
+      // Update Form Sections Visibility
+      if (currentStep === 1) {
+        document.getElementById('step_1').style.display = 'block';
+        document.getElementById('questionnaireSection').style.display = 'none';
+        document.getElementById('formNav').style.display = 'none';
+      } else {
+        document.getElementById('step_1').style.display = 'none';
+        document.getElementById('questionnaireSection').style.display = 'block';
+        
+        // Hide/Show specific forms
+        for (let i = 2; i <= totalSteps; i++) {
+          const stepDiv = document.getElementById(`step_${i}`);
+          if(stepDiv) {
+            stepDiv.classList.toggle('active', i === currentStep);
+          }
+        }
+        
+        // Form Navigation Buttons Visibility
+        document.getElementById('formNav').style.display = currentStep < totalSteps ? 'flex' : 'none';
+        
+        // Scroll to top of progress 
+        window.scrollTo({ top: 30, behavior: 'smooth' });
+      }
+
+      // Check validation for current step to enable next button
+      checkStepValidation();
+    }
+
+    function goToStep(stepNumber) {
+      if (stepNumber < 1 || stepNumber > totalSteps) return;
+      currentStep = stepNumber;
+      updateProgressUI();
+    }
+
+    // --- Validation Logic ---
+    const btnNextStep = document.getElementById('btnNextStep');
+    const btnBack = document.getElementById('btnBack');
+
+    function checkStepValidation() {
+      if (currentStep === 1 || currentStep === totalSteps) return; // Carousel and Result handled differently
+      
+      const currentForm = document.getElementById(`step_${currentStep}`);
+      const radios = currentForm.querySelectorAll('input[type="radio"]');
+      let isChecked = false;
+      for (const rad of radios) {
+        if (rad.checked) { isChecked = true; break; }
+      }
+      
+      btnNextStep.disabled = !isChecked;
+    }
+
+    // Called globally from HTML onchange="enableNext()"
+    window.enableNext = function() {
+      checkStepValidation();
+      
+      // Auto-advance after small delay for better UX (like Rebuy)
+      setTimeout(() => {
+        if(currentStep < totalSteps) {
+          goToStep(currentStep + 1);
+        }
+      }, 500); 
+    }
+
+    btnNextStep.addEventListener('click', () => goToStep(currentStep + 1));
+    btnBack.addEventListener('click', () => goToStep(currentStep - 1));
+
+
+    // --- Carousel Logic (Step 1) ---
+    const track = document.getElementById('carouselTrack');
+    const slides = Array.from(document.querySelectorAll('.rb-slide'));
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    
+    let currentSlideIndex = 1; // Start with iPhone 15 active
+    const slideWidth = 400;
+
+    function updateCarousel() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlideIndex);
+      });
+      
+      const containerWidth = document.getElementById('carouselContainer').offsetWidth;
+      const centerOffset = containerWidth / 2;
+      const activeSlideOffset = (currentSlideIndex * slideWidth) + (slideWidth / 2);
+      
+      const translateX = centerOffset - activeSlideOffset;
+      track.style.transform = `translateX(${translateX}px)`;
+    }
+
+    window.addEventListener('resize', () => { if(currentStep === 1) updateCarousel(); });
+
+    btnPrev.addEventListener('click', () => {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        updateCarousel();
+      }
+    });
+
+    btnNext.addEventListener('click', () => {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        updateCarousel();
+      }
+    });
+
+    // Device Image Click defaults to center it
+    slides.forEach((slide, idx) => {
+      slide.addEventListener('click', (e) => {
+        if (e.target.classList.contains('rb-chip')) return;
+        if (currentSlideIndex !== idx) {
+          currentSlideIndex = idx;
+          updateCarousel();
+        }
+      });
+    });
+
+    // Chip Click => Proceed to Step 2
+    document.querySelectorAll('.rb-chip').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        selectedModel = chip.innerText;
+        
+        // Update model text in later steps
+        document.querySelectorAll('.selected-model-text').forEach(el => {
+          el.innerText = 'iPhone ' + selectedModel;
+        });
+
+        // Visually show it was clicked before transitioning
+        chip.style.backgroundColor = 'var(--rebuy-primary)';
+        chip.style.color = 'white';
+        
+        setTimeout(() => {
+          chip.style.backgroundColor = '';
+          chip.style.color = '';
+          goToStep(2);
+        }, 300);
+      });
+    });
+
+    // Initialize
+    setTimeout(updateCarousel, 50);
+
+  </script>
 </body>
 </html>
