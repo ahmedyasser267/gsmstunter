@@ -500,234 +500,417 @@
       </div>
     </section>
 
-    <!-- Questionnaire Sections -->
-    <section class="rb-questionnaire" id="questionnaireSection" style="display: none;">
-      <div class="container" style="max-width: 900px; margin: 0 auto;">
-        
-        <!-- Step 2: Screen Condition -->
-        <div class="rb-form-step" id="step_2">
-          <div class="rb-form-header">
-            <h2>Hoe is de conditie van het scherm?</h2>
-            <p>Kijk naar het scherm van je <span class="selected-model-text fw-bold" style="color: var(--rebuy-primary); font-weight: 700;">iPhone</span> en kies de beste match.</p>
-          </div>
-          
-          <div class="rb-option-grid">
-            <label class="rb-option-card">
-              <input type="radio" name="screen" value="perfect" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?w=400&h=250&fit=crop&q=90" alt="Perfect" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Perfect</div>
-                <div class="rb-option-desc">Geen krassen, geen barsten – lijkt als nieuw.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="screen" value="minor" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1603588289870-ab19e13d9cf9?w=400&h=250&fit=crop&q=90&sat=-20" alt="Kleine krassen" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Kleine krassen</div>
-                <div class="rb-option-desc">Enkele lichte gebruikerssporen, zichtbaar in het licht.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="screen" value="cracked" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1601004128031-ac0954930e46?w=400&h=250&fit=crop&q=90" alt="Gebarsten" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Barst of breuk</div>
-                <div class="rb-option-desc">Scherm heeft één of meerdere barsten of hoekscheuren.</div>
-              </div>
-            </label>
-          </div>
-        </div>
+  <style>
+    /* Overlay Styles for Dynamic Images */
+    .rb-dynamic-img-container {
+      width: 100%;
+      height: 180px;
+      position: relative;
+      background: #f8fafc;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .rb-dynamic-device {
+      height: 85%;
+      object-fit: contain;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+    
+    /* Screen Damage Overlays */
+    .overlay-scratches, .overlay-cracks {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    /* Water Damage Overlays */
+    .overlay-water {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.4));
+      mix-blend-mode: multiply;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .overlay-water-drops {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.8) 1px, transparent 2px),
+                        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.9) 1.5px, transparent 2.5px),
+                        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.7) 1px, transparent 2px),
+                        radial-gradient(circle at 60% 20%, rgba(255,255,255,0.8) 2px, transparent 3px);
+      background-size: 60px 60px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    
+    /* Battery Styles */
+    .battery-icon-container {
+      font-size: 4rem;
+      color: #22c55e;
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.85);
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(2px);
+    }
+    .battery-normal { color: #f59e0b; }
+    .battery-weak { color: #ef4444; }
+    
+    /* Accessories Styles */
+    .accessories-container {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      background: rgba(255,255,255,0.7);
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(1px);
+    }
+    .acc-icon {
+      font-size: 2.5rem;
+      color: var(--rebuy-primary);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+    
+    /* Functionality Styles */
+    .func-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 2;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(1px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 
-        <!-- Step 3: Functionality -->
-        <div class="rb-form-step" id="step_3">
-          <div class="rb-form-header">
-            <h2>Werkt alles naar behoren?</h2>
-            <p>Denk aan Face ID/Touch ID, alle knoppen, speakers, camera's en de oplaadpoort.</p>
-          </div>
-          <div class="rb-option-grid">
-            <label class="rb-option-card">
-              <input type="radio" name="function" value="yes" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=400&h=250&fit=crop&q=90" alt="Ja" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Ja, werkt perfect</div>
-                <div class="rb-option-desc">Alle functies werken probleemloos en snel.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="function" value="minor" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90" alt="Kleine problemen" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Kleine problemen</div>
-                <div class="rb-option-desc">Bijv. knopje voelt stroef, speaker is zacht, of Face ID faalt soms.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="function" value="no" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1634591783584-699741a33a41?w=400&h=250&fit=crop&q=90&sat=-100" alt="Nee" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Nee</div>
-                <div class="rb-option-desc">Toestel start niet goed op of een belangrijke functie is volledig defect.</div>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Step 4: Cosmetic Damage -->
-        <div class="rb-form-step" id="step_4">
-          <div class="rb-form-header">
-            <h2>Is er cosmetische schade aan de behuizing?</h2>
-            <p>Bekijk aandachtig de achterkant en de metalen/aluminium randen.</p>
-          </div>
-          <div class="rb-option-grid">
-            <label class="rb-option-card">
-              <input type="radio" name="cosmetic" value="none" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1616422285623-14bf9bf1b147?w=400&h=250&fit=crop&q=90" alt="Geen" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Geen schade</div>
-                <div class="rb-option-desc">Vrij van krassen, vlekken en deuken, ook in de hoeken.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="cosmetic" value="light" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=250&fit=crop&q=90&sat=-10" alt="Licht" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Lichte slijtage</div>
-                <div class="rb-option-desc">Kleine (ondiepe) krasjes of stipjes. Geen voelbare deuken.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="cosmetic" value="heavy" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1598006456086-444453b061db?w=400&h=250&fit=crop&q=90" alt="Zwaar" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Zichtbare schade</div>
-                <div class="rb-option-desc">Duidelijke krassen, diepe deuken, of een verbogen rand.</div>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Step 5: Battery -->
-        <div class="rb-form-step" id="step_5">
-          <div class="rb-form-header">
-            <h2>Wat is de maximumcapaciteit van de batterij?</h2>
-            <p>Ga naar Instellingen > Batterij > Batterijconditie om dit percentage te zien.</p>
-          </div>
-          <div class="rb-option-grid">
-            <label class="rb-option-card">
-              <input type="radio" name="battery" value="new" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1583228858294-6741cbbfdb45?w=400&h=250&fit=crop&q=90" alt="Batterij goed" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">90% - 100%</div>
-                <div class="rb-option-desc">De batterij is in topconditie (als nieuw).</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="battery" value="normal" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=250&fit=crop&q=90" alt="Batterij normaal" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">80% - 89%</div>
-                <div class="rb-option-desc">Normale slijtage, gaat vaak nog een dag mee.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="battery" value="weak" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1542487354-feaf93476caa?w=400&h=250&fit=crop&q=90&sat=-50" alt="Batterij zwak" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Lager dan 80%</div>
-                <div class="rb-option-desc">Batterij is aan vervanging toe of geeft een reparatiemelding.</div>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Step 6: Accessories -->
-        <div class="rb-form-step" id="step_6">
-          <div class="rb-form-header">
-            <h2>Lever je de originele accessoires erbij?</h2>
-            <p>Hoe completer je set, hoe meer geld we je kunnen bieden.</p>
-          </div>
-          <div class="rb-option-grid">
-            <label class="rb-option-card">
-              <input type="radio" name="accessories" value="complete" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cd8d6?w=400&h=250&fit=crop&q=90" alt="Compleet" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Doos & Oplader</div>
-                <div class="rb-option-desc">Je levert de originele verpakking mee, inclusief kabel.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="accessories" value="box" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1580711969734-9f63422a0d79?w=400&h=250&fit=crop&q=90" alt="Doos" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Enkel de originele doos</div>
-                <div class="rb-option-desc">Verpakking is aanwezig, maar oplaadkabel ontbreekt.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="accessories" value="none" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1592750475338-74b9dc9d2b0c?w=400&h=250&fit=crop&q=90" alt="Niets" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Alleen het toestel</div>
-                <div class="rb-option-desc">Geen doos en geen oplader, uitsluitend de iPhone.</div>
-              </div>
-            </label>
-          </div>
+  <!-- Questionnaire Sections -->
+  <section class="rb-questionnaire" id="questionnaireSection" style="display: none;">
+    <div class="container" style="max-width: 900px; margin: 0 auto;">
+      
+      <!-- Step 2: Screen Condition -->
+      <div class="rb-form-step" id="step_2">
+        <div class="rb-form-header">
+          <h2>Hoe is de conditie van het scherm?</h2>
+          <p>Kijk naar het scherm van je <span class="selected-model-text fw-bold" style="color: var(--rebuy-primary); font-weight: 700;">iPhone</span> en kies de beste match.</p>
         </div>
         
-        <!-- Step 7: Water Damage -->
-        <div class="rb-form-step" id="step_7">
-          <div class="rb-form-header">
-            <h2>Is het toestel in contact met water geweest?</h2>
-            <p>Denk aan in het toilet vallen, wasmachine, of hevige regen.</p>
-          </div>
-          <div class="rb-option-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <label class="rb-option-card">
-              <input type="radio" name="water" value="no" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&h=250&fit=crop&q=90&sat=-5" alt="Nee" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Nee, toestel is vochtvrij</div>
-                <div class="rb-option-desc">Het apparaat heeft nooit schade opgelopen door vloeistoffen.</div>
-              </div>
-            </label>
-            <label class="rb-option-card">
-              <input type="radio" name="water" value="yes" onchange="enableNext()">
-              <img src="https://images.unsplash.com/photo-1629851722822-03932fa5a782?w=500&h=250&fit=crop&q=90" alt="Ja" class="rb-option-img">
-              <div class="rb-option-content">
-                <div class="rb-option-title">Ja, (mogelijk) waterschade</div>
-                <div class="rb-option-desc">Het apparaat is in het water gevallen of extreem vochtig geweest.</div>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Step 8: Final Offer / Result -->
-        <div class="rb-form-step" id="step_8">
-          <div class="rb-form-header">
-            <h2>Jouw aanbod is klaar!</h2>
-            <p>Op basis van jouw antwoorden hebben wij de volgende inschatting gemaakt voor de <span class="selected-model-text fw-bold" style="color: var(--rebuy-primary); font-weight: 700;">iPhone</span>.</p>
-          </div>
-          
-          <div class="rb-result-card">
-            <div style="font-size: 1.1rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Geschatte Inruilwaarde</div>
-            <div class="rb-result-price" id="priceDisplay">€ 420,-</div>
-            <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.6;">De daadwerkelijke prijs wordt bepaald na ontvangst en controle van het toestel door onze experts. De verzending is altijd 100% gratis en verzekerd.</p>
-            
-            <button class="rb-btn rb-btn-primary" style="padding: 1rem 3rem; font-size: 1.15rem; width: 100%;">Nu gratis opsturen</button>
-            <div style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #16a34a; font-weight: 600; font-size: 0.95rem;">
-              <i class="fas fa-check-circle"></i> Direct uitbetaald in 48 uur na keuring
+        <div class="rb-option-grid">
+          <label class="rb-option-card">
+            <input type="radio" name="screen" value="perfect" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Perfect" class="rb-dynamic-device model-img-src">
             </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Perfect</div>
+              <div class="rb-option-desc">Geen krassen, geen barsten – lijkt als nieuw.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="screen" value="minor" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Kleine krassen" class="rb-dynamic-device model-img-src">
+              <svg class="overlay-scratches" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <line x1="30" y1="20" x2="35" y2="35" stroke="rgba(255,255,255,0.8)" stroke-width="0.5" />
+                <line x1="70" y1="40" x2="65" y2="55" stroke="rgba(255,255,255,0.6)" stroke-width="0.7" />
+                <line x1="40" y1="70" x2="50" y2="85" stroke="rgba(255,255,255,0.7)" stroke-width="0.4" />
+              </svg>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Kleine krassen</div>
+              <div class="rb-option-desc">Enkele lichte gebruikerssporen, zichtbaar in het licht.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="screen" value="cracked" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Gebarsten" class="rb-dynamic-device model-img-src">
+              <svg class="overlay-cracks" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M20,0 L35,25 L15,40 L45,50 L30,80 L60,100 M45,50 L80,30 L90,0 M45,50 L85,75" stroke="rgba(255,255,255,0.9)" stroke-width="0.5" fill="none" />
+                <path d="M20,0 L35,25 L15,40 L45,50 L30,80 L60,100 M45,50 L80,30 L90,0 M45,50 L85,75" stroke="rgba(0,0,0,0.3)" stroke-width="1.5" fill="none" />
+              </svg>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Barst of breuk</div>
+              <div class="rb-option-desc">Scherm heeft één of meerdere barsten of hoekscheuren.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 3: Functionality -->
+      <div class="rb-form-step" id="step_3">
+        <div class="rb-form-header">
+          <h2>Werkt alles naar behoren?</h2>
+          <p>Denk aan Face ID/Touch ID, alle knoppen, speakers, camera's en de oplaadpoort.</p>
+        </div>
+        <div class="rb-option-grid">
+          <label class="rb-option-card">
+            <input type="radio" name="function" value="yes" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Ja, werkt perfect" class="rb-dynamic-device model-img-src">
+              <div class="func-overlay">
+                <i class="fas fa-check-circle" style="font-size: 3rem; color: #16a34a; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Ja, werkt perfect</div>
+              <div class="rb-option-desc">Alle functies werken probleemloos en snel.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="function" value="minor" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Kleine problemen" class="rb-dynamic-device model-img-src">
+              <div class="func-overlay">
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #f59e0b; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Kleine problemen</div>
+              <div class="rb-option-desc">Bijv. knopje voelt stroef, speaker is zacht, of Face ID faalt soms.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="function" value="no" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Nee" class="rb-dynamic-device model-img-src" style="filter: grayscale(100%) brightness(50%);">
+              <div class="func-overlay" style="background: rgba(0,0,0,0.2);">
+                <i class="fas fa-power-off" style="font-size: 3rem; color: #ef4444; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));"></i>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Nee</div>
+              <div class="rb-option-desc">Toestel start niet goed op of een belangrijke functie is volledig defect.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 4: Cosmetic Damage -->
+      <div class="rb-form-step" id="step_4">
+        <div class="rb-form-header">
+          <h2>Is er cosmetische schade aan de behuizing?</h2>
+          <p>Bekijk aandachtig de achterkant en de metalen/aluminium randen van je <span class="selected-model-text fw-bold">iPhone</span>.</p>
+        </div>
+        <div class="rb-option-grid">
+          <label class="rb-option-card">
+            <input type="radio" name="cosmetic" value="none" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Geen schade" class="rb-dynamic-device model-img-src" style="transform: scale(1.2) translateY(10px);">
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Geen schade</div>
+              <div class="rb-option-desc">Vrij van krassen, vlekken en deuken, ook in de hoeken.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="cosmetic" value="light" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Lichte slijtage" class="rb-dynamic-device model-img-src" style="transform: scale(1.2) translateY(10px);">
+              <svg class="overlay-scratches" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <circle cx="80" cy="20" r="1.5" fill="rgba(0,0,0,0.3)" />
+                <circle cx="25" cy="80" r="1" fill="rgba(0,0,0,0.2)" />
+                <line x1="85" y1="75" x2="90" y2="80" stroke="rgba(0,0,0,0.2)" stroke-width="0.8" />
+              </svg>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Lichte slijtage</div>
+              <div class="rb-option-desc">Kleine (ondiepe) krasjes of stipjes. Geen voelbare deuken.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="cosmetic" value="heavy" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Zichtbare schade" class="rb-dynamic-device model-img-src" style="transform: scale(1.2) translateY(10px);">
+              <svg class="overlay-scratches" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M75,15 Q80,20 85,15" stroke="rgba(0,0,0,0.6)" stroke-width="2" fill="none" />
+                <path d="M15,85 Q10,80 15,75" stroke="rgba(0,0,0,0.5)" stroke-width="2.5" fill="none" />
+                <line x1="20" y1="30" x2="30" y2="45" stroke="rgba(0,0,0,0.3)" stroke-width="1" />
+              </svg>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Zichtbare schade</div>
+              <div class="rb-option-desc">Duidelijke krassen, diepe deuken, of een verbogen rand.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 5: Battery -->
+      <div class="rb-form-step" id="step_5">
+        <div class="rb-form-header">
+          <h2>Wat is de maximumcapaciteit van de batterij?</h2>
+          <p>Ga naar Instellingen > Batterij > Batterijconditie om dit percentage te zien.</p>
+        </div>
+        <div class="rb-option-grid">
+          <label class="rb-option-card">
+            <input type="radio" name="battery" value="new" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Batterij" class="rb-dynamic-device model-img-src" style="opacity: 0.3;">
+              <div class="battery-icon-container">
+                <i class="fas fa-battery-full"></i>
+                <span style="font-size: 1.25rem; font-weight: 800; margin-top: 0.5rem; color: var(--rebuy-primary);">95%</span>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">90% - 100%</div>
+              <div class="rb-option-desc">De batterij is in topconditie (als nieuw).</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="battery" value="normal" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Batterij" class="rb-dynamic-device model-img-src" style="opacity: 0.3;">
+              <div class="battery-icon-container battery-normal">
+                <i class="fas fa-battery-half"></i>
+                <span style="font-size: 1.25rem; font-weight: 800; margin-top: 0.5rem; color: var(--rebuy-primary);">84%</span>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">80% - 89%</div>
+              <div class="rb-option-desc">Normale slijtage, gaat vaak nog een dag mee.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="battery" value="weak" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Batterij" class="rb-dynamic-device model-img-src" style="opacity: 0.3;">
+              <div class="battery-icon-container battery-weak">
+                <i class="fas fa-battery-quarter"></i>
+                <span style="font-size: 1.25rem; font-weight: 800; margin-top: 0.5rem; color: var(--rebuy-primary);">75%</span>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Lager dan 80%</div>
+              <div class="rb-option-desc">Batterij is aan vervanging toe of geeft een reparatiemelding.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 6: Accessories -->
+      <div class="rb-form-step" id="step_6">
+        <div class="rb-form-header">
+          <h2>Lever je de originele accessoires erbij?</h2>
+          <p>Hoe completer je set, hoe meer geld we je kunnen bieden.</p>
+        </div>
+        <div class="rb-option-grid">
+          <label class="rb-option-card">
+            <input type="radio" name="accessories" value="complete" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Compleet" class="rb-dynamic-device model-img-src" style="opacity: 0.5;">
+              <div class="accessories-container">
+                <i class="fas fa-box acc-icon"></i>
+                <i class="fas fa-plug acc-icon"></i>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Doos & Oplader</div>
+              <div class="rb-option-desc">Je levert de originele verpakking mee, inclusief kabel.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="accessories" value="box" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Doos" class="rb-dynamic-device model-img-src" style="opacity: 0.5;">
+              <div class="accessories-container">
+                <i class="fas fa-box acc-icon"></i>
+              </div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Enkel de originele doos</div>
+              <div class="rb-option-desc">Verpakking is aanwezig, maar oplaadkabel ontbreekt.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="accessories" value="none" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Niets" class="rb-dynamic-device model-img-src">
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Alleen het toestel</div>
+              <div class="rb-option-desc">Geen doos en geen oplader, uitsluitend de <span class="selected-model-text">iPhone</span>.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Step 7: Water Damage -->
+      <div class="rb-form-step" id="step_7">
+        <div class="rb-form-header">
+          <h2>Is het toestel in contact met water geweest?</h2>
+          <p>Denk aan in het toilet vallen, wasmachine, of hevige regen.</p>
+        </div>
+        <div class="rb-option-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+          <label class="rb-option-card">
+            <input type="radio" name="water" value="no" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Nee" class="rb-dynamic-device model-img-src">
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Nee, toestel is vochtvrij</div>
+              <div class="rb-option-desc">Het apparaat heeft nooit schade opgelopen door vloeistoffen.</div>
+            </div>
+          </label>
+          <label class="rb-option-card">
+            <input type="radio" name="water" value="yes" onchange="enableNext()">
+            <div class="rb-dynamic-img-container">
+              <img src="" alt="Ja" class="rb-dynamic-device model-img-src">
+              <div class="overlay-water"></div>
+              <div class="overlay-water-drops"></div>
+            </div>
+            <div class="rb-option-content">
+              <div class="rb-option-title">Ja, (mogelijk) waterschade</div>
+              <div class="rb-option-desc">Het apparaat is in het water gevallen of extreem vochtig geweest.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 8: Final Offer / Result -->
+      <div class="rb-form-step" id="step_8">
+        <div class="rb-form-header">
+          <h2>Jouw aanbod is klaar!</h2>
+          <p>Op basis van jouw antwoorden hebben wij de volgende inschatting gemaakt voor de <span class="selected-model-text fw-bold" style="color: var(--rebuy-primary); font-weight: 700;">iPhone</span>.</p>
+        </div>
+        
+        <div class="rb-result-card">
+          <div style="font-size: 1.1rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Geschatte Inruilwaarde</div>
+          <div class="rb-result-price" id="priceDisplay">€ 420,-</div>
+          <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.6;">De daadwerkelijke prijs wordt bepaald na ontvangst en controle van het toestel door onze experts. De verzending is altijd 100% gratis en verzekerd.</p>
+          
+          <button class="rb-btn rb-btn-primary" style="padding: 1rem 3rem; font-size: 1.15rem; width: 100%;">Nu gratis opsturen</button>
+          <div style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #16a34a; font-weight: 600; font-size: 0.95rem;">
+            <i class="fas fa-check-circle"></i> Direct uitbetaald in 48 uur na keuring
           </div>
         </div>
-
-        <!-- Navigation Buttons -->
-        <div class="rb-form-nav" id="formNav" style="display: none;">
-          <button class="rb-btn rb-btn-secondary" id="btnBack">Terug</button>
-          <button class="rb-btn rb-btn-primary" id="btnNextStep" disabled>Volgende</button>
-        </div>
-
       </div>
-    </section>
+
+      <!-- Navigation Buttons -->
+      <div class="rb-form-nav" id="formNav" style="display: none;">
+        <button class="rb-btn rb-btn-secondary" id="btnBack">Terug</button>
+        <button class="rb-btn rb-btn-primary" id="btnNextStep" disabled>Volgende</button>
+      </div>
+
+    </div>
+  </section>
 
   </main>
 
@@ -918,9 +1101,18 @@
         
         selectedModel = chip.innerText;
         
+        // Find the image URL of the active slide
+        const activeImg = document.querySelector('.rb-slide.active .rb-slide__img');
+        const activeImgUrl = activeImg ? activeImg.src : '';
+        
         // Update model text in later steps
         document.querySelectorAll('.selected-model-text').forEach(el => {
           el.innerText = 'iPhone ' + selectedModel;
+        });
+
+        // Update all dynamic image elements to show the correct phone
+        document.querySelectorAll('.model-img-src').forEach(img => {
+          img.src = activeImgUrl;
         });
 
         // Visually show it was clicked before transitioning
