@@ -68,6 +68,7 @@ const LANG_DE = {
   "cat-smartwatches": "Smartwatches",
   "cat-headphones": "Kopfhörer",
   "cat-accessories": "Zubehör",
+  "category-cta": "Angebot ansehen",
 
   // Produkte
   "products-label": "Beliebt",
@@ -339,6 +340,12 @@ const LANG_DE = {
   // Warenkorb
   "cart-title": "Warenkorb",
   "cart-empty": "Ihr Warenkorb ist leer",
+  "cart-empty-hint": "Entdecken Sie generalüberholte Smartphones — oft mit Garantie.",
+  "cart-remove-line": "Position entfernen",
+  "login-required-title": "Anmeldung erforderlich",
+  "login-required-body": "Bitte registrieren oder anmelden, um zu bestellen.",
+  "checkout-success-title": "Danke!",
+  "checkout-success-body": "Ihre Bestellung wurde aufgegeben.",
   "cart-continue": "Weiter einkaufen",
   "cart-summary-title": "Zusammenfassung",
   "cart-subtotal": "Zwischensumme",

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomerExport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ExportInfo>
+    <ExportDateTime>2026-06-07T10:15:00+02:00</ExportDateTime>
+    <Type>Full</Type>
+    <ExportStarted>Automatic</ExportStarted>
+  </ExportInfo>
+  <Customers>
+    <Customer>
+      <CustomerNumber>433435</CustomerNumber>
+      <CreationDateTime>2017-02-02 14:43:06</CreationDateTime>
+      <TransactionsBlocked>false</TransactionsBlocked>
+      <CompanyName>Vendit B.V.</CompanyName>
+      <KVKNumber>24270373</KVKNumber>
+      <VATNumber>NL823360143B01</VATNumber>
+      <IBANNumber>NL29ABNA0504580167</IBANNumber>
+      <AllowOnAccount>true</AllowOnAccount>
+      <FixedRaisePercentage>0.0000</FixedRaisePercentage>
+      <FixedDiscountPercentage>10.0000</FixedDiscountPercentage>
+      <TermOfPayment>Betaling binnen 14 dagen</TermOfPayment>
+      <PricelistName>Prijslijst Zakelijk</PricelistName>
+      <OptIn>true</OptIn>
+      <OptInDate>2024-03-15T09:00:00+01:00</OptInDate>
+      <Groups>
+        <Group><GroupName>Zakelijke klanten</GroupName></Group>
+        <Group><GroupName>Premium</GroupName></Group>
+      </Groups>
+      <Addresses>
+        <Address>
+          <AddressTypeDescription>Bezoekadres</AddressTypeDescription>
+          <Street>'s-Gravenweg</Street>
+          <ZipCode>3065 SC</ZipCode>
+          <HouseNumber>433</HouseNumber>
+          <HouseNumberSuffix />
+          <City>ROTTERDAM</City>
+          <EmailAddress>support@vendit.nl</EmailAddress>
+          <DefaultAddress>true</DefaultAddress>
+          <Country>Nederland</Country>
+          <Code>NL</Code>
+          <Contacts>
+            <Contact>
+              <Title>de heer</Title>
+              <LastName>Test</LastName>
+              <MiddleName>der</MiddleName>
+              <FirstName>John</FirstName>
+              <Sex>Man</Sex>
+              <Birthdate>1985-06-12T00:00:00</Birthdate>
+              <EmailAddress>john.test@vendit.nl</EmailAddress>
+              <FunctionDescription>Inkoopmanager</FunctionDescription>
+              <Department>Inkoop</Department>
+              <DefaultContact>true</DefaultContact>
+              <OptIn>true</OptIn>
+              <OptInDate>2024-03-15T09:00:00+01:00</OptInDate>
+              <Phones>
+                <Phone>
+                  <PhoneNumber>102580500</PhoneNumber>
+                  <DialingCode>+31</DialingCode>
+                  <PhoneTypeDescription>Bedrijfs Nummer</PhoneTypeDescription>
+                  <DefaultPhone>true</DefaultPhone>
+                </Phone>
+                <Phone>
+                  <PhoneNumber>612345678</PhoneNumber>
+                  <DialingCode>+31</DialingCode>
+                  <PhoneTypeDescription>Mobiel</PhoneTypeDescription>
+                  <DefaultPhone>false</DefaultPhone>
+                </Phone>
+              </Phones>
+            </Contact>
+          </Contacts>
+          <Phones>
+            <Phone>
+              <PhoneNumber>102580500</PhoneNumber>
+              <DialingCode>+31</DialingCode>
+              <PhoneTypeDescription>Bedrijfs Nummer</PhoneTypeDescription>
+              <DefaultPhone>true</DefaultPhone>
+            </Phone>
+          </Phones>
+        </Address>
+        <Address>
+          <AddressTypeDescription>Factuuradres</AddressTypeDescription>
+          <Street>Postbus</Street>
+          <ZipCode>3009 AG</ZipCode>
+          <HouseNumber>8283</HouseNumber>
+          <HouseNumberSuffix />
+          <City>ROTTERDAM</City>
+          <EmailAddress>finance@vendit.nl</EmailAddress>
+          <DefaultAddress>false</DefaultAddress>
+          <Country>Nederland</Country>
+          <Code>NL</Code>
+          <Contacts />
+          <Phones />
+        </Address>
+      </Addresses>
+    </Customer>
+    <Customer>
+      <CustomerNumber>WEB-1042</CustomerNumber>
+      <CreationDateTime>2026-01-18 11:22:33</CreationDateTime>
+      <TransactionsBlocked>false</TransactionsBlocked>
+      <AllowOnAccount>false</AllowOnAccount>
+      <FixedDiscountPercentage>0.0000</FixedDiscountPercentage>
+      <TermOfPayment>Direct betalen</TermOfPayment>
+      <OptIn>true</OptIn>
+      <OptInDate>2026-01-18T11:22:33+01:00</OptInDate>
+      <Groups>
+        <Group><GroupName>Webshop klanten</GroupName></Group>
+      </Groups>
+      <Addresses>
+        <Address>
+          <AddressTypeDescription>Afleveradres</AddressTypeDescription>
+          <Street>Kalverstraat</Street>
+          <ZipCode>1012 NX</ZipCode>
+          <HouseNumber>42</HouseNumber>
+          <HouseNumberSuffix>A</HouseNumberSuffix>
+          <City>AMSTERDAM</City>
+          <EmailAddress>sophie.devries@example.nl</EmailAddress>
+          <DefaultAddress>true</DefaultAddress>
+          <Country>Nederland</Country>
+          <Code>NL</Code>
+          <Contacts>
+            <Contact>
+              <Title>mevrouw</Title>
+              <LastName>de Vries</LastName>
+              <FirstName>Sophie</FirstName>
+              <Sex>Vrouw</Sex>
+              <EmailAddress>sophie.devries@example.nl</EmailAddress>
+              <DefaultContact>true</DefaultContact>
+              <OptIn>true</OptIn>
+              <OptInDate>2026-01-18T11:22:33+01:00</OptInDate>
+              <Phones>
+                <Phone>
+                  <PhoneNumber>612987654</PhoneNumber>
+                  <DialingCode>+31</DialingCode>
+                  <PhoneTypeDescription>Mobiel</PhoneTypeDescription>
+                  <DefaultPhone>true</DefaultPhone>
+                </Phone>
+              </Phones>
+            </Contact>
+          </Contacts>
+          <Phones />
+        </Address>
+      </Addresses>
+    </Customer>
+    <Customer>
+      <CustomerNumber>WEB-1088</CustomerNumber>
+      <CreationDateTime>2026-03-05 16:45:00</CreationDateTime>
+      <TransactionsBlocked>false</TransactionsBlocked>
+      <CompanyName>GSM Stunter BV</CompanyName>
+      <KVKNumber>12345678</KVKNumber>
+      <VATNumber>NL123456789B01</VATNumber>
+      <AllowOnAccount>true</AllowOnAccount>
+      <FixedDiscountPercentage>5.0000</FixedDiscountPercentage>
+      <TermOfPayment>Betaling binnen 30 dagen</TermOfPayment>
+      <PricelistName>Dealer prijslijst</PricelistName>
+      <OptIn>false</OptIn>
+      <OptInDate>1900-01-01T00:00:00</OptInDate>
+      <Groups>
+        <Group><GroupName>Dealers</GroupName></Group>
+      </Groups>
+      <Addresses>
+        <Address>
+          <AddressTypeDescription>Bezoekadres</AddressTypeDescription>
+          <Street>Hoofdweg</Street>
+          <ZipCode>3011 AA</ZipCode>
+          <HouseNumber>100</HouseNumber>
+          <City>ROTTERDAM</City>
+          <EmailAddress>info@gsmstunter.nl</EmailAddress>
+          <DefaultAddress>true</DefaultAddress>
+          <Country>Nederland</Country>
+          <Code>NL</Code>
+          <Contacts>
+            <Contact>
+              <Title>de heer</Title>
+              <LastName>Jansen</LastName>
+              <FirstName>Peter</FirstName>
+              <Sex>Man</Sex>
+              <EmailAddress>peter@gsmstunter.nl</EmailAddress>
+              <FunctionDescription>Eigenaar</FunctionDescription>
+              <DefaultContact>true</DefaultContact>
+              <OptIn>false</OptIn>
+              <Phones>
+                <Phone>
+                  <PhoneNumber>104455667</PhoneNumber>
+                  <DialingCode>+31</DialingCode>
+                  <PhoneTypeDescription>Zakelijk</PhoneTypeDescription>
+                  <DefaultPhone>true</DefaultPhone>
+                </Phone>
+              </Phones>
+            </Contact>
+          </Contacts>
+          <Phones />
+        </Address>
+      </Addresses>
+    </Customer>
+  </Customers>
+</CustomerExport>

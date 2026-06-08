@@ -68,6 +68,7 @@ const LANG_FR = {
   "cat-smartwatches": "Montres connectées",
   "cat-headphones": "Casques audio",
   "cat-accessories": "Accessoires",
+  "category-cta": "Voir l'offre",
 
   // Produits
   "products-label": "Populaire",
@@ -339,6 +340,12 @@ const LANG_FR = {
   // Panier
   "cart-title": "Panier",
   "cart-empty": "Votre panier est vide",
+  "cart-empty-hint": "Découvrez nos smartphones reconditionnés — souvent avec garantie.",
+  "cart-remove-line": "Retirer la ligne",
+  "login-required-title": "Connexion requise",
+  "login-required-body": "Créez un compte ou connectez-vous pour commander.",
+  "checkout-success-title": "Merci !",
+  "checkout-success-body": "Votre commande est enregistrée.",
   "cart-continue": "Continuer vos achats",
   "cart-summary-title": "Résumé",
   "cart-subtotal": "Sous-total",

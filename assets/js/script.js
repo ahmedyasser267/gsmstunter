@@ -14,30 +14,8 @@ const translations = {
   fr: (typeof LANG_FR !== 'undefined') ? LANG_FR : {}
 };
 
-/* ── App State ── */
-(function() {
-  var stored = localStorage.getItem('gsmstunter-lang');
-  if (!stored || ['nl','de','fr'].indexOf(stored) === -1) {
-    localStorage.setItem('gsmstunter-lang', 'nl');
-  }
-})();
-
-const AppState = {
-  language: localStorage.getItem('gsmstunter-lang') || 'nl',
-  cart: JSON.parse(localStorage.getItem('gsmstunter-cart') || '[]'),
-  wishlist: JSON.parse(localStorage.getItem('gsmstunter-wishlist') || '[]'),
-  viewMode: 'grid',
-  currentPage: 1,
-  filters: {
-    brand: [],
-    condition: [],
-    priceMin: 0,
-    priceMax: 2000,
-    storage: [],
-    color: [],
-    os: []
-  }
-};
+/** Global cart/search state — populated by assets/js/state.js */
+var AppState = window.AppState;
 
 /* ── Language Switcher ── */
 function setLanguage(lang) {
@@ -109,128 +87,7 @@ function updateLangSwitcher() {
   }
 }
 
-/* ── Cart Management ── */
-function addToCart(product) {
-  const qty = product.quantity || 1;
-  const existing = AppState.cart.find(item => item.id === product.id && item.condition === product.condition && item.storage === product.storage);
-  if (existing) {
-    existing.quantity = (existing.quantity || 1) + qty;
-  } else {
-    AppState.cart.push({ ...product, quantity: qty });
-  }
-  saveCart();
-  updateCartCount();
-  showToast('success', translate('added-to-cart'), product.name);
-}
-
-function removeFromCart(index) {
-  AppState.cart.splice(index, 1);
-  saveCart();
-  updateCartCount();
-  showToast('info', translate('removed-from-cart'));
-}
-
-function updateCartQuantity(index, quantity) {
-  if (quantity <= 0) {
-    removeFromCart(index);
-    return;
-  }
-  AppState.cart[index].quantity = quantity;
-  saveCart();
-  updateCartCount();
-}
-
-function saveCart() {
-  localStorage.setItem('gsmstunter-cart', JSON.stringify(AppState.cart));
-}
-
-function getCartTotal() {
-  return AppState.cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
-}
-
-function getCartItemCount() {
-  return AppState.cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-}
-
-function updateCartCount() {
-  document.querySelectorAll('.cart-count').forEach(el => {
-    const count = getCartItemCount();
-    el.textContent = count;
-    el.style.display = count > 0 ? 'flex' : 'none';
-  });
-}
-
-/* ── Wishlist ── */
-function toggleWishlist(productId) {
-  const index = AppState.wishlist.indexOf(productId);
-  if (index > -1) {
-    AppState.wishlist.splice(index, 1);
-  } else {
-    AppState.wishlist.push(productId);
-  }
-  localStorage.setItem('gsmstunter-wishlist', JSON.stringify(AppState.wishlist));
-  updateWishlistButtons();
-}
-
-function updateWishlistButtons() {
-  document.querySelectorAll('[data-wishlist-id]').forEach(btn => {
-    const id = btn.dataset.wishlistId;
-    const isWished = AppState.wishlist.includes(id);
-    btn.classList.toggle('active', isWished);
-    const icon = btn.querySelector('i');
-    if (icon) {
-      icon.className = isWished ? 'fas fa-heart' : 'far fa-heart';
-    }
-  });
-}
-
-/* ── Toast Notifications ── */
-function showToast(type = 'success', title, message = '') {
-  const container = document.querySelector('.toast-container') || createToastContainer();
-
-  const iconMap = {
-    success: 'fas fa-check-circle',
-    error: 'fas fa-exclamation-circle',
-    warning: 'fas fa-exclamation-triangle',
-    info: 'fas fa-info-circle'
-  };
-
-  const colorMap = {
-    success: 'var(--color-success)',
-    error: 'var(--color-error)',
-    warning: 'var(--color-warning)',
-    info: 'var(--color-info)'
-  };
-
-  const toast = document.createElement('div');
-  toast.className = `toast toast--${type}`;
-  toast.innerHTML = `
-    <i class="${iconMap[type]} toast__icon" style="color: ${colorMap[type]}"></i>
-    <div class="toast__content">
-      <div class="toast__title">${title}</div>
-      ${message ? `<div class="toast__message">${message}</div>` : ''}
-    </div>
-    <button class="toast__close" onclick="this.closest('.toast').remove()">
-      <i class="fas fa-times"></i>
-    </button>
-  `;
-
-  container.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(100%)';
-    toast.style.transition = 'all 0.3s ease';
-    setTimeout(() => toast.remove(), 300);
-  }, 4000);
-}
-
-function createToastContainer() {
-  const container = document.createElement('div');
-  container.className = 'toast-container';
-  document.body.appendChild(container);
-  return container;
-}
+/* Cart, wishlist & toasts: assets/js/cart.js + ui.js */
 
 /* ── Helper: Translate ── */
 function translate(key) {
@@ -293,13 +150,13 @@ function initLangDropdown() {
   });
 }
 
-/* ── Search Autocomplete ── */
+/* ── Search Autocomplete + Grid Filter ── */
 function initSearch() {
   const input = document.querySelector('.search-bar__input');
   const dropdown = document.querySelector('.search-autocomplete');
   if (!input || !dropdown) return;
 
-  const products = [
+  const fallbackProducts = [
     { name: 'iPhone 15 Pro Max', category: 'Smartphones', img: 'https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=80&h=80&fit=crop' },
     { name: 'iPhone 14 Pro', category: 'Smartphones', img: 'https://images.unsplash.com/photo-1580910051074-3eb694886f8b?w=80&h=80&fit=crop' },
     { name: 'Samsung Galaxy S24', category: 'Smartphones', img: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=80&h=80&fit=crop' },
@@ -309,44 +166,124 @@ function initSearch() {
     { name: 'AirPods Pro', category: 'Headphones', img: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=80&h=80&fit=crop' }
   ];
 
+  const isProductsPage = !!document.getElementById('products-grid');
+
   input.addEventListener('input', () => {
     const query = input.value.toLowerCase().trim();
-    if (query.length < 2) {
+
+    /* ── On products page: filter the grid live ── */
+    if (isProductsPage) {
+      filterProductsGrid(query);
       dropdown.classList.remove('active');
       return;
     }
 
-    const matches = products.filter(p =>
-      p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query)
-    ).slice(0, 5);
+    /* ── On other pages: show autocomplete ── */
+    if (query.length < 2) { dropdown.classList.remove('active'); return; }
 
-    if (matches.length === 0) {
-      dropdown.classList.remove('active');
-      return;
-    }
+    const apiProducts = (window.__allProductsData || []).map(p => ({
+      name: p.name || `${p.brand || ''} ${p.model || ''}`.trim(),
+      category: p.category_key || '',
+      img: p.image_url || 'https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=80&h=80&fit=crop',
+      sku: p.sku, id: p.id
+    }));
+    const pool = apiProducts.length ? apiProducts : fallbackProducts;
+    const matches = pool.filter(p =>
+      p.name.toLowerCase().includes(query) || (p.category || '').toLowerCase().includes(query)
+    ).slice(0, 6);
 
-    dropdown.innerHTML = matches.map(p => `
-      <a href="products.html" class="search-autocomplete__item">
-        <img src="${p.img}" alt="${p.name}" loading="lazy">
+    if (!matches.length) { dropdown.classList.remove('active'); return; }
+
+    dropdown.innerHTML = matches.map(p => {
+      const href = p.sku
+        ? `products.html?search=${encodeURIComponent(query)}`
+        : 'products.html';
+      return `<a href="${href}" class="search-autocomplete__item">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" style="width:44px;height:44px;object-fit:cover;border-radius:6px;flex-shrink:0">
         <div>
-          <div style="font-weight: 500; font-size: 0.875rem;">${p.name}</div>
-          <div style="font-size: 0.75rem; color: var(--color-text-muted);">${p.category}</div>
+          <div style="font-weight:500;font-size:.875rem">${p.name}</div>
+          <div style="font-size:.75rem;color:var(--color-text-muted)">${p.category || 'Product'}</div>
         </div>
-      </a>
-    `).join('');
-
+      </a>`;
+    }).join('');
     dropdown.classList.add('active');
   });
 
-  input.addEventListener('focus', () => {
-    if (input.value.length >= 2) dropdown.classList.add('active');
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-bar')) {
+  /* Navigate to products page on Enter */
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const q = input.value.trim();
+      if (q) {
+        if (isProductsPage) { filterProductsGrid(q.toLowerCase()); }
+        else { window.location.href = `products.html?search=${encodeURIComponent(q)}`; }
+      }
       dropdown.classList.remove('active');
     }
   });
+
+  input.addEventListener('focus', () => {
+    if (input.value.length >= 2 && !isProductsPage) dropdown.classList.add('active');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-bar')) dropdown.classList.remove('active');
+  });
+}
+
+/* ── Products page grid search filter ── */
+function initProductsPageSearch() {
+  /* Pick up ?search= from URL on load */
+  const params = new URLSearchParams(window.location.search);
+  const q = (params.get('search') || '').trim().toLowerCase();
+  const input = document.querySelector('.search-bar__input');
+  if (q) {
+    if (input) input.value = q;
+    filterProductsGrid(q);
+  }
+}
+
+function filterProductsGrid(query) {
+  const grid = document.getElementById('products-grid');
+  const countEl = document.querySelector('.products-toolbar__count span');
+  if (!grid) return;
+
+  const cards = grid.querySelectorAll('.product-card, article.product-card');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const title = (card.querySelector('.product-card__title')?.textContent || '').toLowerCase();
+    const specs = (card.querySelector('.product-card__specs')?.textContent || '').toLowerCase();
+    const brand = (card.dataset.brand || '').toLowerCase();
+    const storage = (card.dataset.storage || '').toLowerCase();
+    const color = (card.dataset.color || '').toLowerCase();
+
+    const match = !query ||
+      title.includes(query) ||
+      specs.includes(query) ||
+      brand.includes(query) ||
+      storage.includes(query) ||
+      color.includes(query);
+
+    card.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+
+  if (countEl) countEl.textContent = visible;
+
+  /* Show empty state if nothing matches */
+  let emptyEl = grid.querySelector('.search-empty-state');
+  if (visible === 0 && query) {
+    if (!emptyEl) {
+      emptyEl = document.createElement('div');
+      emptyEl.className = 'search-empty-state';
+      emptyEl.style.cssText = 'grid-column:1/-1;padding:3rem 1rem;text-align:center;color:var(--color-text-secondary);background:var(--color-bg);border-radius:var(--radius-xl);border:1px dashed var(--color-border)';
+      grid.appendChild(emptyEl);
+    }
+    emptyEl.innerHTML = `<i class="fas fa-magnifying-glass" style="font-size:2rem;margin-bottom:.75rem;display:block;opacity:.3"></i><p style="font-size:.95rem">Geen producten gevonden voor "<strong>${escapeHtml(query)}</strong>".<br><a href="products.html" style="color:var(--color-primary);text-decoration:underline;margin-top:.5rem;display:inline-block">Alle producten tonen</a></p>`;
+    emptyEl.style.display = '';
+  } else if (emptyEl) {
+    emptyEl.style.display = 'none';
+  }
 }
 
 /* ── Scroll Animations ── */
@@ -460,11 +397,11 @@ function initProductFilters() {
   const sortSelect = document.querySelector('.products-toolbar__sort select');
 
   filterCheckboxes.forEach(cb => {
-    cb.addEventListener('change', applyFilters);
+    cb.onchange = applyFilters;
   });
 
   if (sortSelect) {
-    sortSelect.addEventListener('change', applyFilters);
+    sortSelect.onchange = applyFilters;
   }
 }
 
@@ -488,7 +425,11 @@ function applyFilters() {
       if (filterValues.length === 0) return;
 
       const cardValue = (card.dataset[group] || '').toLowerCase();
-      if (!filterValues.includes(cardValue)) {
+      const cardValues = cardValue.split(',').map(v => v.trim()).filter(Boolean);
+      const matches = cardValues.length > 0
+        ? filterValues.some(v => cardValues.includes(v))
+        : filterValues.includes(cardValue);
+      if (!matches) {
         show = false;
       }
     });
@@ -519,6 +460,7 @@ function initViewToggle() {
 
 /* ── Product Detail Page ── */
 function addProductDetailToCart() {
+  const selected = window.__productDetailSelected || {};
   const priceEl = document.querySelector('.product-info__price, .product-detail__price');
   const conditionOpt = document.querySelector('.condition-option input:checked');
   const storageOpt = document.querySelector('.storage-option input:checked');
@@ -528,14 +470,80 @@ function addProductDetailToCart() {
   const storage = storageOpt ? (storageOpt.value === '1024' ? '1TB' : storageOpt.value + 'GB') : '128GB';
   const quantity = qtyEl ? parseInt(qtyEl.textContent) || 1 : 1;
   addToCart({
-    id: 'iphone15pro',
-    name: 'iPhone 15 Pro',
+    id: selected.id || 'product-detail',
+    product_id: selected.product_id || null,
+    sku: selected.sku || null,
+    name: selected.name || 'Product',
     price,
-    image: 'https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop',
+    image: selected.image || 'https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop',
     condition,
     storage,
     quantity
   });
+}
+
+async function initDynamicProductDetailPage() {
+  const titleEl = document.getElementById('product-title');
+  if (!titleEl) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const skuParam = (params.get('sku') || '').trim();
+  const idParam = (params.get('id') || '').trim();
+
+  try {
+    const lang = AppState.language || 'nl';
+    const data = await fetchJsonFromCandidates([
+      `api/public/products.php?lang=${encodeURIComponent(lang)}`,
+      `${getProjectBasePath()}api/public/products.php?lang=${encodeURIComponent(lang)}`,
+      `/api/public/products.php?lang=${encodeURIComponent(lang)}`
+    ]);
+    if (!data.ok || !Array.isArray(data.items)) return;
+
+    const item = data.items.find((x) => {
+      if (skuParam) return String(x.sku || '').toLowerCase() === skuParam.toLowerCase();
+      return String(x.id || '') === idParam;
+    }) || data.items[0];
+    if (!item) return;
+
+    const name = item.name || `${item.brand || ''} ${item.model || ''}`.trim() || 'Product';
+    const price = Number(item.effective_price || item.price || 0);
+    const oldPrice = Number(item.old_price || 0);
+    const image = item.image_url || 'https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=800&h=800&fit=crop';
+    const subtitle = [item.storage_label || '', item.color || '', item.product_type || ''].filter(Boolean).join(' · ');
+
+    titleEl.textContent = name;
+    document.title = `${name} - Refurbished | GSMStunter`;
+    const subtitleEl = document.querySelector('.product-detail__subtitle');
+    if (subtitleEl) subtitleEl.textContent = subtitle;
+    const priceEl = document.querySelector('.product-detail__price');
+    if (priceEl) priceEl.textContent = `€${price.toFixed(0)}`;
+    const oldPriceEl = document.querySelector('.product-detail__price-original');
+    if (oldPriceEl) oldPriceEl.textContent = oldPrice > 0 ? `€${oldPrice.toFixed(0)}` : '';
+
+    const mainImage = document.getElementById('product-main-image');
+    if (mainImage) {
+      mainImage.src = image;
+      mainImage.alt = name;
+    }
+    const thumbs = document.querySelector('.product-gallery__thumbs');
+    if (thumbs) {
+      thumbs.innerHTML = `
+        <button type="button" class="product-gallery__thumb active" aria-label="Product image" data-image="${image}">
+          <img src="${image}" alt="${name}" width="80" height="80" loading="lazy">
+        </button>
+      `;
+    }
+    window.__productDetailSelected = {
+      id: item.sku || `p-${item.id}`,
+      product_id: item.id,
+      sku: item.sku || null,
+      name,
+      image
+    };
+    initProductGallery();
+  } catch (e) {
+    console.warn('Dynamic product detail failed', e);
+  }
 }
 
 /* ── Product Gallery (Detail Page) ── */
@@ -886,119 +894,264 @@ function initTradeCalculator() {
   });
 }
 
-/* ── Cart Page ── */
-function initCartPage() {
-  if (!document.querySelector('.cart-layout')) return;
-  renderCart();
-}
-
-function renderCart() {
-  const cartItems = document.querySelector('.cart-items');
-  const summaryEl = document.querySelector('.cart-summary');
-  if (!cartItems) return;
-
-  if (AppState.cart.length === 0) {
-    cartItems.innerHTML = `
-      <div style="text-align: center; padding: 4rem 2rem;">
-        <i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--color-text-muted); margin-bottom: 1rem;"></i>
-        <h3 data-i18n="cart-empty">${translate('cart-empty')}</h3>
-        <a href="products.html" class="btn btn--primary" style="margin-top: 1rem;" data-i18n="cart-continue">${translate('cart-continue')}</a>
-      </div>
-    `;
+/* ── Account Page (real auth/data) ── */
+async function initAccountPage() {
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    /* login.html has its own complete inline handler — skip here to avoid
+       double-submission and conflicts. Only check if PHP session is already
+       active and silently redirect in that case. */
+    try {
+      const auth = await fetchJsonFromCandidates([
+        'api/public/account_auth.php',
+        `${getProjectBasePath()}api/public/account_auth.php`,
+        '/api/public/account_auth.php'
+      ]);
+      if (auth.ok && auth.logged_in) {
+        window.location.replace('account.html');
+      }
+    } catch (_) {}
     return;
   }
 
-  cartItems.innerHTML = AppState.cart.map((item, index) => `
-    <div class="cart-item">
-      <div class="cart-item__image">
-        <img src="${item.image}" alt="${item.name}" loading="lazy">
-      </div>
-      <div class="cart-item__details">
-        <h3 class="cart-item__title">${item.name}</h3>
-        <p class="cart-item__specs">${item.condition || ''} · ${item.storage || ''}</p>
-        <div class="cart-item__actions">
-          <div class="quantity-selector">
-            <button class="quantity-selector__btn" onclick="updateCartQuantity(${index}, ${(item.quantity || 1) - 1})">−</button>
-            <span class="quantity-selector__value">${item.quantity || 1}</span>
-            <button class="quantity-selector__btn" onclick="updateCartQuantity(${index}, ${(item.quantity || 1) + 1})">+</button>
+  const registerForm = document.getElementById('registerForm');
+  if (registerForm) {
+    /* register.html has its own inline handler — only check live session here */
+    try {
+      const auth = await fetchJsonFromCandidates([
+        'api/public/account_auth.php',
+        `${getProjectBasePath()}api/public/account_auth.php`,
+        '/api/public/account_auth.php'
+      ]);
+      if (auth.ok && auth.logged_in) {
+        window.location.replace('account.html');
+      }
+    } catch (_) {}
+    return;
+  }
+
+  const dashboardView = document.getElementById('accountDashboardView');
+  if (!dashboardView) return;
+
+  function setAccountTab(tab) {
+    document.querySelectorAll('[data-account-tab]').forEach((el) => {
+      el.classList.toggle('active', el.dataset.accountTab === tab);
+    });
+    document.querySelectorAll('.account-pane').forEach((pane) => {
+      pane.classList.toggle('active', pane.id === `account-pane-${tab}`);
+    });
+  }
+
+  document.querySelectorAll('[data-account-tab]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const tab = el.dataset.accountTab || 'dashboard';
+      setAccountTab(tab);
+      if (tab === 'wishlist') renderWishlistPane();
+    });
+  });
+
+  /* Read cached customer from localStorage (set at login time) */
+  let cachedCustomer = null;
+  try {
+    cachedCustomer = JSON.parse(
+      localStorage.getItem('gsmstunter-customer') ||
+      sessionStorage.getItem('gsmstunter-customer') || 'null'
+    );
+  } catch (_) {}
+
+  /* Build the API URL — pass customer_id as hint so session can be restored */
+  const baseUrl = 'api/public/account_data.php';
+  const hintParam = (cachedCustomer && cachedCustomer.id)
+    ? `?customer_id=${encodeURIComponent(cachedCustomer.id)}` : '';
+
+  try {
+    const basePath = getProjectBasePath ? getProjectBasePath() : '';
+    const data = await fetchJsonFromCandidates([
+      baseUrl + hintParam,
+      `${basePath}${baseUrl}${hintParam}`,
+      `/api/public/account_data.php${hintParam}`
+    ]);
+
+    if (!data.ok || !data.logged_in) {
+      /* Clear stale localStorage so we don't keep looping */
+      localStorage.removeItem('gsmstunter-customer');
+      sessionStorage.removeItem('gsmstunter-customer');
+      window.location.replace('login.html');
+      return;
+    }
+    dashboardView.style.display = '';
+    renderAccountData(data);
+    /* honour URL hash: account.html#wishlist → open that tab */
+    const hashTab = (window.location.hash || '').replace('#', '').toLowerCase();
+    setAccountTab(['dashboard', 'orders', 'wishlist'].includes(hashTab) ? hashTab : 'dashboard');
+    if (hashTab === 'wishlist') renderWishlistPane();
+  } catch {
+    localStorage.removeItem('gsmstunter-customer');
+    sessionStorage.removeItem('gsmstunter-customer');
+    window.location.replace('login.html');
+    return;
+  }
+
+  const logoutBtn = document.getElementById('accountLogoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await fetch('api/public/account_auth.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({action: 'logout'})
+      });
+      localStorage.removeItem('gsmstunter-customer');
+      sessionStorage.removeItem('gsmstunter-customer');
+      window.location.replace('login.html');
+    });
+  }
+}
+
+function renderAccountData(data) {
+  const profile = data.profile || {};
+  const orders = Array.isArray(data.orders) ? data.orders : [];
+  const stats = data.stats || {};
+
+  const name = profile.full_name || 'Customer';
+  const initials = name.trim().split(/\s+/).slice(0, 2).map(x => x.charAt(0).toUpperCase()).join('') || 'U';
+  const avatar = document.getElementById('accAvatar');
+  const accName = document.getElementById('accName');
+  const accEmail = document.getElementById('accEmail');
+  const accWelcome = document.getElementById('accWelcome');
+  if (avatar) avatar.textContent = initials;
+  if (accName) accName.textContent = name;
+  if (accEmail) accEmail.textContent = profile.email || '-';
+  if (accWelcome) accWelcome.textContent = `Welkom terug, ${name.split(' ')[0]}!`;
+
+  const totalOrders = document.getElementById('accTotalOrders');
+  const totalSpent = document.getElementById('accTotalSpent');
+  const wishlistCount = document.getElementById('accWishlistCount');
+  if (totalOrders) totalOrders.textContent = String(stats.total_orders || 0);
+  if (totalSpent) totalSpent.textContent = `€${Number(stats.total_spent || 0).toFixed(0)}`;
+  if (wishlistCount) wishlistCount.textContent = String(stats.wishlist_count || 0);
+
+  const body = document.getElementById('accountOrdersBody');
+  if (body) {
+    if (orders.length === 0) {
+      body.innerHTML = `<tr><td colspan="5">Nog geen bestellingen geplaatst.</td></tr>`;
+    } else {
+      body.innerHTML = orders.map((o) => {
+    const items = (o.items || []).map(i => `${i.product_name} x${i.quantity}`).join(', ');
+    return `
+      <tr>
+        <td>${o.order_reference}</td>
+        <td>${items || '-'}</td>
+        <td>${o.created_at || ''}</td>
+        <td><span class="badge badge--${o.status==='delivered'?'success':o.status==='cancelled'?'error':o.status==='shipped'?'info':'warning'}">${o.status || 'new'}</span></td>
+        <td>€${Number(o.total_amount || 0).toFixed(2)}</td>
+      </tr>
+    `;
+      }).join('');
+    }
+  }
+
+  /* wishlist count badge */
+  const wlCountBadge = document.getElementById('wlCountBadge');
+  const wlCount = (Array.isArray(AppState.wishlist) ? AppState.wishlist : []).length;
+  if (wishlistCount) wishlistCount.textContent = String(stats.wishlist_count || wlCount || 0);
+  if (wlCountBadge) wlCountBadge.textContent = wlCount ? `(${wlCount})` : '';
+}
+
+/* ── Wishlist pane renderer (fetches real product data) ── */
+async function renderWishlistPane() {
+  const wishlistBody = document.getElementById('accountWishlistBody');
+  if (!wishlistBody) return;
+
+  const wishlist = Array.isArray(AppState.wishlist) ? AppState.wishlist : [];
+
+  if (!wishlist.length) {
+    wishlistBody.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:40px 20px;border:2px dashed #e5e7eb;border-radius:16px;background:#f9fafb">
+        <i class="fas fa-heart" style="font-size:2.4rem;color:#e5e7eb;margin-bottom:12px;display:block"></i>
+        <p style="font-size:1rem;font-weight:700;color:#374151;margin-bottom:6px">Je wishlist is leeg</p>
+        <p style="font-size:.85rem;color:#6b7280;margin-bottom:14px">Voeg producten toe via het ♡-icoon op de productenpagina.</p>
+        <a href="products.html" style="display:inline-block;background:#0d7c66;color:#fff;padding:10px 22px;border-radius:10px;font-weight:700;font-size:.85rem;text-decoration:none">Bekijk producten</a>
+      </div>`;
+    return;
+  }
+
+  /* Show loading */
+  wishlistBody.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:28px;color:#9ca3af"><i class="fas fa-spinner fa-spin" style="font-size:1.4rem;margin-bottom:8px;display:block"></i>Producten laden…</div>`;
+
+  /* Fetch all products and match */
+  let allProducts = [];
+  try {
+    const basePath = (typeof getProjectBasePath === 'function') ? getProjectBasePath() : '';
+    const candidates = [
+      'api/public/products.php?lang=nl',
+      `${basePath}api/public/products.php?lang=nl`,
+      '/holanda-project/api/public/products.php?lang=nl'
+    ];
+    for (const url of candidates) {
+      try {
+        const r = await fetch(url);
+        if (r.ok) { const d = await r.json(); allProducts = d.items || []; break; }
+      } catch (_) {}
+    }
+  } catch (_) {}
+
+  /* Map: sku → product, and p-{id} → product */
+  const productMap = {};
+  allProducts.forEach(p => {
+    if (p.sku) productMap[p.sku] = p;
+    productMap[`p-${p.id}`] = p;
+  });
+
+  const cards = wishlist.map((wid) => {
+    const p = productMap[wid];
+    if (!p) {
+      return `
+        <article class="wl-card">
+          <div class="wl-card__img"><i class="fas fa-image wl-card__img-placeholder"></i></div>
+          <div class="wl-card__body">
+            <div class="wl-card__brand">—</div>
+            <div class="wl-card__name">${wid}</div>
+            <div class="wl-card__price">—</div>
           </div>
-          <button class="cart-item__remove" onclick="removeFromCart(${index}); renderCart();">
-            <i class="fas fa-trash-alt"></i>
-          </button>
+          <div class="wl-card__actions">
+            <button class="wl-card__btn-remove" onclick="toggleWishlist('${wid}');renderWishlistPane()"><i class="fas fa-heart-crack"></i> Verwijderen</button>
+          </div>
+        </article>`;
+    }
+    const name = p.name || p.name_nl || `${p.brand} ${p.model}`;
+    const price = p.price ? `€${Number(p.price).toFixed(2)}` : '—';
+    const img = p.image_url
+      ? `<img src="${p.image_url}" alt="${name}" loading="lazy">`
+      : `<i class="fas fa-mobile-screen wl-card__img-placeholder"></i>`;
+    const badge = p.condition_key ? `<span class="wl-card__badge">${p.condition_key.replace('_',' ')}</span>` : '';
+    const storage = p.storage_label ? `<div class="wl-card__storage"><i class="fas fa-memory" style="font-size:.7rem"></i> ${p.storage_label}</div>` : '';
+    const pid = p.sku || `p-${p.id}`;
+    return `
+      <article class="wl-card">
+        <div class="wl-card__img">${img}${badge}</div>
+        <div class="wl-card__body">
+          <div class="wl-card__brand">${p.brand || ''}</div>
+          <div class="wl-card__name">${name}</div>
+          ${storage}
+          <div class="wl-card__price">${price}</div>
         </div>
-      </div>
-      <div class="cart-item__price">€${(item.price * (item.quantity || 1)).toFixed(2)}</div>
-    </div>
-  `).join('');
+        <div class="wl-card__actions">
+          <button class="wl-card__btn-cart" onclick="addToCart(${JSON.stringify(p)})"><i class="fas fa-cart-plus"></i> In winkelwagen</button>
+          <button class="wl-card__btn-remove" title="Verwijder uit wishlist" onclick="toggleWishlist('${pid}');renderWishlistPane()"><i class="fas fa-heart-crack"></i></button>
+        </div>
+      </article>`;
+  });
 
-  if (summaryEl) {
-    const subtotal = getCartTotal();
-    const shipping = subtotal >= 50 ? 0 : 4.95;
-    const tax = subtotal * 0.21;
-    const total = subtotal + shipping;
+  wishlistBody.innerHTML = cards.join('');
 
-    summaryEl.querySelector('.summary-subtotal').textContent = '€' + subtotal.toFixed(2);
-    summaryEl.querySelector('.summary-shipping').textContent = shipping === 0 ? translate('cart-shipping-free') : '€' + shipping.toFixed(2);
-    summaryEl.querySelector('.summary-tax').textContent = '€' + tax.toFixed(2);
-    summaryEl.querySelector('.summary-total').textContent = '€' + total.toFixed(2);
-  }
+  /* update count badge */
+  const wlCountBadge = document.getElementById('wlCountBadge');
+  if (wlCountBadge) wlCountBadge.textContent = `(${wishlist.length})`;
 }
 
-/* ── Checkout ── */
-function initCheckout() {
-  const form = document.querySelector('.checkout-form');
-  if (!form) return;
-
-  let step = 1;
-  const totalSteps = 4;
-
-  window.checkoutNext = function () {
-    if (validateCheckoutStep(step)) {
-      if (step < totalSteps) {
-        step++;
-        updateCheckoutStep(step);
-      }
-    }
-  };
-
-  window.checkoutBack = function () {
-    if (step > 1) {
-      step--;
-      updateCheckoutStep(step);
-    }
-  };
-
-  function updateCheckoutStep(s) {
-    form.querySelectorAll('.checkout-section').forEach((section, i) => {
-      section.style.display = i === s - 1 ? 'block' : 'none';
-    });
-
-    document.querySelectorAll('.checkout-step').forEach((el, i) => {
-      el.classList.remove('active', 'completed');
-      if (i + 1 === s) el.classList.add('active');
-      else if (i + 1 < s) el.classList.add('completed');
-    });
-  }
-
-  function validateCheckoutStep(s) {
-    const section = form.querySelectorAll('.checkout-section')[s - 1];
-    if (!section) return true;
-
-    const required = section.querySelectorAll('input[required]');
-    let valid = true;
-
-    required.forEach(input => {
-      if (!input.value.trim()) {
-        input.classList.add('error');
-        valid = false;
-      } else {
-        input.classList.remove('error');
-      }
-    });
-
-    return valid;
-  }
-}
+/* Cart page & checkout wizard: assets/js/cart.js + checkout-flow.js */
 
 /* ── Form Validation ── */
 function initFormValidation() {
@@ -1144,6 +1297,438 @@ function initMegaMenu() {
   });
 }
 
+/* ── Dynamic Home Categories (from admin) ── */
+async function initDynamicHomeCategories() {
+  const grid = document.getElementById('homeCategoriesGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  try {
+    const lang = AppState.language || 'nl';
+    const data = await fetchJsonFromCandidates([
+      `api/public/categories.php?lang=${encodeURIComponent(lang)}`,
+      `${getProjectBasePath()}api/public/categories.php?lang=${encodeURIComponent(lang)}`,
+      `/api/public/categories.php?lang=${encodeURIComponent(lang)}`
+    ]);
+    if (!data.ok || !Array.isArray(data.items) || data.items.length === 0) return;
+
+    const fallbackImg = 'https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop&q=80';
+    const ctaText = translate('category-cta');
+    const offerLabel = ctaText && ctaText !== 'category-cta' ? ctaText : 'Bekijk aanbod';
+
+    // Deduplicate category rows by key and ensure accessories is present.
+    const dedupedByKey = new Map();
+    data.items.forEach(cat => {
+      const key = String(cat.category_key || '').trim().toLowerCase();
+      if (!key || dedupedByKey.has(key)) return;
+      dedupedByKey.set(key, cat);
+    });
+
+    if (!dedupedByKey.has('accessories')) {
+      dedupedByKey.set('accessories', {
+        category_key: 'accessories',
+        name: translate('cat-accessories'),
+        image_url: fallbackImg
+      });
+    }
+
+    const categoryNameByKey = {
+      smartphones: translate('cat-smartphones'),
+      laptops: translate('cat-laptops'),
+      tablets: translate('cat-tablets'),
+      smartwatches: translate('cat-smartwatches'),
+      headphones: translate('cat-headphones'),
+      accessories: translate('cat-accessories')
+    };
+
+    const categories = Array.from(dedupedByKey.values());
+    grid.innerHTML = categories.map((cat, idx) => {
+      const key = (cat.category_key || 'category').toLowerCase();
+      const translatedName = categoryNameByKey[key];
+      const name = cat.name || (translatedName && translatedName !== `cat-${key}` ? translatedName : '') || key || 'Category';
+      const href = `products.html?category=${encodeURIComponent(key)}`;
+      const img = cat.image_url || fallbackImg;
+      return `
+        <a href="${href}" class="category-card fade-in visible" style="transition-delay: ${Math.min(idx * 0.05, 0.25)}s;">
+          <img class="category-card__image" src="${img}" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
+          <h3 class="category-card__name">${name}</h3>
+          <span class="category-card__count">${offerLabel}</span>
+        </a>
+      `;
+    }).join('');
+  } catch (err) {
+    console.warn('Dynamic categories failed:', err);
+    grid.setAttribute('data-dynamic-error', 'categories-api-failed');
+    grid.innerHTML = '';
+  }
+}
+
+async function initDynamicHomeFeaturedProducts() {
+  const featuredSection = document.querySelector('[data-section-key="home.featured_products"]');
+  const grid = featuredSection ? featuredSection.querySelector('.products-grid') : null;
+  if (!grid) return;
+
+  grid.innerHTML = `
+    <div class="product-empty-state" style="grid-column:1/-1;padding:1.5rem;border:1px dashed var(--color-border);border-radius:var(--radius-xl);text-align:center;color:var(--color-text-secondary);background:var(--color-bg);">
+      <i class="fas fa-spinner fa-spin" style="margin-inline-end:.5rem;"></i> Loading featured products...
+    </div>
+  `;
+
+  try {
+    const lang = AppState.language || 'nl';
+    const data = await fetchJsonFromCandidates([
+      `api/public/products.php?lang=${encodeURIComponent(lang)}`,
+      `${getProjectBasePath()}api/public/products.php?lang=${encodeURIComponent(lang)}`,
+      `/api/public/products.php?lang=${encodeURIComponent(lang)}`
+    ]);
+    if (!data.ok || !Array.isArray(data.items) || data.items.length === 0) {
+      grid.innerHTML = '';
+      return;
+    }
+
+    const rows = data.items.slice(0, 4);
+    grid.innerHTML = rows.map((item, idx) => {
+      const name = item.name || `${item.brand || ''} ${item.model || ''}`.trim() || 'Product';
+      const price = Number(item.effective_price || item.price || 0);
+      const oldPrice = Number(item.old_price || 0);
+      const discount = oldPrice > price && oldPrice > 0 ? Math.round((1 - price / oldPrice) * 100) : 0;
+      const image = item.image_url || 'https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&h=400&fit=crop';
+      const id = item.sku || `home-p-${item.id}`;
+      const specs = [
+        item.storage_label || '',
+        item.color || '',
+        item.ram_gb ? `${item.ram_gb}GB RAM` : ''
+      ].filter(Boolean).join(' · ');
+
+      return `
+        <div class="product-card fade-in visible" style="transition-delay:${Math.min(idx * 0.08, 0.24)}s;">
+          <button class="product-card__wishlist" data-wishlist-id="${id}" aria-label="Add to wishlist" onclick="toggleWishlist('${id}')">
+            <i class="far fa-heart"></i>
+          </button>
+          <a href="product-detail.html?${item.sku ? `sku=${encodeURIComponent(item.sku)}` : `id=${encodeURIComponent(item.id)}`}" class="product-card__image-wrapper">
+            <img class="product-card__image" src="${image}" alt="${name}" loading="lazy">
+            <div class="product-card__quick-view"><button class="btn btn--sm btn--primary">Quick view</button></div>
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title">${name}</h3>
+            <p class="product-card__specs">${specs}</p>
+            <div class="product-card__pricing">
+              <span class="product-card__price">€${price.toFixed(0)}</span>
+              ${oldPrice > 0 ? `<span class="product-card__price-original">€${oldPrice.toFixed(0)}</span>` : ''}
+              ${discount > 0 ? `<span class="product-card__savings">-${discount}%</span>` : ''}
+            </div>
+            <div class="product-card__meta">
+              <span class="product-card__warranty"><i class="fas fa-shield-halved"></i><span>2 jaar garantie</span></span>
+              <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'${id}',product_id:${Number(item.id || 0)},sku:'${(item.sku || '').replace(/'/g, "\\'")}',name:'${name.replace(/'/g, "\\'")}',price:${price.toFixed(2)},image:'${image}',condition:'',storage:'${item.storage_label || ''}'})">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    updateWishlistButtons();
+  } catch (err) {
+    console.warn('Dynamic featured products failed:', err);
+    grid.innerHTML = '';
+  }
+}
+
+/* ── Global section visibility from admin ── */
+async function initDynamicSectionVisibility() {
+  const cacheKey = 'gsmstunter-sections-cache-v1';
+  try {
+    const data = await fetchJsonFromCandidates([
+      'api/public/sections.php',
+      `${getProjectBasePath()}api/public/sections.php`,
+      '/api/public/sections.php'
+    ]);
+    if (!data.ok || !data.sections) return;
+    localStorage.setItem(cacheKey, JSON.stringify(data.sections));
+    document.querySelectorAll('[data-section-key]').forEach(el => {
+      const key = el.getAttribute('data-section-key');
+      if (Object.prototype.hasOwnProperty.call(data.sections, key) && !data.sections[key]) {
+        el.style.display = 'none';
+      }
+    });
+  } catch (err) {
+    console.warn('Section visibility failed:', err);
+    try {
+      const cached = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+      document.querySelectorAll('[data-section-key]').forEach(el => {
+        const key = el.getAttribute('data-section-key');
+        if (Object.prototype.hasOwnProperty.call(cached, key) && !cached[key]) {
+          el.style.display = 'none';
+        }
+      });
+    } catch (_) {}
+  }
+}
+
+/* ── Dynamic products page from admin ── */
+async function initDynamicProductsPage() {
+  const grid = document.getElementById('products-grid');
+  if (!grid) return;
+  const countEl = document.querySelector('.products-toolbar__count span');
+
+  grid.innerHTML = `
+    <div class="product-empty-state" style="grid-column:1/-1;padding:2rem;border:1px dashed var(--color-border);border-radius:var(--radius-xl);text-align:center;color:var(--color-text-secondary);background:var(--color-bg);">
+      <i class="fas fa-spinner fa-spin" style="margin-inline-end:.5rem;"></i> Loading products...
+    </div>
+  `;
+  if (countEl) countEl.textContent = '0';
+
+  try {
+    const lang = AppState.language || 'nl';
+    const params = new URLSearchParams(window.location.search);
+    const category = (params.get('category') || '').toLowerCase();
+    const data = await fetchJsonFromCandidates([
+      `api/public/products.php?lang=${encodeURIComponent(lang)}`,
+      `${getProjectBasePath()}api/public/products.php?lang=${encodeURIComponent(lang)}`,
+      `/api/public/products.php?lang=${encodeURIComponent(lang)}`
+    ]);
+    if (!data.ok || !Array.isArray(data.items) || data.items.length === 0) {
+      grid.innerHTML = `
+        <div class="product-empty-state" style="grid-column:1/-1;padding:2rem;border:1px solid var(--color-border);border-radius:var(--radius-xl);text-align:center;color:var(--color-text-secondary);background:var(--color-bg);">
+          <i class="fas fa-box-open" style="margin-inline-end:.5rem;"></i> No products found in database.
+        </div>
+      `;
+      return;
+    }
+
+    const rows = data.items.filter(item => {
+      if (!category) return true;
+      return String(item.category_key || '').toLowerCase() === category;
+    });
+
+    renderDynamicFiltersFromProducts(rows);
+
+    if (rows.length === 0) {
+      grid.innerHTML = `
+        <div class="product-empty-state" style="grid-column:1/-1;padding:2rem;border:1px solid var(--color-border);border-radius:var(--radius-xl);text-align:center;color:var(--color-text-secondary);background:var(--color-bg);">
+          <i class="fas fa-filter" style="margin-inline-end:.5rem;"></i> No products match this category.
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = rows.map((item, idx) => {
+      const name = item.name || `${item.brand || ''} ${item.model || ''}`.trim() || 'Product';
+      const desc = item.short_description || `${item.storage_label || ''} ${item.color || ''}`.trim();
+      const price = Number(item.effective_price || item.price || 0);
+      const oldPrice = Number(item.old_price || 0);
+      const discount = oldPrice > price && oldPrice > 0 ? Math.round((1 - price / oldPrice) * 100) : 0;
+      const image = item.image_url || 'https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=400&h=400&fit=crop';
+      const id = item.sku || `p-${item.id}`;
+      const storageValue = String(item.storage_label || '').toLowerCase().replace(/gb|tb|\s/g, '');
+      const specs = [
+        desc || '',
+        item.ram_gb ? `${item.ram_gb}GB RAM` : '',
+        item.camera_mp ? `${item.camera_mp}MP` : '',
+        item.battery_mah ? `${item.battery_mah}mAh` : ''
+      ].filter(Boolean).join(' • ');
+      return `
+        <article class="product-card fade-in visible"
+          data-brand="${String(item.brand || '').toLowerCase()}"
+          data-condition="${String(item.condition_key || '').toLowerCase()}"
+          data-storage="${storageValue}"
+          data-color="${String(item.color || '').toLowerCase()}"
+          data-os="${String(item.product_type || '').toLowerCase().includes('iphone') || String(item.brand || '').toLowerCase() === 'apple' ? 'ios' : 'android'}"
+          data-ram="${String(item.ram_gb || '')}"
+          data-camera="${String(item.camera_mp || '')}"
+          data-battery="${String(item.battery_mah || '')}"
+          data-screen="${String(item.screen_size_in || '')}"
+          style="transition-delay:${Math.min(idx*0.03,0.25)}s;">
+          <button class="product-card__wishlist" data-wishlist-id="${id}" aria-label="Add to wishlist" onclick="toggleWishlist('${id}')">
+            <i class="far fa-heart"></i>
+          </button>
+          <a href="product-detail.html?${item.sku ? `sku=${encodeURIComponent(item.sku)}` : `id=${encodeURIComponent(item.id)}`}" class="product-card__image-wrapper">
+            <img class="product-card__image" src="${image}" alt="${name}" loading="lazy">
+            <div class="product-card__quick-view"><button class="btn btn--sm btn--primary">Quick view</button></div>
+          </a>
+          <div class="product-card__body">
+            <h3 class="product-card__title">${name}</h3>
+            <p class="product-card__specs">${specs}</p>
+            <div class="product-card__pricing">
+              <span class="product-card__price">€${price.toFixed(0)}</span>
+              ${oldPrice > 0 ? `<span class="product-card__price-original">€${oldPrice.toFixed(0)}</span>` : ''}
+              ${discount > 0 ? `<span class="product-card__savings">-${discount}%</span>` : ''}
+            </div>
+            <div class="product-card__meta">
+              <span class="product-card__warranty"><i class="fas fa-shield-halved"></i><span>2 jaar garantie</span></span>
+              <button class="product-card__add-cart" aria-label="Add to cart" onclick="addToCart({id:'${id}',product_id:${Number(item.id || 0)},sku:'${(item.sku || '').replace(/'/g, "\\'")}',name:'${name.replace(/'/g, "\\'")}',price:${price.toFixed(2)},image:'${image}',condition:'',storage:'${item.storage_label || ''}'})">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    if (countEl) countEl.textContent = rows.length;
+    window.__allProductsData = rows;
+    updateWishlistButtons();
+    applyFilters();
+    initProductsPageSearch();
+  } catch (err) {
+    console.warn('Dynamic products failed:', err);
+    grid.innerHTML = `
+      <div class="product-empty-state" style="grid-column:1/-1;padding:2rem;border:1px solid var(--color-error-light);border-radius:var(--radius-xl);text-align:center;color:var(--color-text-secondary);background:#fff;">
+        <i class="fas fa-triangle-exclamation" style="margin-inline-end:.5rem;color:var(--color-error);"></i>
+        Failed to load products from API.
+      </div>
+    `;
+  }
+}
+
+function renderDynamicFiltersFromProducts(rows) {
+  const groups = {
+    brand: { bodyId: 'filter-brand-body', map: new Map(), label: (v) => v || '-' },
+    condition: { bodyId: 'filter-condition-body', map: new Map(), label: (v) => formatConditionLabel(v) },
+    storage: { bodyId: 'filter-storage-body', map: new Map(), label: (v) => normalizeStorageLabel(v) },
+    color: { bodyId: 'filter-color-body', map: new Map(), label: (v) => capitalize(v) },
+    os: { bodyId: 'filter-os-body', map: new Map(), label: (v) => v === 'ios' ? 'iOS' : 'Android' }
+  };
+
+  rows.forEach((item) => {
+    const brand = String(item.brand || '').trim().toLowerCase();
+    const condition = String(item.condition_key || '').trim().toLowerCase();
+    const storage = String(item.storage_label || '').trim().toLowerCase();
+    const color = String(item.color || '').trim().toLowerCase();
+    const os = (String(item.product_type || '').toLowerCase().includes('iphone') || String(item.brand || '').toLowerCase() === 'apple') ? 'ios' : 'android';
+
+    if (brand) groups.brand.map.set(brand, (groups.brand.map.get(brand) || 0) + 1);
+    if (condition) groups.condition.map.set(condition, (groups.condition.map.get(condition) || 0) + 1);
+    if (storage) groups.storage.map.set(storage, (groups.storage.map.get(storage) || 0) + 1);
+    if (color) groups.color.map.set(color, (groups.color.map.get(color) || 0) + 1);
+    groups.os.map.set(os, (groups.os.map.get(os) || 0) + 1);
+  });
+
+  Object.keys(groups).forEach((groupKey) => {
+    const group = groups[groupKey];
+    const body = document.getElementById(group.bodyId);
+    if (!body) return;
+    const entries = Array.from(group.map.entries()).sort((a, b) => b[1] - a[1]);
+    if (entries.length === 0) {
+      body.innerHTML = `<div class="muted">No options</div>`;
+      return;
+    }
+    body.innerHTML = entries.map(([value, count]) => `
+      <label class="filter-option">
+        <input type="checkbox" data-filter-group="${groupKey}" value="${escapeHtmlAttr(value)}">
+        <span>${escapeHtml(group.label(value))}</span>
+        <span class="filter-option__count">(${count})</span>
+      </label>
+    `).join('');
+  });
+
+  initProductFilters();
+}
+
+function normalizeStorageLabel(raw) {
+  const v = String(raw || '').trim().toLowerCase();
+  if (!v) return '-';
+  if (v.includes('tb')) return v.toUpperCase().replace(/\s+/g, '');
+  const num = v.replace(/[^\d]/g, '');
+  return num ? `${num}GB` : v.toUpperCase();
+}
+
+function formatConditionLabel(v) {
+  const map = {
+    'like-new': 'Als nieuw',
+    'excellent': 'Uitstekend',
+    'good': 'Goed',
+    'fair': 'Redelijk'
+  };
+  return map[v] || capitalize(v.replace(/-/g, ' '));
+}
+
+function capitalize(v) {
+  const s = String(v || '').trim();
+  if (!s) return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function escapeHtmlAttr(s) {
+  return escapeHtml(s);
+}
+
+async function initDynamicProductViewSettings() {
+  const productsLayout = document.querySelector('.products-layout');
+  if (!productsLayout) return;
+  try {
+    const data = await fetchJsonFromCandidates([
+      'api/public/view_settings.php',
+      `${getProjectBasePath()}api/public/view_settings.php`,
+      '/api/public/view_settings.php'
+    ]);
+    if (!data.ok || !data.settings) return;
+    const settings = data.settings;
+
+    const filterSidebar = document.querySelector('.filters-sidebar');
+    const sortWrap = document.querySelector('.products-toolbar__sort');
+    const grid = document.getElementById('products-grid');
+    const viewButtons = document.querySelectorAll('.view-toggle__btn');
+
+    if (filterSidebar) {
+      filterSidebar.style.display = Number(settings.show_filters) === 1 ? '' : 'none';
+    }
+    if (sortWrap) {
+      sortWrap.style.display = Number(settings.show_sort) === 1 ? '' : 'none';
+    }
+    if (Number(settings.show_filters) !== 1 && productsLayout) {
+      productsLayout.style.gridTemplateColumns = '1fr';
+    }
+    if (grid && Number(settings.items_per_page) > 0) {
+      grid.dataset.pageSize = String(Number(settings.items_per_page));
+    }
+    if (settings.default_view_mode === 'list' && grid) {
+      grid.classList.add('products-grid--list');
+      viewButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === 'list');
+      });
+    }
+  } catch (err) {
+    console.warn('View settings failed:', err);
+  }
+}
+
+function getProjectBasePath() {
+  const path = window.location.pathname || '/';
+  const parts = path.split('/').filter(Boolean);
+  if (parts.length === 0) return '/';
+  return '/' + parts[0] + '/';
+}
+
+async function fetchJsonFromCandidates(urls) {
+  let lastError = null;
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, { credentials: 'same-origin' });
+      if (!res.ok) continue;
+      const text = await res.text();
+      try {
+        const json = JSON.parse(text);
+        return json;
+      } catch {
+        continue;
+      }
+    } catch (err) {
+      lastError = err;
+    }
+  }
+  throw lastError || new Error('No API candidate responded with valid JSON');
+}
+
 /* ── Initialize All ── */
 document.addEventListener('DOMContentLoaded', () => {
   applyTranslations();
@@ -1160,6 +1745,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initModals();
   initMegaMenu();
+  initDynamicSectionVisibility();
+  initDynamicHomeCategories();
+  initDynamicHomeFeaturedProducts();
+  initDynamicProductViewSettings();
+  initDynamicProductsPage();
   initSmoothScroll();
   initLazyLoading();
   initCounterAnimations();
@@ -1170,11 +1760,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initViewToggle();
   initFilterToggles();
   initProductGallery();
+  initDynamicProductDetailPage();
   initConditionSelector();
   initStorageSelector();
   initQuantitySelectors();
   initSellWizard();
   initTradeCalculator();
   initCartPage();
-  initCheckout();
+  initAccountPage();
 });

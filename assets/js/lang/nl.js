@@ -68,6 +68,7 @@ const LANG_NL = {
   "cat-smartwatches": "Smartwatches",
   "cat-headphones": "Koptelefoons",
   "cat-accessories": "Accessoires",
+  "category-cta": "Bekijk aanbod",
 
   // Producten
   "products-label": "Populair",
@@ -339,6 +340,12 @@ const LANG_NL = {
   // Winkelwagen
   "cart-title": "Winkelwagen",
   "cart-empty": "Je winkelwagen is leeg",
+  "cart-empty-hint": "Ontdek refurbished smartphones en meer — vaak met garantie.",
+  "cart-remove-line": "Verwijder regel",
+  "login-required-title": "Inloggen vereist",
+  "login-required-body": "Maak een account of log in om te bestellen.",
+  "checkout-success-title": "Bedankt!",
+  "checkout-success-body": "Je bestelling is geplaatst.",
   "cart-continue": "Verder winkelen",
   "cart-summary-title": "Overzicht",
   "cart-subtotal": "Subtotaal",

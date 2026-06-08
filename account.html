@@ -9,7 +9,59 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/ux.css">
   <script>if(!localStorage.getItem('gsmstunter-lang-v2')){localStorage.setItem('gsmstunter-lang','nl');localStorage.setItem('gsmstunter-lang-v2','1');}</script>
+  <style>
+    .account-shell{display:grid;grid-template-columns:280px 1fr;gap:20px}
+    .account-sidebar{background:#0b1220;border-radius:18px;padding:18px;box-shadow:0 14px 34px rgba(2,6,23,.25)}
+    .account-sidebar__profile{padding:16px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.02);margin-bottom:14px}
+    .account-sidebar__avatar{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#0d7c66,#10b981);display:grid;place-items:center;color:#fff;font-weight:800}
+    .account-sidebar__name{color:#fff;margin-top:10px}
+    .account-sidebar__email{color:rgba(255,255,255,.7);font-size:.85rem}
+    .account-sidebar__nav{display:flex;flex-direction:column;gap:8px}
+    .account-sidebar__link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:rgba(255,255,255,.78);text-decoration:none;border:1px solid transparent;cursor:pointer}
+    .account-sidebar__link.active,.account-sidebar__link:hover{background:rgba(13,124,102,.2);color:#fff;border-color:rgba(16,185,129,.35)}
+    .account-pane{display:none}
+    .account-pane.active{display:block}
+    .account-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(2,6,23,.06)}
+    .account-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0 18px}
+    .account-kpi{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px}
+    .account-kpi__label{font-size:.75rem;color:#6b7280;text-transform:uppercase;letter-spacing:.06em}
+    .account-kpi__value{font-size:1.4rem;font-weight:800;color:#111827;margin-top:6px}
+    .account-pane-title{font-size:1.15rem;font-weight:800;margin-bottom:12px}
+    /* ─── Wishlist pane ─── */
+    .wishlist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+    .wl-card{border:1px solid #e5e7eb;border-radius:16px;background:#fff;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .wl-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.1);transform:translateY(-2px)}
+    .wl-card__img{height:160px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .wl-card__img img{width:100%;height:100%;object-fit:cover}
+    .wl-card__img-placeholder{font-size:2.5rem;color:#d1d5db}
+    .wl-card__body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+    .wl-card__brand{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af}
+    .wl-card__name{font-size:.92rem;font-weight:700;color:#111827;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .wl-card__storage{font-size:.75rem;color:#6b7280}
+    .wl-card__price{font-size:1.15rem;font-weight:800;color:#0d7c66;margin-top:auto;padding-top:8px}
+    .wl-card__actions{display:flex;gap:8px;padding:0 14px 14px}
+    .wl-card__btn-cart{flex:1;background:#0d7c66;color:#fff;border:none;border-radius:10px;padding:9px 0;font-weight:700;font-size:.82rem;cursor:pointer;transition:background .2s}
+    .wl-card__btn-cart:hover{background:#0a6353}
+    .wl-card__btn-remove{background:#fee2e2;color:#dc2626;border:none;border-radius:10px;padding:9px 12px;cursor:pointer;font-size:.82rem;transition:background .2s}
+    .wl-card__btn-remove:hover{background:#fecaca}
+    .wl-card__badge{position:absolute;top:8px;right:8px;background:#10b981;color:#fff;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase}
+    /* ─── Orders table ─── */
+    .orders-table-wrapper{overflow-x:auto}
+    .orders-table{width:100%;border-collapse:collapse;font-size:.875rem}
+    .orders-table thead tr{background:#f9fafb}
+    .orders-table th{padding:10px 14px;text-align:left;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;border-bottom:2px solid #e5e7eb;white-space:nowrap}
+    .orders-table td{padding:12px 14px;border-bottom:1px solid #f3f4f6;color:#374151;vertical-align:middle}
+    .orders-table tr:last-child td{border-bottom:none}
+    .orders-table tr:hover td{background:#f9fafb}
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;text-transform:capitalize}
+    .badge--info{background:#dbeafe;color:#1d4ed8}
+    .badge--success{background:#dcfce7;color:#15803d}
+    .badge--warning{background:#fef3c7;color:#b45309}
+    .badge--error{background:#fee2e2;color:#b91c1c}
+    @media (max-width:980px){.account-shell{grid-template-columns:1fr}.account-kpi-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 
@@ -60,150 +112,61 @@
   </header>
 
   <main class="main" role="main">
-    <div class="container">
-      <div class="account-layout">
-        <!-- Left Sidebar -->
-        <aside class="account-sidebar" role="navigation" aria-label="Account navigatie">
-          <div class="account-sidebar__profile">
-            <div class="account-sidebar__avatar" aria-hidden="true">JD</div>
-            <h3 class="account-sidebar__name" data-i18n="account-name">Jan de Vries</h3>
-            <p class="account-sidebar__email" data-i18n="account-email">jan@email.nl</p>
+    <div class="container" style="padding:var(--space-10) 0;">
+      <div id="accountDashboardView" style="display:none;">
+        <div class="account-shell">
+          <aside class="account-sidebar" role="navigation" aria-label="Account navigatie">
+            <div class="account-sidebar__profile">
+              <div class="account-sidebar__avatar" id="accAvatar" aria-hidden="true">U</div>
+              <h3 class="account-sidebar__name" id="accName">User</h3>
+              <p class="account-sidebar__email" id="accEmail">-</p>
+            </div>
+            <nav class="account-sidebar__nav">
+              <a href="#" class="account-sidebar__link active" data-account-tab="dashboard"><i class="fas fa-gauge-high"></i><span>Dashboard</span></a>
+              <a href="#" class="account-sidebar__link" data-account-tab="orders"><i class="fas fa-box"></i><span>Orders</span></a>
+              <a href="#" class="account-sidebar__link" data-account-tab="wishlist"><i class="fas fa-heart"></i><span>Wishlist</span></a>
+              <a href="#" class="account-sidebar__link" id="accountLogoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+            </nav>
+          </aside>
+          <div class="account-content">
+            <section class="account-pane active" id="account-pane-dashboard">
+              <div class="account-card">
+                <h1 class="account-pane-title" id="accWelcome">Welkom terug!</h1>
+                <div class="account-kpi-grid">
+                  <article class="account-kpi"><p class="account-kpi__label">Totaal bestellingen</p><p class="account-kpi__value" id="accTotalOrders">0</p></article>
+                  <article class="account-kpi"><p class="account-kpi__label">Totaal besteed</p><p class="account-kpi__value" id="accTotalSpent">€0</p></article>
+                  <article class="account-kpi"><p class="account-kpi__label">Wishlist items</p><p class="account-kpi__value" id="accWishlistCount">0</p></article>
+                </div>
+              </div>
+            </section>
+
+            <section class="account-pane" id="account-pane-orders">
+              <div class="account-card">
+                <h2 class="account-pane-title">Bestellingen</h2>
+                <div class="orders-table-wrapper">
+                  <table class="orders-table" role="table">
+                    <thead><tr><th>Bestelling</th><th>Producten</th><th>Datum</th><th>Status</th><th>Totaal</th></tr></thead>
+                    <tbody id="accountOrdersBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="account-pane" id="account-pane-wishlist">
+              <div class="account-card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                  <h2 class="account-pane-title" style="margin-bottom:0">Wishlist <span id="wlCountBadge" style="font-size:.8rem;font-weight:600;color:#6b7280;margin-left:4px"></span></h2>
+                  <a href="products.html" style="font-size:.82rem;color:#0d7c66;font-weight:600;text-decoration:none"><i class="fas fa-plus-circle"></i> Meer winkelen</a>
+                </div>
+                <div class="wishlist-grid" id="accountWishlistBody">
+                  <div style="grid-column:1/-1;text-align:center;padding:32px;color:#9ca3af">
+                    <i class="fas fa-spinner fa-spin" style="font-size:1.6rem;margin-bottom:10px"></i>
+                    <p>Laden…</p>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
-          <nav class="account-sidebar__nav">
-            <a href="account.html" class="account-sidebar__link active"><i class="fas fa-gauge-high"></i><span data-i18n="account-dashboard">Dashboard</span></a>
-            <a href="account.html#orders" class="account-sidebar__link"><i class="fas fa-box"></i><span data-i18n="nav-orders">Bestellingen</span></a>
-            <a href="account.html#wishlist" class="account-sidebar__link"><i class="fas fa-heart"></i><span data-i18n="account-wishlist">Verlanglijstje</span></a>
-            <a href="account.html#addresses" class="account-sidebar__link"><i class="fas fa-location-dot"></i><span data-i18n="account-addresses">Adressen</span></a>
-            <a href="account.html#payment" class="account-sidebar__link"><i class="fas fa-credit-card"></i><span data-i18n="account-payment-methods">Betaalmethodes</span></a>
-            <a href="account.html#sell-history" class="account-sidebar__link"><i class="fas fa-hand-holding-dollar"></i><span data-i18n="account-sell-history">Verkoop geschiedenis</span></a>
-            <a href="account.html#trade-history" class="account-sidebar__link"><i class="fas fa-arrows-rotate"></i><span data-i18n="account-trade-history">Inruil geschiedenis</span></a>
-            <a href="account.html#settings" class="account-sidebar__link"><i class="fas fa-gear"></i><span data-i18n="account-settings">Instellingen</span></a>
-            <a href="index.html" class="account-sidebar__link"><i class="fas fa-sign-out-alt"></i><span data-i18n="account-logout">Uitloggen</span></a>
-          </nav>
-        </aside>
-
-        <!-- Right Content -->
-        <div class="account-content">
-          <section class="account-welcome" aria-labelledby="welcome-heading">
-            <h1 id="welcome-heading" class="account-welcome__title" data-i18n="account-welcome">Welkom terug, Jan!</h1>
-          </section>
-
-          <!-- Dashboard Stats -->
-          <section class="dashboard-stats" aria-labelledby="stats-heading">
-            <h2 id="stats-heading" class="visually-hidden" data-i18n="account-stats-heading">Overzicht</h2>
-            <div class="dashboard-grid">
-              <article class="dashboard-card">
-                <div class="dashboard-card__icon"><i class="fas fa-box"></i></div>
-                <p class="dashboard-card__number">12</p>
-                <p class="dashboard-card__label" data-i18n="account-total-orders">Totaal bestellingen</p>
-              </article>
-              <article class="dashboard-card">
-                <div class="dashboard-card__icon"><i class="fas fa-arrows-rotate"></i></div>
-                <p class="dashboard-card__number">2</p>
-                <p class="dashboard-card__label" data-i18n="account-active-trades">Actieve inruilen</p>
-              </article>
-              <article class="dashboard-card">
-                <div class="dashboard-card__icon"><i class="fas fa-heart"></i></div>
-                <p class="dashboard-card__number">5</p>
-                <p class="dashboard-card__label" data-i18n="account-wishlist-items">Verlanglijst items</p>
-              </article>
-            </div>
-          </section>
-
-          <!-- Recent Orders -->
-          <section id="orders" class="account-section" aria-labelledby="orders-heading">
-            <h2 id="orders-heading" class="account-section__title" data-i18n="account-recent-orders">Recente Bestellingen</h2>
-            <div class="account-section__content">
-              <div class="orders-table-wrapper">
-                <table class="orders-table" role="table">
-                  <thead>
-                    <tr>
-                      <th scope="col" data-i18n="account-order-id">Bestelling</th>
-                      <th scope="col" data-i18n="account-order-product">Product</th>
-                      <th scope="col" data-i18n="account-order-date">Datum</th>
-                      <th scope="col" data-i18n="account-order-status">Status</th>
-                      <th scope="col" data-i18n="account-order-total">Totaal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><a href="account.html#order-1234">#HOL-2024-1234</a></td>
-                      <td>iPhone 15 Pro 128GB</td>
-                      <td>12 feb 2026</td>
-                      <td><span class="badge badge--success" data-i18n="order-status-delivered">Delivered</span></td>
-                      <td>€899.00</td>
-                    </tr>
-                    <tr>
-                      <td><a href="account.html#order-1198">#HOL-2024-1198</a></td>
-                      <td>MacBook Pro M3</td>
-                      <td>5 feb 2026</td>
-                      <td><span class="badge badge--info" data-i18n="order-status-shipped">Shipped</span></td>
-                      <td>€1,549.00</td>
-                    </tr>
-                    <tr>
-                      <td><a href="account.html#order-1156">#HOL-2024-1156</a></td>
-                      <td>AirPods Pro</td>
-                      <td>28 jan 2026</td>
-                      <td><span class="badge badge--warning" data-i18n="order-status-processing">Processing</span></td>
-                      <td>€189.00</td>
-                    </tr>
-                    <tr>
-                      <td><a href="account.html#order-1089">#HOL-2024-1089</a></td>
-                      <td>iPad Pro 12.9"</td>
-                      <td>15 jan 2026</td>
-                      <td><span class="badge badge--success" data-i18n="order-status-delivered">Delivered</span></td>
-                      <td>€849.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
-
-          <!-- Wishlist -->
-          <section id="wishlist" class="account-section" aria-labelledby="wishlist-heading">
-            <h2 id="wishlist-heading" class="account-section__title" data-i18n="account-wishlist">Verlanglijstje</h2>
-            <div class="account-section__content">
-              <div class="products-grid products-grid--compact">
-                <article class="product-card product-card--compact">
-                  <button class="product-card__wishlist product-card__wishlist--active" aria-label="Remove from wishlist"><i class="fas fa-heart"></i></button>
-                  <a href="product-detail.html" class="product-card__image-wrapper">
-                    <img class="product-card__image" src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300&h=300&fit=crop" alt="Samsung Galaxy S24 Ultra" loading="lazy">
-                  </a>
-                  <div class="product-card__body">
-                    <h3 class="product-card__title">Samsung Galaxy S24 Ultra</h3>
-                    <div class="product-card__pricing">
-                      <span class="product-card__price">€749</span>
-                    </div>
-                  </div>
-                </article>
-                <article class="product-card product-card--compact">
-                  <button class="product-card__wishlist product-card__wishlist--active" aria-label="Remove from wishlist"><i class="fas fa-heart"></i></button>
-                  <a href="product-detail.html" class="product-card__image-wrapper">
-                    <img class="product-card__image" src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=300&h=300&fit=crop" alt="Apple Watch Series 9" loading="lazy">
-                  </a>
-                  <div class="product-card__body">
-                    <h3 class="product-card__title">Apple Watch Series 9</h3>
-                    <div class="product-card__pricing">
-                      <span class="product-card__price">€349</span>
-                    </div>
-                  </div>
-                </article>
-                <article class="product-card product-card--compact">
-                  <button class="product-card__wishlist product-card__wishlist--active" aria-label="Remove from wishlist"><i class="fas fa-heart"></i></button>
-                  <a href="product-detail.html" class="product-card__image-wrapper">
-                    <img class="product-card__image" src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=300&h=300&fit=crop" alt="Google Pixel 8 Pro" loading="lazy">
-                  </a>
-                  <div class="product-card__body">
-                    <h3 class="product-card__title">Google Pixel 8 Pro</h3>
-                    <div class="product-card__pricing">
-                      <span class="product-card__price">€599</span>
-                    </div>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </section>
         </div>
       </div>
     </div>
@@ -232,6 +195,10 @@
   <script src="assets/js/lang/nl.js"></script>
   <script src="assets/js/lang/de.js"></script>
   <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/cart.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>

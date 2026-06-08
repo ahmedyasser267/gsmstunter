@@ -417,7 +417,7 @@
     </div>
 
     <!-- Step 1: Model Selection (Hero / Carousel) -->
-    <section class="rb-hero" id="step_1">
+    <section class="rb-hero" id="step_1" data-section-key="sell.flow">
       <h1 class="rb-hero__title">Welke iPhone verkoop je?</h1>
       
       <div class="rb-carousel-container" id="carouselContainer">
@@ -896,7 +896,7 @@
           <div class="rb-result-price" id="priceDisplay">€ 420,-</div>
           <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.6;">De daadwerkelijke prijs wordt bepaald na ontvangst en controle van het toestel door onze experts. De verzending is altijd 100% gratis en verzekerd.</p>
           
-          <button class="rb-btn rb-btn-primary" style="padding: 1rem 3rem; font-size: 1.15rem; width: 100%;">Nu gratis opsturen</button>
+          <button class="rb-btn rb-btn-primary" id="submitQuoteBtn" style="padding: 1rem 3rem; font-size: 1.15rem; width: 100%;">Nu gratis opsturen</button>
           <div style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #16a34a; font-weight: 600; font-size: 0.95rem;">
             <i class="fas fa-check-circle"></i> Direct uitbetaald in 48 uur na keuring
           </div>
@@ -935,6 +935,8 @@
     const totalSteps = 8; // 1 Carousel + 6 Question Steps + 1 Result
     let currentStep = 1;
     let selectedModel = "";
+    let selectedDeviceKey = "";
+    let lastQuotePayload = null;
 
     // --- Progress Bar Initialization ---
     const progressTrack = document.querySelector('.rb-progress__track');
@@ -1010,6 +1012,9 @@
       if (stepNumber < 1 || stepNumber > totalSteps) return;
       currentStep = stepNumber;
       updateProgressUI();
+      if (currentStep === 8) {
+        calculateAndRenderOffer();
+      }
     }
 
     // --- Validation Logic ---
@@ -1100,6 +1105,7 @@
         e.stopPropagation();
         
         selectedModel = chip.innerText;
+        selectedDeviceKey = mapModelToDeviceKey(selectedModel);
         
         // Find the image URL of the active slide
         const activeImg = document.querySelector('.rb-slide.active .rb-slide__img');
@@ -1129,6 +1135,101 @@
 
     // Initialize
     setTimeout(updateCarousel, 50);
+
+    function mapModelToDeviceKey(model) {
+      const m = String(model || '').toLowerCase().trim();
+      if (m === '16 pro') return 'iphone_16';
+      if (m === '16 pro max') return 'iphone_16';
+      if (m === '16 plus') return 'iphone_16';
+      if (m === '16') return 'iphone_16';
+      if (m === '15 pro') return 'iphone_15_pro';
+      if (m === '15 pro max') return 'iphone_15_pro';
+      if (m === '15 plus') return 'iphone_15';
+      if (m === '15') return 'iphone_15';
+      if (m.indexOf('14') === 0 && m.indexOf('pro') > -1) return 'iphone_14_pro';
+      if (m.indexOf('14') === 0) return 'iphone_14';
+      if (m.indexOf('13') === 0 && m.indexOf('pro') > -1) return 'iphone_13_pro';
+      if (m.indexOf('13') === 0) return 'iphone_13';
+      if (m.indexOf('12') === 0) return 'iphone_12';
+      if (m.indexOf('11') === 0) return 'iphone_11';
+      return 'iphone_15';
+    }
+
+    function collectPayload() {
+      const screen = document.querySelector('input[name="screen"]:checked')?.value || 'perfect';
+      const functional = document.querySelector('input[name="function"]:checked')?.value || 'yes';
+      const cosmetic = document.querySelector('input[name="cosmetic"]:checked')?.value || 'none';
+      const battery = document.querySelector('input[name="battery"]:checked')?.value || 'normal';
+      const water = document.querySelector('input[name="water"]:checked')?.value || 'no';
+
+      let condition = 'als_nieuw';
+      if (screen === 'minor' || cosmetic === 'light') condition = 'zeer_goed';
+      if (screen === 'cracked' || cosmetic === 'heavy' || functional === 'minor') condition = 'goed';
+      if (functional === 'no' || water === 'yes') condition = 'beschadigd';
+
+      const defects = [];
+      if (battery === 'weak') defects.push('battery_weak');
+      if (screen === 'cracked') defects.push('screen_broken');
+      if (functional === 'minor') defects.push('camera_not_working');
+      if (functional === 'no') defects.push('charging_issue');
+
+      const cosmetics = [];
+      if (cosmetic === 'heavy') cosmetics.push('heavy_scratches', 'frame_damage');
+      if (cosmetic === 'light') cosmetics.push('heavy_scratches');
+
+      const risks = [];
+      if (water === 'yes') risks.push('water_damage_major');
+      if (functional === 'no') risks.push('no_power');
+
+      return {
+        device_key: selectedDeviceKey || 'iphone_15',
+        storage: '128',
+        condition_key: condition,
+        defects,
+        cosmetics,
+        risks,
+        bonuses: []
+      };
+    }
+
+    async function calculateAndRenderOffer() {
+      const payload = collectPayload();
+      lastQuotePayload = payload;
+      const priceDisplay = document.getElementById('priceDisplay');
+      priceDisplay.textContent = '...';
+      try {
+        const res = await fetch('api/public/quote.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || 'Failed to calculate');
+        priceDisplay.textContent = `€ ${Math.round(data.breakdown.final_offer)},-`;
+      } catch (err) {
+        priceDisplay.textContent = '€ 0,-';
+        console.error(err);
+      }
+    }
+
+    document.getElementById('submitQuoteBtn').addEventListener('click', async () => {
+      const payload = lastQuotePayload || collectPayload();
+      const email = prompt('Voer je e-mail in voor de offerte:') || '';
+      if (!email) return;
+      payload.customer_email = email;
+      try {
+        const res = await fetch('api/public/submit.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || 'Submit failed');
+        alert('Offerte opgeslagen: ' + data.quote_reference);
+      } catch (e) {
+        alert('Opslaan mislukt');
+      }
+    });
 
   </script>
 </body>

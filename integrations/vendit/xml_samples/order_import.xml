@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OrderImport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ImportInfo>
+    <ExportDateTime>2026-06-07T14:30:00+02:00</ExportDateTime>
+  </ImportInfo>
+  <Orders>
+    <Order>
+      <OrderNumber>ORD-20260607-A1B2C3</OrderNumber>
+      <StoreNumber>GSMSTUNTER-01</StoreNumber>
+      <OrderType>Order</OrderType>
+      <OrderDate>2026-06-07 14:28:15</OrderDate>
+      <DeliveryDate>2026-06-10T08:00:00+02:00</DeliveryDate>
+      <TotalOrderAmount>1284.9500</TotalOrderAmount>
+      <PaymentMethod>iDEAL</PaymentMethod>
+      <PaymentCosts>0.0000</PaymentCosts>
+      <Paid>1284.9500</Paid>
+      <ShippingMethod>PostNL Standaard</ShippingMethod>
+      <ShippingCosts>0.0000</ShippingCosts>
+      <InvoiceDiscountName></InvoiceDiscountName>
+      <InvoiceDiscountAmount>0.0000</InvoiceDiscountAmount>
+      <Title>mevrouw</Title>
+      <FirstName>Sophie</FirstName>
+      <MiddleName></MiddleName>
+      <LastName>de Vries</LastName>
+      <EmailAddress>sophie.devries@example.nl</EmailAddress>
+      <Phone>0209876543</Phone>
+      <PhoneMobile>0612987654</PhoneMobile>
+      <InvoiceAddress>Kalverstraat</InvoiceAddress>
+      <InvoiceHousenumber>42</InvoiceHousenumber>
+      <InvoiceHousenumberExtension>A</InvoiceHousenumberExtension>
+      <InvoiceZipcode>1012 NX</InvoiceZipcode>
+      <InvoiceCity>Amsterdam</InvoiceCity>
+      <InvoiceCountry>Nederland</InvoiceCountry>
+      <InvoiceCountryCode>NL</InvoiceCountryCode>
+      <OptIn>true</OptIn>
+      <OptInDate>2026-06-07T14:28:15+02:00</OptInDate>
+      <DeliveryTitle>mevrouw</DeliveryTitle>
+      <DeliveryFirstName>Sophie</DeliveryFirstName>
+      <DeliveryLastName>de Vries</DeliveryLastName>
+      <DeliveryAddress>Kalverstraat</DeliveryAddress>
+      <DeliveryHousenumber>42</DeliveryHousenumber>
+      <DeliveryHousenumberExtension>A</DeliveryHousenumberExtension>
+      <DeliveryZipcode>1012 NX</DeliveryZipcode>
+      <DeliveryCity>Amsterdam</DeliveryCity>
+      <DeliveryCountry>Nederland</DeliveryCountry>
+      <DeliveryCountryCode>NL</DeliveryCountryCode>
+      <OrderRemark>Bitte vor 17:00 Uhr liefern</OrderRemark>
+      <OrderMessage>Website checkout - smartphone + accessory bundle</OrderMessage>
+      <Gift>false</Gift>
+      <InvoiceExVat>false</InvoiceExVat>
+      <DefaultAddress>true</DefaultAddress>
+      <CustomerNumber>WEB-1042</CustomerNumber>
+      <OfficeId>1</OfficeId>
+      <OrderOrigin>Website</OrderOrigin>
+      <Products>
+        <Product>
+          <EcommerceProductGuid>a1b2c3d4-e5f6-7890-abcd-ef1234567890</EcommerceProductGuid>
+          <ProductId>IPH15PRO-256-BLK</ProductId>
+          <ProductSalesPriceEx>825.6200</ProductSalesPriceEx>
+          <ProductSalesPriceInc>999.0000</ProductSalesPriceInc>
+          <PrivateCopyLevy>0.0000</PrivateCopyLevy>
+          <Quantity>1.0000</Quantity>
+          <Remarks>Refurbished - excellent condition</Remarks>
+          <OfficeId>1</OfficeId>
+          <ReserveStock>true</ReserveStock>
+          <Description>Apple iPhone 15 Pro 256GB Black</Description>
+          <IsDropshipment>false</IsDropshipment>
+        </Product>
+        <Product>
+          <EcommerceProductGuid>e5f6a7b8-c9d0-1234-ef01-345678901234</EcommerceProductGuid>
+          <ProductId>USBC-30W-WHT</ProductId>
+          <ProductSalesPriceEx>23.9700</ProductSalesPriceEx>
+          <ProductSalesPriceInc>29.0000</ProductSalesPriceInc>
+          <PrivateCopyLevy>0.0000</PrivateCopyLevy>
+          <Quantity>2.0000</Quantity>
+          <OfficeId>1</OfficeId>
+          <ReserveStock>true</ReserveStock>
+          <Description>Anker USB-C Charger 30W White</Description>
+        </Product>
+      </Products>
+    </Order>
+    <Order>
+      <OrderNumber>ORD-20260607-D4E5F6</OrderNumber>
+      <StoreNumber>GSMSTUNTER-01</StoreNumber>
+      <OrderType>Order</OrderType>
+      <OrderDate>2026-06-07 15:45:00</OrderDate>
+      <TotalOrderAmount>1510.7900</TotalOrderAmount>
+      <PaymentMethod>Creditcard</PaymentMethod>
+      <PaymentCosts>2.5000</PaymentCosts>
+      <Paid>1510.7900</Paid>
+      <ShippingMethod>PostNL Express</ShippingMethod>
+      <ShippingCosts>9.9500</ShippingCosts>
+      <InvoiceDiscountName>Zomerkorting</InvoiceDiscountName>
+      <InvoiceDiscountAmount>50.0000</InvoiceDiscountAmount>
+      <Title>de heer</Title>
+      <FirstName>Peter</FirstName>
+      <LastName>Jansen</LastName>
+      <EmailAddress>peter@gsmstunter.nl</EmailAddress>
+      <Phone>0104455667</Phone>
+      <InvoiceAddress>Hoofdweg</InvoiceAddress>
+      <InvoiceHousenumber>100</InvoiceHousenumber>
+      <InvoiceZipcode>3011 AA</InvoiceZipcode>
+      <InvoiceCity>Rotterdam</InvoiceCity>
+      <InvoiceCountry>Nederland</InvoiceCountry>
+      <InvoiceCountryCode>NL</InvoiceCountryCode>
+      <CompanyName>GSM Stunter BV</CompanyName>
+      <VatNumber>NL123456789B01</VatNumber>
+      <OptIn>false</OptIn>
+      <DeliveryCompanyName>GSM Stunter BV</DeliveryCompanyName>
+      <DeliveryFirstName>Peter</DeliveryFirstName>
+      <DeliveryLastName>Jansen</DeliveryLastName>
+      <DeliveryAddress>Hoofdweg</DeliveryAddress>
+      <DeliveryHousenumber>100</DeliveryHousenumber>
+      <DeliveryZipcode>3011 AA</DeliveryZipcode>
+      <DeliveryCity>Rotterdam</DeliveryCity>
+      <DeliveryCountry>Nederland</DeliveryCountry>
+      <DeliveryCountryCode>NL</DeliveryCountryCode>
+      <Gift>true</Gift>
+      <GiftMessage>Gefeliciteerd met je nieuwe laptop!</GiftMessage>
+      <InvoiceExVat>false</InvoiceExVat>
+      <CustomerNumber>WEB-1088</CustomerNumber>
+      <CustomerGroup>Dealers</CustomerGroup>
+      <OfficeId>1</OfficeId>
+      <OrderPriorityId>2</OrderPriorityId>
+      <OrderOrigin>Website</OrderOrigin>
+      <Products>
+        <Product>
+          <EcommerceProductGuid>c3d4e5f6-a7b8-9012-cdef-123456789012</EcommerceProductGuid>
+          <ProductId>MBA13-M3-512-SL</ProductId>
+          <ProductSalesPriceEx>1032.2300</ProductSalesPriceEx>
+          <ProductSalesPriceInc>1249.0000</ProductSalesPriceInc>
+          <PrivateCopyLevy>0.0000</PrivateCopyLevy>
+          <Quantity>1.0000</Quantity>
+          <OfficeId>1</OfficeId>
+          <ReserveStock>true</ReserveStock>
+          <Description>Apple MacBook Air 13 M3 512GB Silver</Description>
+        </Product>
+        <Product>
+          <EcommerceProductGuid>d4e5f6a7-b8c9-0123-def0-234567890123</EcommerceProductGuid>
+          <ProductId>WH1000XM5-BLK</ProductId>
+          <ProductSalesPriceEx>230.5800</ProductSalesPriceEx>
+          <ProductSalesPriceInc>279.0000</ProductSalesPriceInc>
+          <PrivateCopyLevy>0.0000</PrivateCopyLevy>
+          <Quantity>1.0000</Quantity>
+          <OfficeId>1</OfficeId>
+          <Description>Sony WH-1000XM5 Black</Description>
+        </Product>
+      </Products>
+    </Order>
+    <Order>
+      <OrderNumber>ORD-20260607-G7H8I9</OrderNumber>
+      <StoreNumber>GSMSTUNTER-01</StoreNumber>
+      <OrderType>Reservering</OrderType>
+      <OrderDate>2026-06-07 16:10:22</OrderDate>
+      <TotalOrderAmount>879.0000</TotalOrderAmount>
+      <PaymentMethod>iDEAL</PaymentMethod>
+      <PaymentCosts>0.0000</PaymentCosts>
+      <Paid>0.0000</Paid>
+      <ShippingMethod>PostNL Standaard</ShippingMethod>
+      <ShippingCosts>0.0000</ShippingCosts>
+      <InvoiceDiscountAmount>0.0000</InvoiceDiscountAmount>
+      <FirstName>Tom</FirstName>
+      <LastName>Bakker</LastName>
+      <EmailAddress>tom.bakker@example.nl</EmailAddress>
+      <Phone>0201234567</Phone>
+      <PhoneMobile>0612345678</PhoneMobile>
+      <InvoiceAddress>Damrak</InvoiceAddress>
+      <InvoiceHousenumber>88</InvoiceHousenumber>
+      <InvoiceZipcode>1012 LG</InvoiceZipcode>
+      <InvoiceCity>Amsterdam</InvoiceCity>
+      <InvoiceCountry>Nederland</InvoiceCountry>
+      <InvoiceCountryCode>NL</InvoiceCountryCode>
+      <DeliveryFirstName>Tom</DeliveryFirstName>
+      <DeliveryLastName>Bakker</DeliveryLastName>
+      <DeliveryAddress>Damrak</DeliveryAddress>
+      <DeliveryHousenumber>88</DeliveryHousenumber>
+      <DeliveryZipcode>1012 LG</DeliveryZipcode>
+      <DeliveryCity>Amsterdam</DeliveryCity>
+      <DeliveryCountry>Nederland</DeliveryCountry>
+      <DeliveryCountryCode>NL</DeliveryCountryCode>
+      <OrderMessage>Reservation - pickup in store Rotterdam</OrderMessage>
+      <CustomerNumber>WEB-2001</CustomerNumber>
+      <OfficeId>1</OfficeId>
+      <OrderOrigin>Website</OrderOrigin>
+      <Products>
+        <Product>
+          <EcommerceProductGuid>b2c3d4e5-f6a7-8901-bcde-f12345678901</EcommerceProductGuid>
+          <ProductId>S24U-256-TI</ProductId>
+          <ProductSalesPriceEx>726.4500</ProductSalesPriceEx>
+          <ProductSalesPriceInc>879.0000</ProductSalesPriceInc>
+          <PrivateCopyLevy>0.0000</PrivateCopyLevy>
+          <Quantity>1.0000</Quantity>
+          <OfficeId>1</OfficeId>
+          <ReserveStock>true</ReserveStock>
+          <Description>Samsung Galaxy S24 Ultra 256GB Titanium Gray</Description>
+        </Product>
+      </Products>
+    </Order>
+  </Orders>
+</OrderImport>

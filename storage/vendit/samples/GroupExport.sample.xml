@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GroupExport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ExportInfo>
+    <ExportDateTime>2026-06-07T07:30:00+02:00</ExportDateTime>
+  </ExportInfo>
+  <Groups>
+    <Group>
+      <GroupGuid>ed9d7409-f6d3-4d62-b875-3d05bbddc478</GroupGuid>
+      <GroupName>Elektronica</GroupName>
+      <GroupDescription>Refurbished smartphones, laptops en accessoires</GroupDescription>
+      <GroupMetaTitle>Elektronica | GSMStunter</GroupMetaTitle>
+      <GroupMetaKeywords>smartphone,laptop,tablet,refurbished</GroupMetaKeywords>
+      <GroupMetaDescription>Bekijk ons assortiment refurbished elektronica</GroupMetaDescription>
+      <GroupUrlName>elektronica</GroupUrlName>
+      <ItemOrder>0</ItemOrder>
+      <Image>elektronica.jpg</Image>
+      <SubGroups>
+        <Group>
+          <GroupGuid>f1a2b3c4-d5e6-7890-abcd-111111111111</GroupGuid>
+          <GroupName>Smartphones</GroupName>
+          <GroupDescription>iPhone, Samsung en meer</GroupDescription>
+          <GroupMetaTitle>Smartphones</GroupMetaTitle>
+          <GroupMetaKeywords>iphone,samsung,smartphone</GroupMetaKeywords>
+          <GroupMetaDescription>Refurbished smartphones</GroupMetaDescription>
+          <GroupUrlName>smartphones</GroupUrlName>
+          <ItemOrder>0</ItemOrder>
+          <Image>smartphones.jpg</Image>
+          <SubGroups />
+        </Group>
+        <Group>
+          <GroupGuid>f2a3b4c5-d6e7-8901-bcde-222222222222</GroupGuid>
+          <GroupName>Laptops</GroupName>
+          <GroupDescription>MacBook, Dell XPS en meer</GroupDescription>
+          <GroupMetaTitle>Laptops</GroupMetaTitle>
+          <GroupMetaKeywords>macbook,dell,laptop</GroupMetaKeywords>
+          <GroupMetaDescription>Refurbished laptops</GroupMetaDescription>
+          <GroupUrlName>laptops</GroupUrlName>
+          <ItemOrder>1</ItemOrder>
+          <Image>laptops.jpg</Image>
+          <SubGroups />
+        </Group>
+        <Group>
+          <GroupGuid>f3a4b5c6-d7e8-9012-cdef-333333333333</GroupGuid>
+          <GroupName>Tablets</GroupName>
+          <GroupDescription>iPad en Android tablets</GroupDescription>
+          <GroupMetaTitle>Tablets</GroupMetaTitle>
+          <GroupMetaKeywords>ipad,tablet</GroupMetaKeywords>
+          <GroupMetaDescription>Refurbished tablets</GroupMetaDescription>
+          <GroupUrlName>tablets</GroupUrlName>
+          <ItemOrder>2</ItemOrder>
+          <Image>tablets.jpg</Image>
+          <SubGroups />
+        </Group>
+        <Group>
+          <GroupGuid>f4a5b6c7-d8e9-0123-def0-444444444444</GroupGuid>
+          <GroupName>Accessoires</GroupName>
+          <GroupDescription>Opladers, hoesjes en meer</GroupDescription>
+          <GroupMetaTitle>Accessoires</GroupMetaTitle>
+          <GroupMetaKeywords>accessoires,oplader,hoesje</GroupMetaKeywords>
+          <GroupMetaDescription>Accessoires voor je devices</GroupMetaDescription>
+          <GroupUrlName>accessoires</GroupUrlName>
+          <ItemOrder>3</ItemOrder>
+          <Image>accessoires.jpg</Image>
+          <SubGroups />
+        </Group>
+      </SubGroups>
+    </Group>
+    <Group>
+      <GroupGuid>a5b6c7d8-e9f0-1234-5678-555555555555</GroupGuid>
+      <GroupName>Wearables</GroupName>
+      <GroupDescription>Smartwatches en headphones</GroupDescription>
+      <GroupMetaTitle>Wearables</GroupMetaTitle>
+      <GroupMetaKeywords>smartwatch,koptelefoon</GroupMetaKeywords>
+      <GroupMetaDescription>Wearables en audio</GroupMetaDescription>
+      <GroupUrlName>wearables</GroupUrlName>
+      <ItemOrder>1</ItemOrder>
+      <Image>wearables.jpg</Image>
+      <SubGroups>
+        <Group>
+          <GroupGuid>a6b7c8d9-e0f1-2345-6789-666666666666</GroupGuid>
+          <GroupName>Smartwatches</GroupName>
+          <GroupDescription>Galaxy Watch, Apple Watch</GroupDescription>
+          <GroupMetaTitle>Smartwatches</GroupMetaTitle>
+          <GroupUrlName>smartwatches</GroupUrlName>
+          <ItemOrder>0</ItemOrder>
+          <SubGroups />
+        </Group>
+        <Group>
+          <GroupGuid>a7b8c9d0-e1f2-3456-7890-777777777777</GroupGuid>
+          <GroupName>Koptelefoons</GroupName>
+          <GroupDescription>Sony, Apple, Samsung</GroupDescription>
+          <GroupMetaTitle>Koptelefoons</GroupMetaTitle>
+          <GroupUrlName>koptelefoons</GroupUrlName>
+          <ItemOrder>1</ItemOrder>
+          <SubGroups />
+        </Group>
+      </SubGroups>
+    </Group>
+  </Groups>
+  <SpecGroups>
+    <SpecGroup>
+      <GroupName>Product kenmerken</GroupName>
+      <Specs>
+        <Spec>
+          <Name>Merk</Name>
+          <DataType>2</DataType>
+          <ItemOrder>0</ItemOrder>
+          <EcommerceSpecGroupGuid>spec-001-aaaa-bbbb-cccc-000000000001</EcommerceSpecGroupGuid>
+        </Spec>
+        <Spec>
+          <Name>Opslag</Name>
+          <DataType>2</DataType>
+          <ItemOrder>1</ItemOrder>
+          <EcommerceSpecGroupGuid>spec-002-aaaa-bbbb-cccc-000000000002</EcommerceSpecGroupGuid>
+        </Spec>
+        <Spec>
+          <Name>Kleur</Name>
+          <DataType>2</DataType>
+          <ItemOrder>2</ItemOrder>
+          <EcommerceSpecGroupGuid>spec-003-aaaa-bbbb-cccc-000000000003</EcommerceSpecGroupGuid>
+        </Spec>
+        <Spec>
+          <Name>Conditie</Name>
+          <DataType>2</DataType>
+          <ItemOrder>3</ItemOrder>
+          <EcommerceSpecGroupGuid>spec-004-aaaa-bbbb-cccc-000000000004</EcommerceSpecGroupGuid>
+        </Spec>
+        <Spec>
+          <Name>Prijs</Name>
+          <DataType>8</DataType>
+          <ItemOrder>4</ItemOrder>
+          <EcommerceSpecGroupGuid>spec-005-aaaa-bbbb-cccc-000000000005</EcommerceSpecGroupGuid>
+        </Spec>
+        <Spec>
+          <Name>Op voorraad</Name>
+          <DataType>7</DataType>
+          <ItemOrder>5</ItemOrder>
+          <EcommerceSpecGroupGuid>spec-006-aaaa-bbbb-cccc-000000000006</EcommerceSpecGroupGuid>
+        </Spec>
+      </Specs>
+    </SpecGroup>
+    <SpecGroup>
+      <GroupName>Technische specs</GroupName>
+      <Specs>
+        <Spec>
+          <Name>Schermgrootte (inch)</Name>
+          <DataType>4</DataType>
+          <ItemOrder>0</ItemOrder>
+        </Spec>
+        <Spec>
+          <Name>RAM (GB)</Name>
+          <DataType>4</DataType>
+          <ItemOrder>1</ItemOrder>
+        </Spec>
+        <Spec>
+          <Name>Batterij (mAh)</Name>
+          <DataType>4</DataType>
+          <ItemOrder>2</ItemOrder>
+        </Spec>
+        <Spec>
+          <Name>Modeljaar / Seizoen</Name>
+          <DataType>0</DataType>
+          <ItemOrder>3</ItemOrder>
+        </Spec>
+      </Specs>
+    </SpecGroup>
+  </SpecGroups>
+</GroupExport>

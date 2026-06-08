@@ -9,7 +9,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/ux.css">
   <script>if(!localStorage.getItem('gsmstunter-lang-v2')){localStorage.setItem('gsmstunter-lang','nl');localStorage.setItem('gsmstunter-lang-v2','1');}</script>
+  <style>
+    .cart-hero{background:linear-gradient(135deg,#0f172a,#1f2937);color:#fff;border-radius:18px;padding:22px;margin:14px 0 18px}
+    .cart-hero h1{margin:0;font-size:1.5rem}
+    .cart-hero p{margin:8px 0 0;color:rgba(255,255,255,.75)}
+    .cart-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+    .cart-items{display:flex;flex-direction:column;gap:12px}
+    .cart-item{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:12px;display:grid;grid-template-columns:84px 1fr auto;gap:14px;align-items:center;box-shadow:0 8px 18px rgba(2,6,23,.04)}
+    .cart-item__image img{width:84px;height:84px;object-fit:cover;border-radius:10px}
+    .cart-item__price{font-size:1rem;font-weight:800;color:#111827}
+    .cart-summary{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px;position:sticky;top:24px;box-shadow:0 10px 24px rgba(2,6,23,.06)}
+    .summary-row{display:flex;justify-content:space-between;padding:8px 0;color:#4b5563}
+    .summary-row.total{border-top:1px solid #e5e7eb;margin-top:8px;padding-top:12px;font-size:1.05rem;font-weight:800;color:#111827}
+    .cart-summary__checkout{display:flex;justify-content:center;margin-top:12px}
+    .cart-empty-hint{color:#6b7280;font-size:.9rem}
+    @media (max-width:980px){.cart-layout{grid-template-columns:1fr}.cart-summary{position:static}}
+  </style>
 </head>
 <body>
   <div class="top-bar">
@@ -64,64 +81,35 @@
         <span data-i18n="cart-title">Winkelwagen</span>
       </nav>
 
-      <h1 class="page-title" data-i18n="cart-title">Winkelwagen</h1>
+      <section class="cart-hero">
+        <h1 data-i18n="cart-title">Winkelwagen</h1>
+        <p>Beheer je producten, pas aantallen aan en rond je bestelling veilig af.</p>
+      </section>
 
       <div class="cart-layout">
         <div class="cart-layout__left">
-          <div class="cart-items">
-            <article class="cart-item">
-              <div class="cart-item__image">
-                <img src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop" alt="iPhone 15 Pro">
-              </div>
-              <div class="cart-item__details">
-                <h3 class="cart-item__title">iPhone 15 Pro</h3>
-                <p class="cart-item__specs">128GB · Als nieuw</p>
-                <div class="cart-item__price">€899</div>
-              </div>
-              <div class="cart-item__quantity">
-                <label for="qty-1" class="visually-hidden">Aantal</label>
-                <input type="number" id="qty-1" class="cart-item__qty-input" value="1" min="1" aria-label="Aantal iPhone 15 Pro">
-              </div>
-              <div class="cart-item__total">€899</div>
-              <button type="button" class="cart-item__remove" aria-label="Verwijder iPhone 15 Pro uit winkelwagen"><i class="fas fa-trash-can"></i></button>
-            </article>
-            <article class="cart-item">
-              <div class="cart-item__image">
-                <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=200&h=200&fit=crop" alt="MacBook Pro M3">
-              </div>
-              <div class="cart-item__details">
-                <h3 class="cart-item__title">MacBook Pro M3</h3>
-                <p class="cart-item__specs">512GB · Uitstekend</p>
-                <div class="cart-item__price">€1,549</div>
-              </div>
-              <div class="cart-item__quantity">
-                <label for="qty-2" class="visually-hidden">Aantal</label>
-                <input type="number" id="qty-2" class="cart-item__qty-input" value="1" min="1" aria-label="Aantal MacBook Pro M3">
-              </div>
-              <div class="cart-item__total">€1,549</div>
-              <button type="button" class="cart-item__remove" aria-label="Verwijder MacBook Pro M3 uit winkelwagen"><i class="fas fa-trash-can"></i></button>
-            </article>
-          </div>
+          <div class="cart-items"></div>
+          <p class="cart-empty-hint">Tip: Je kunt aantallen direct aanpassen met + en -.</p>
         </div>
 
         <aside class="cart-layout__right">
           <div class="cart-summary">
             <h2 class="cart-summary__title" data-i18n="cart-summary-title">Overzicht</h2>
-            <div class="summary-subtotal">
+            <div class="summary-row">
               <span data-i18n="cart-subtotal">Subtotaal</span>
-              <span>€2,448.00</span>
+              <span id="cartSubtotal">€0.00</span>
             </div>
-            <div class="summary-shipping">
+            <div class="summary-row">
               <span data-i18n="cart-shipping">Verzending</span>
-              <span>Gratis</span>
+              <span id="cartShipping">Gratis</span>
             </div>
-            <div class="summary-tax">
+            <div class="summary-row">
               <span data-i18n="cart-tax">BTW (incl.)</span>
-              <span>€514.08</span>
+              <span id="cartTax">€0.00</span>
             </div>
-            <div class="summary-total">
+            <div class="summary-row total">
               <span data-i18n="cart-total">Totaal</span>
-              <span>€2,448.00</span>
+              <span id="cartTotal">€0.00</span>
             </div>
             <div class="cart-summary__promo">
               <label for="promo-code" class="visually-hidden">Kortingscode</label>
@@ -174,6 +162,10 @@
   <script src="assets/js/lang/nl.js"></script>
   <script src="assets/js/lang/de.js"></script>
   <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/cart.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>

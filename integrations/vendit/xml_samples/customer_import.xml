@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomerImport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ImportInfo>
+    <ExportDateTime>2026-06-07T10:20:00+02:00</ExportDateTime>
+  </ImportInfo>
+  <Customers>
+    <Customer>
+      <CustomerNumber>WEB-2001</CustomerNumber>
+      <CreationDateTime>2026-06-07T10:20:00+02:00</CreationDateTime>
+      <TransactionsBlocked>False</TransactionsBlocked>
+      <Title>de heer</Title>
+      <Lastname>Bakker</Lastname>
+      <Middlename>van</Middlename>
+      <Firstname>Tom</Firstname>
+      <Sex>Man</Sex>
+      <Birthdate>1992-08-14T00:00:00</Birthdate>
+      <eMailAddress>tom.bakker@example.nl</eMailAddress>
+      <PhoneNumber>0201234567</PhoneNumber>
+      <MobileNumber>0612345678</MobileNumber>
+      <CompanyName></CompanyName>
+      <KVKNumber></KVKNumber>
+      <VATNumber></VATNumber>
+      <Street>Damrak</Street>
+      <ZipCode>1012 LG</ZipCode>
+      <HouseNumber>88</HouseNumber>
+      <HouseNumberSuffix></HouseNumberSuffix>
+      <City>Amsterdam</City>
+      <Country>Nederland</Country>
+      <IBAN></IBAN>
+    </Customer>
+    <Customer>
+      <CustomerNumber>WEB-2002</CustomerNumber>
+      <CreationDateTime>2026-06-07T10:21:00+02:00</CreationDateTime>
+      <TransactionsBlocked>False</TransactionsBlocked>
+      <Title>mevrouw</Title>
+      <Lastname>Janssen</Lastname>
+      <Middlename></Middlename>
+      <Firstname>Lisa</Firstname>
+      <Sex>Vrouw</Sex>
+      <Birthdate>1988-11-03T00:00:00</Birthdate>
+      <eMailAddress>lisa.janssen@example.nl</eMailAddress>
+      <PhoneNumber></PhoneNumber>
+      <MobileNumber>0687654321</MobileNumber>
+      <CompanyName>Janssen Telecom</CompanyName>
+      <KVKNumber>87654321</KVKNumber>
+      <VATNumber>NL876543210B01</VATNumber>
+      <Street>Coolsingel</Street>
+      <ZipCode>3011 AD</ZipCode>
+      <HouseNumber>12</HouseNumber>
+      <HouseNumberSuffix>B</HouseNumberSuffix>
+      <City>Rotterdam</City>
+      <Country>Nederland</Country>
+      <IBAN>NL91ABNA0417164300</IBAN>
+    </Customer>
+    <Customer>
+      <CustomerNumber>WEB-2003</CustomerNumber>
+      <CreationDateTime>2026-06-07T10:22:00+02:00</CreationDateTime>
+      <TransactionsBlocked>False</TransactionsBlocked>
+      <Title>de heer</Title>
+      <Lastname>Mueller</Lastname>
+      <Middlename></Middlename>
+      <Firstname>Hans</Firstname>
+      <Sex>Man</Sex>
+      <Birthdate>1979-04-22T00:00:00</Birthdate>
+      <eMailAddress>hans.mueller@example.de</eMailAddress>
+      <PhoneNumber>+49211123456</PhoneNumber>
+      <MobileNumber>+491701234567</MobileNumber>
+      <CompanyName></CompanyName>
+      <Street>Königsallee</Street>
+      <ZipCode>40212</ZipCode>
+      <HouseNumber>5</HouseNumber>
+      <HouseNumberSuffix></HouseNumberSuffix>
+      <City>Düsseldorf</City>
+      <Country>Duitsland</Country>
+      <IBAN>DE89370400440532013000</IBAN>
+    </Customer>
+  </Customers>
+</CustomerImport>

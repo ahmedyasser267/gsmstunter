@@ -538,3 +538,40 @@ This project is for demonstration and development purposes. Product images are s
 ---
 
 **Built with precision for the European refurbished electronics market.**
+
+---
+
+## PHP Verkopen Backend + Dashboard
+
+This project now includes a full PHP/MySQL backend for `Verkopen`:
+
+- `database/schema.sql`  
+  Import this file in phpMyAdmin (creates DB, tables, and seed data).
+- `php/config.php`  
+  Database connection and API helpers.
+- `php/pricing_engine.php`  
+  Quote calculation engine (base price, condition factor, deductions, bonuses, rounding, min price).
+- `api/public/config.php`  
+  Public catalog config API.
+- `api/public/quote.php`  
+  Public quote calculator API.
+- `api/public/submit.php`  
+  Save quote API.
+- `admin/login.php` and `admin/index.php`  
+  Admin dashboard with stats, recent quotes, reports, and calculation settings.
+- `api/admin/*`  
+  Admin auth, dashboard, catalog updates, and reports APIs.
+- `start-website.bat`  
+  Starts local PHP server at `http://localhost:8080`.
+
+### Quick Start
+
+1. Import `database/schema.sql` into phpMyAdmin.
+2. Update DB credentials in `php/config.php` if needed.
+3. Run `start-website.bat`.
+4. Open:
+   - Sell flow: `http://localhost:8080/sell.html`
+   - Admin login: `http://localhost:8080/admin/login.php`
+5. Default admin credentials:
+   - Username: `admin`
+   - Password: `admin123`

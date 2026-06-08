@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account aanmaken – GSMStunter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/ux.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0D7C66; --primary-dark: #095C4B; --primary-light: #E8F7F3;
+      --accent: #FF6B2C; --text: #1E293B; --muted: #64748B; --border: #E2E8F0;
+      --bg: #F7F8FA; --white: #FFFFFF; --error: #EF4444; --error-bg: #FEE2E2;
+      --success: #22C55E; --success-bg: #DCFCE7; --radius: 12px;
+      --shadow: 0 20px 60px rgba(0,0,0,.12);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    html, body { height: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+
+    .auth-split { display: flex; width: 100%; min-height: 100vh; }
+
+    /* ── Brand Panel ── */
+    .auth-brand {
+      flex: 0 0 44%;
+      background: linear-gradient(145deg, #0D7C66 0%, #095C4B 40%, #063D32 100%);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      justify-content: space-between; padding: 48px 52px;
+    }
+    .auth-brand::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 15% 85%, rgba(16,163,127,.3) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 15%, rgba(255,107,44,.12) 0%, transparent 55%);
+    }
+    .auth-brand__content { position: relative; z-index: 1; }
+    .brand-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; margin-bottom: 56px;
+    }
+    .brand-logo__icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.15); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: white;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .brand-logo__name { font-size: 1.5rem; font-weight: 800; color: white; }
+    .brand-logo__name span { color: rgba(255,255,255,.6); font-weight: 400; }
+    .brand-headline {
+      font-size: 2.2rem; font-weight: 800; color: white;
+      line-height: 1.18; letter-spacing: -.4px; margin-bottom: 18px;
+    }
+    .brand-headline em { color: rgba(255,255,255,.65); font-style: normal; }
+    .brand-sub { font-size: 1rem; color: rgba(255,255,255,.72); line-height: 1.65; margin-bottom: 44px; }
+    .brand-perks { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .brand-perks li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: .9rem; color: rgba(255,255,255,.85);
+    }
+    .perk-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: white; flex-shrink: 0;
+    }
+
+    /* ── Stats Strip ── */
+    .brand-stats {
+      display: flex; gap: 28px;
+      margin-top: 48px;
+      position: relative; z-index: 1;
+    }
+    .brand-stat { }
+    .brand-stat__num {
+      font-size: 1.6rem; font-weight: 800;
+      color: white; line-height: 1;
+    }
+    .brand-stat__label { font-size: .75rem; color: rgba(255,255,255,.55); margin-top: 2px; }
+
+    .brand-footer { position: relative; z-index: 1; font-size: .78rem; color: rgba(255,255,255,.4); }
+    .brand-dots {
+      position: absolute; bottom: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background-image: radial-gradient(circle, rgba(255,255,255,.16) 1.5px, transparent 1.5px);
+      background-size: 18px 18px; border-radius: 50%;
+    }
+
+    /* ── Form Panel ── */
+    .auth-form-panel {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 40px 40px; background: var(--white);
+      overflow-y: auto;
+    }
+    .auth-form-wrap { width: 100%; max-width: 440px; }
+    .auth-header { margin-bottom: 28px; }
+    .auth-header__title {
+      font-size: 1.75rem; font-weight: 800; color: var(--text);
+      letter-spacing: -.4px; line-height: 1.2; margin-bottom: 6px;
+    }
+    .auth-header__sub { font-size: .9rem; color: var(--muted); }
+    .auth-header__sub a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .auth-header__sub a:hover { text-decoration: underline; }
+
+    /* ── Alert ── */
+    .auth-alert {
+      display: none; align-items: flex-start; gap: 10px;
+      padding: 12px 16px; border-radius: 10px;
+      margin-bottom: 18px; font-size: .875rem; line-height: 1.5;
+    }
+    .auth-alert.error { display: flex; background: var(--error-bg); color: #991B1B; }
+    .auth-alert.success { display: flex; background: var(--success-bg); color: #166534; }
+    .auth-alert i { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Fields ── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-group { margin-bottom: 16px; }
+    .field-label {
+      display: block; font-size: .82rem; font-weight: 600;
+      color: var(--text); margin-bottom: 6px; letter-spacing: .01em;
+    }
+    .field-label .opt {
+      font-size: .75rem; color: #B0BEC8; font-weight: 400; margin-left: 4px;
+    }
+    .field-wrap { position: relative; }
+    .field-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: #94A3B8; font-size: .875rem; pointer-events: none; transition: color .2s;
+    }
+    .field-wrap:focus-within .field-icon { color: var(--primary); }
+    .field-input {
+      width: 100%; height: 46px; padding: 0 44px 0 42px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-family: var(--font); font-size: .925rem;
+      color: var(--text); background: var(--white);
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .field-input::placeholder { color: #B0BEC8; }
+    .field-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13,124,102,.1);
+    }
+    .field-input.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(239,68,68,.1); }
+    .field-input.valid { border-color: var(--success); }
+    .field-toggle {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: #94A3B8; font-size: .875rem; padding: 4px; transition: color .2s;
+    }
+    .field-toggle:hover { color: var(--text); }
+    .field-error {
+      margin-top: 5px; font-size: .78rem; color: var(--error);
+      display: none; align-items: center; gap: 4px;
+    }
+    .field-error.visible { display: flex; }
+
+    /* ── Password Strength ── */
+    .pw-strength { margin-top: 8px; }
+    .pw-strength__bar {
+      height: 4px; border-radius: 2px; background: var(--border);
+      overflow: hidden; margin-bottom: 5px;
+    }
+    .pw-strength__fill {
+      height: 100%; border-radius: 2px;
+      transition: width .3s ease, background .3s ease;
+      width: 0%;
+    }
+    .pw-strength__label { font-size: .78rem; color: var(--muted); }
+
+    /* ── Terms ── */
+    .terms-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .terms-check { display: none; }
+    .terms-box {
+      width: 18px; height: 18px; border: 1.5px solid var(--border); border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all .2s; flex-shrink: 0; margin-top: 1px;
+    }
+    .terms-check:checked + .terms-box { background: var(--primary); border-color: var(--primary); }
+    .terms-check:checked + .terms-box::after { content: '✓'; color: white; font-size: 10px; font-weight: 700; }
+    .terms-text { font-size: .83rem; color: var(--muted); line-height: 1.55; }
+    .terms-text a { color: var(--primary); font-weight: 500; text-decoration: none; }
+    .terms-text a:hover { text-decoration: underline; }
+
+    /* ── Submit ── */
+    .btn-auth {
+      width: 100%; height: 50px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white; border: none; border-radius: var(--radius);
+      font-family: var(--font); font-size: .975rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all .2s; position: relative; overflow: hidden;
+    }
+    .btn-auth::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0); transition: .2s; }
+    .btn-auth:hover::after { background: rgba(255,255,255,.06); }
+    .btn-auth:active { transform: scale(.99); }
+    .btn-auth:disabled { opacity: .7; cursor: not-allowed; transform: none; }
+    .btn-auth .spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,.4);
+      border-top-color: white; border-radius: 50%;
+      animation: spin .6s linear infinite; display: none;
+    }
+    .btn-auth.loading .btn-text { display: none; }
+    .btn-auth.loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Divider ── */
+    .auth-divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 20px 0; color: #B0BEC8; font-size: .78rem;
+    }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── Trust ── */
+    .auth-trust {
+      display: flex; justify-content: center; gap: 18px;
+      margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border);
+    }
+    .trust-item { display: flex; align-items: center; gap: 5px; font-size: .76rem; color: #94A3B8; }
+    .trust-item i { color: var(--primary); font-size: .82rem; }
+
+    @media (max-width: 768px) {
+      .auth-brand { display: none; }
+      .auth-form-panel { padding: 32px 24px; background: var(--bg); }
+      .auth-form-wrap {
+        background: var(--white); padding: 28px 20px;
+        border-radius: 20px; box-shadow: var(--shadow);
+      }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-split">
+
+    <!-- ── Brand Panel ── -->
+    <aside class="auth-brand" aria-hidden="true">
+      <div class="auth-brand__content">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-logo__icon"><i class="fas fa-recycle"></i></div>
+          <div class="brand-logo__name">gsm<span>stunter</span></div>
+        </a>
+        <h2 class="brand-headline">Sluit je aan bij<br><em>duizenden</em><br>tevreden klanten</h2>
+        <p class="brand-sub">Maak gratis een account aan en ontdek honderden premium refurbished toestellen.</p>
+        <ul class="brand-perks">
+          <li><div class="perk-icon"><i class="fas fa-tag"></i></div> Exclusieve kortingen voor leden</li>
+          <li><div class="perk-icon"><i class="fas fa-clock-rotate-left"></i></div> Volledige bestelhistorie</li>
+          <li><div class="perk-icon"><i class="fas fa-bell"></i></div> Prijsalerts op gewenste producten</li>
+          <li><div class="perk-icon"><i class="fas fa-heart"></i></div> Sla favorieten op voor later</li>
+        </ul>
+      </div>
+      <div class="brand-stats">
+        <div class="brand-stat">
+          <div class="brand-stat__num">15k+</div>
+          <div class="brand-stat__label">Blije klanten</div>
+        </div>
+        <div class="brand-stat">
+          <div class="brand-stat__num">4.9★</div>
+          <div class="brand-stat__label">Gemiddelde score</div>
+        </div>
+        <div class="brand-stat">
+          <div class="brand-stat__num">500+</div>
+          <div class="brand-stat__label">Apparaten in stock</div>
+        </div>
+      </div>
+      <div class="brand-dots"></div>
+      <div class="brand-footer">© 2026 GSMStunter · Alle rechten voorbehouden</div>
+    </aside>
+
+    <!-- ── Form Panel ── -->
+    <main class="auth-form-panel" role="main">
+      <div class="auth-form-wrap">
+        <div class="auth-header">
+          <h1 class="auth-header__title">Gratis account aanmaken</h1>
+          <p class="auth-header__sub">Al lid? <a href="login.html">Log hier in</a></p>
+        </div>
+
+        <div class="auth-alert" id="alertBox" role="alert">
+          <i class="fas fa-circle-info"></i>
+          <span id="alertMsg"></span>
+        </div>
+
+        <form id="registerForm" novalidate>
+          <div class="form-row">
+            <div class="field-group">
+              <label class="field-label" for="regFirstName">Voornaam</label>
+              <div class="field-wrap">
+                <i class="fas fa-user field-icon"></i>
+                <input class="field-input" type="text" id="regFirstName" name="first_name"
+                       placeholder="Jan" autocomplete="given-name">
+              </div>
+              <div class="field-error" id="firstNameErr"><i class="fas fa-circle-exclamation"></i><span></span></div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="regLastName">Achternaam</label>
+              <div class="field-wrap">
+                <i class="fas fa-user field-icon"></i>
+                <input class="field-input" type="text" id="regLastName" name="last_name"
+                       placeholder="de Vries" autocomplete="family-name">
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="regEmail">E-mailadres</label>
+            <div class="field-wrap">
+              <i class="fas fa-envelope field-icon"></i>
+              <input class="field-input" type="email" id="regEmail" name="email"
+                     placeholder="naam@voorbeeld.nl" autocomplete="email" required>
+            </div>
+            <div class="field-error" id="emailErr"><i class="fas fa-circle-exclamation"></i><span></span></div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="regPhone">Telefoonnummer <span class="opt">(optioneel)</span></label>
+            <div class="field-wrap">
+              <i class="fas fa-phone field-icon"></i>
+              <input class="field-input" type="tel" id="regPhone" name="phone"
+                     placeholder="+31 6 12345678" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="regPassword">Wachtwoord</label>
+            <div class="field-wrap">
+              <i class="fas fa-lock field-icon"></i>
+              <input class="field-input" type="password" id="regPassword" name="password"
+                     placeholder="Minimaal 6 tekens" autocomplete="new-password" required>
+              <button type="button" class="field-toggle" id="pwToggle" aria-label="Toon wachtwoord">
+                <i class="fas fa-eye" id="pwIcon"></i>
+              </button>
+            </div>
+            <div class="pw-strength" id="pwStrength" style="display:none;">
+              <div class="pw-strength__bar">
+                <div class="pw-strength__fill" id="pwStrengthFill"></div>
+              </div>
+              <div class="pw-strength__label" id="pwStrengthLabel"></div>
+            </div>
+            <div class="field-error" id="pwErr"><i class="fas fa-circle-exclamation"></i><span></span></div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="regPasswordConfirm">Herhaal wachtwoord</label>
+            <div class="field-wrap">
+              <i class="fas fa-lock field-icon"></i>
+              <input class="field-input" type="password" id="regPasswordConfirm" name="password_confirm"
+                     placeholder="Nogmaals je wachtwoord" autocomplete="new-password" required>
+            </div>
+            <div class="field-error" id="confirmErr"><i class="fas fa-circle-exclamation"></i><span></span></div>
+          </div>
+
+          <div class="terms-row">
+            <input type="checkbox" class="terms-check" id="termsCheck">
+            <label class="terms-box" for="termsCheck"></label>
+            <p class="terms-text">
+              Ik ga akkoord met de <a href="#">Algemene Voorwaarden</a> en het <a href="#">Privacybeleid</a> van GSMStunter.
+            </p>
+          </div>
+
+          <button type="submit" class="btn-auth" id="registerBtn">
+            <span class="btn-text"><i class="fas fa-user-plus"></i> Account aanmaken</span>
+            <div class="spinner"></div>
+          </button>
+        </form>
+
+        <div class="auth-trust">
+          <div class="trust-item"><i class="fas fa-lock"></i> SSL beveiligd</div>
+          <div class="trust-item"><i class="fas fa-user-shield"></i> Privacy eerst</div>
+          <div class="trust-item"><i class="fas fa-shield-halved"></i> GDPR conform</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/lang/nl.js"></script>
+  <script src="assets/js/lang/de.js"></script>
+  <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    /* ── Redirect if logged in ── */
+    (function() {
+      try {
+        const u = JSON.parse(localStorage.getItem('gsmstunter-customer') || 'null');
+        if (u && u.id) window.location.replace('account.html');
+      } catch(e) {}
+    })();
+
+    /* ── Password toggle ── */
+    document.getElementById('pwToggle').addEventListener('click', function() {
+      const inp = document.getElementById('regPassword');
+      const icon = document.getElementById('pwIcon');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      icon.className = inp.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+    });
+
+    /* ── Password strength ── */
+    document.getElementById('regPassword').addEventListener('input', function() {
+      const val = this.value;
+      const bar = document.getElementById('pwStrengthFill');
+      const label = document.getElementById('pwStrengthLabel');
+      const wrap = document.getElementById('pwStrength');
+      clearFieldError('regPassword','pwErr');
+
+      if (!val) { wrap.style.display = 'none'; return; }
+      wrap.style.display = 'block';
+
+      let score = 0;
+      if (val.length >= 6) score++;
+      if (val.length >= 10) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const levels = [
+        { pct: '20%', color: '#EF4444', txt: 'Erg zwak' },
+        { pct: '40%', color: '#F97316', txt: 'Zwak' },
+        { pct: '60%', color: '#F59E0B', txt: 'Redelijk' },
+        { pct: '80%', color: '#22C55E', txt: 'Sterk' },
+        { pct: '100%', color: '#10B981', txt: 'Zeer sterk' }
+      ];
+      const lvl = levels[Math.max(0, score - 1)];
+      bar.style.width = lvl.pct;
+      bar.style.background = lvl.color;
+      label.textContent = lvl.txt;
+      label.style.color = lvl.color;
+    });
+
+    /* ── Helpers ── */
+    function showFieldError(fieldId, errId, msg) {
+      const inp = document.getElementById(fieldId);
+      const err = document.getElementById(errId);
+      if (inp) inp.classList.add('error');
+      if (err) { err.querySelector('span').textContent = msg; err.classList.add('visible'); }
+    }
+    function clearFieldError(fieldId, errId) {
+      const inp = document.getElementById(fieldId);
+      const err = document.getElementById(errId);
+      if (inp) inp.classList.remove('error');
+      if (err) err.classList.remove('visible');
+    }
+    function showAlert(msg, type) {
+      const box = document.getElementById('alertBox');
+      document.getElementById('alertMsg').textContent = msg;
+      box.className = 'auth-alert ' + type;
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function hideAlert() { document.getElementById('alertBox').className = 'auth-alert'; }
+
+    /* ── Live validation ── */
+    ['regEmail','regPassword','regPasswordConfirm'].forEach(id => {
+      document.getElementById(id).addEventListener('input', function() {
+        this.classList.remove('error');
+        const errId = { regEmail:'emailErr', regPassword:'pwErr', regPasswordConfirm:'confirmErr' }[id];
+        if (errId) clearFieldError(id, errId);
+      });
+    });
+
+    /* ── Submit ── */
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      hideAlert();
+      let valid = true;
+
+      const firstName = document.getElementById('regFirstName').value.trim();
+      const lastName = document.getElementById('regLastName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regPasswordConfirm').value;
+      const terms = document.getElementById('termsCheck').checked;
+      const name = (firstName + ' ' + lastName).trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError('regEmail','emailErr','Vul een geldig e-mailadres in.'); valid = false;
+      }
+      if (!password || password.length < 6) {
+        showFieldError('regPassword','pwErr','Wachtwoord moet minimaal 6 tekens hebben.'); valid = false;
+      }
+      if (password !== confirm) {
+        showFieldError('regPasswordConfirm','confirmErr','Wachtwoorden komen niet overeen.'); valid = false;
+      }
+      if (!terms) {
+        showAlert('Accepteer de Algemene Voorwaarden om door te gaan.', 'error'); valid = false;
+      }
+      if (!valid) return;
+
+      const btn = document.getElementById('registerBtn');
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('api/public/account_auth.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'register', name, email, phone, password })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          localStorage.setItem('gsmstunter-customer', JSON.stringify(data.customer));
+          showAlert('Account aangemaakt! Je wordt doorgestuurd…', 'success');
+          setTimeout(() => window.location.replace('account.html'), 1000);
+        } else {
+          showAlert(data.error || 'Registratie mislukt. Probeer het opnieuw.', 'error');
+          btn.classList.remove('loading');
+          btn.disabled = false;
+        }
+      } catch(err) {
+        showAlert('Verbindingsfout. Probeer het opnieuw.', 'error');
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

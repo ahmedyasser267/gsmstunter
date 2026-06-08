@@ -1,0 +1,30 @@
+[2026-06-08 22:33]
+Started customer_import (import)
+[2026-06-08 22:33]
+Customer Imported
+CustomerNumber: WEB-2001
+[2026-06-08 22:33]
+Customer Imported
+CustomerNumber: WEB-2002
+[2026-06-08 22:34]
+Customer Imported
+CustomerNumber: WEB-2003
+[2026-06-08 22:34]
+Completed status=success processed=3 failed=0 Processed customer_import.xml
+[2026-06-08 22:41]
+Started order_import (import)
+[2026-06-08 22:41]
+Order Imported
+OrderNumber: ORD-20260607-A1B2C3
+[2026-06-08 22:41]
+Order Imported
+OrderNumber: ORD-20260607-D4E5F6
+[2026-06-08 22:41]
+Order Imported
+OrderNumber: ORD-20260607-G7H8I9
+[2026-06-08 22:41]
+Completed status=success processed=3 failed=0 Processed order_import.xml
+[2026-06-08 22:42]
+Started customer_export (export)
+[2026-06-08 22:42]
+Completed status=success processed=3 failed=0 Customer export completed.

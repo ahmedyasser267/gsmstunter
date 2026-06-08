@@ -1235,6 +1235,7 @@ ul, ol {
   text-align: center;
   padding: var(--space-6);
   background: var(--color-white);
+  color: var(--color-text);
   border-radius: var(--radius-xl);
   border: 2px solid var(--color-border-light);
   transition: all var(--transition-base);
@@ -1262,6 +1263,7 @@ ul, ol {
 .category-card__name {
   font-weight: var(--weight-semibold);
   font-size: var(--text-sm);
+  color: var(--color-text);
   margin-bottom: var(--space-1);
 }
 

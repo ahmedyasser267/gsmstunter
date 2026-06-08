@@ -25,6 +25,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/ux.css">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♻️</text></svg>">
@@ -353,14 +354,14 @@
     </section>
 
     <!-- ═══ Categories Section ═══ -->
-    <section class="section section--bg" aria-labelledby="categories-heading">
+    <section class="section section--bg" aria-labelledby="categories-heading" data-section-key="home.categories">
       <div class="container">
         <div class="section-header fade-in">
           <span class="section-header__label" data-i18n="categories-label">Categorieën</span>
           <h2 class="section-header__title" id="categories-heading" data-i18n="categories-title">Populaire Categorieën</h2>
           <p class="section-header__subtitle" data-i18n="categories-subtitle">Vind het perfecte refurbished apparaat voor jou</p>
         </div>
-        <div class="categories__grid">
+        <div class="categories__grid" id="homeCategoriesGrid">
           <a href="products.html?type=smartphone" class="category-card fade-in">
             <img class="category-card__image" src="https://images.unsplash.com/photo-1591337676887-a217a6c8d2f4?w=200&h=200&fit=crop&q=80" alt="Smartphones" loading="lazy">
             <h3 class="category-card__name" data-i18n="cat-smartphones">Smartphones</h3>
@@ -396,7 +397,7 @@
     </section>
 
     <!-- ═══ Featured Products ═══ -->
-    <section class="section" aria-labelledby="products-heading">
+    <section class="section" aria-labelledby="products-heading" data-section-key="home.featured_products">
       <div class="container">
         <div class="section-header fade-in">
           <span class="section-header__label" data-i18n="products-label">Populair</span>
@@ -830,6 +831,10 @@
   <script src="assets/js/lang/nl.js"></script>
   <script src="assets/js/lang/de.js"></script>
   <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/cart.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>

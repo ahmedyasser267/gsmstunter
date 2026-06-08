@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inloggen – GSMStunter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/ux.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0D7C66; --primary-dark: #095C4B; --primary-light: #E8F7F3;
+      --accent: #FF6B2C; --text: #1E293B; --muted: #64748B; --border: #E2E8F0;
+      --bg: #F7F8FA; --white: #FFFFFF; --error: #EF4444; --error-bg: #FEE2E2;
+      --success: #22C55E; --success-bg: #DCFCE7; --radius: 12px;
+      --shadow: 0 20px 60px rgba(0,0,0,.12);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Split Layout ── */
+    .auth-split {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+    .auth-brand {
+      flex: 0 0 46%;
+      background: linear-gradient(145deg, #0D7C66 0%, #095C4B 40%, #063D32 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 52px;
+    }
+    .auth-brand::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 20% 80%, rgba(16,163,127,.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 10%, rgba(255,107,44,.12) 0%, transparent 55%);
+    }
+    .auth-brand__content { position: relative; z-index: 1; }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      margin-bottom: 64px;
+    }
+    .brand-logo__icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.15);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: white;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .brand-logo__name {
+      font-size: 1.5rem; font-weight: 800;
+      color: white; letter-spacing: -.3px;
+    }
+    .brand-logo__name span { color: rgba(255,255,255,.65); font-weight: 400; }
+    .brand-headline {
+      font-size: 2.4rem; font-weight: 800;
+      color: white; line-height: 1.15;
+      letter-spacing: -.5px; margin-bottom: 20px;
+    }
+    .brand-headline em { color: rgba(255,255,255,.7); font-style: normal; }
+    .brand-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,.72);
+      line-height: 1.65; margin-bottom: 48px;
+    }
+    .brand-perks { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .brand-perks li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: .925rem; color: rgba(255,255,255,.85);
+    }
+    .brand-perks li .perk-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: white; flex-shrink: 0;
+    }
+    .brand-footer {
+      position: relative; z-index: 1;
+      font-size: .8rem; color: rgba(255,255,255,.45);
+    }
+    .brand-dots {
+      position: absolute; bottom: -40px; right: -40px;
+      width: 240px; height: 240px;
+      background-image: radial-gradient(circle, rgba(255,255,255,.18) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
+      border-radius: 50%;
+    }
+
+    /* ── Form Panel ── */
+    .auth-form-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 48px 40px;
+      background: var(--white);
+    }
+    .auth-form-wrap {
+      width: 100%;
+      max-width: 420px;
+    }
+    .auth-header { margin-bottom: 36px; }
+    .auth-header__title {
+      font-size: 1.875rem; font-weight: 800;
+      color: var(--text); letter-spacing: -.4px;
+      line-height: 1.2; margin-bottom: 8px;
+    }
+    .auth-header__sub {
+      font-size: .925rem; color: var(--muted);
+    }
+    .auth-header__sub a {
+      color: var(--primary); font-weight: 600; text-decoration: none;
+    }
+    .auth-header__sub a:hover { text-decoration: underline; }
+
+    /* ── Form Fields ── */
+    .field-group { margin-bottom: 20px; }
+    .field-label {
+      display: block; font-size: .825rem;
+      font-weight: 600; color: var(--text);
+      margin-bottom: 7px; letter-spacing: .01em;
+    }
+    .field-wrap {
+      position: relative;
+    }
+    .field-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: #94A3B8; font-size: .9rem; pointer-events: none;
+      transition: color .2s;
+    }
+    .field-wrap:focus-within .field-icon { color: var(--primary); }
+    .field-input {
+      width: 100%; height: 48px;
+      padding: 0 44px 0 42px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font); font-size: .95rem;
+      color: var(--text); background: var(--white);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .field-input::placeholder { color: #B0BEC8; }
+    .field-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13,124,102,.12);
+    }
+    .field-input.error {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(239,68,68,.1);
+    }
+    .field-toggle {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: #94A3B8; font-size: .9rem; padding: 4px;
+      transition: color .2s; line-height: 1;
+    }
+    .field-toggle:hover { color: var(--text); }
+    .field-error {
+      margin-top: 6px; font-size: .8rem;
+      color: var(--error); display: none; align-items: center; gap: 5px;
+    }
+    .field-error.visible { display: flex; }
+
+    /* ── Remember / Forgot ── */
+    .auth-extras {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 24px;
+    }
+    .checkbox-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .875rem; color: var(--muted); cursor: pointer; user-select: none;
+    }
+    .checkbox-label input[type="checkbox"] { display: none; }
+    .checkbox-box {
+      width: 18px; height: 18px; border: 1.5px solid var(--border);
+      border-radius: 5px; display: flex; align-items: center; justify-content: center;
+      transition: all .2s; flex-shrink: 0;
+    }
+    .checkbox-label input:checked + .checkbox-box {
+      background: var(--primary); border-color: var(--primary);
+    }
+    .checkbox-label input:checked + .checkbox-box::after {
+      content: '✓'; color: white; font-size: 11px; font-weight: 700;
+    }
+    .forgot-link {
+      font-size: .875rem; color: var(--primary);
+      font-weight: 500; text-decoration: none;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* ── Alert ── */
+    .auth-alert {
+      display: none; align-items: flex-start; gap: 10px;
+      padding: 12px 16px; border-radius: 10px;
+      margin-bottom: 20px; font-size: .875rem; line-height: 1.5;
+    }
+    .auth-alert.error { display: flex; background: var(--error-bg); color: #991B1B; }
+    .auth-alert.success { display: flex; background: var(--success-bg); color: #166534; }
+    .auth-alert i { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Submit Button ── */
+    .btn-auth {
+      width: 100%; height: 50px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white; border: none; border-radius: var(--radius);
+      font-family: var(--font); font-size: .975rem; font-weight: 700;
+      letter-spacing: .01em; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all .2s; position: relative; overflow: hidden;
+    }
+    .btn-auth::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background .2s;
+    }
+    .btn-auth:hover::after { background: rgba(255,255,255,.06); }
+    .btn-auth:active { transform: scale(.99); }
+    .btn-auth:disabled {
+      opacity: .7; cursor: not-allowed; transform: none;
+    }
+    .btn-auth .spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,.4);
+      border-top-color: white; border-radius: 50%;
+      animation: spin .6s linear infinite; display: none;
+    }
+    .btn-auth.loading .btn-text { display: none; }
+    .btn-auth.loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Divider ── */
+    .auth-divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 24px 0; color: #B0BEC8; font-size: .8rem;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ── Guest ── */
+    .btn-guest {
+      width: 100%; height: 46px;
+      background: transparent; color: var(--muted);
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-family: var(--font); font-size: .9rem; font-weight: 500;
+      cursor: pointer; transition: all .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-guest:hover {
+      border-color: var(--text); color: var(--text); background: var(--bg);
+    }
+
+    /* ── Trust Badges ── */
+    .auth-trust {
+      display: flex; justify-content: center; gap: 20px;
+      margin-top: 32px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .78rem; color: #94A3B8;
+    }
+    .trust-item i { color: var(--primary); font-size: .85rem; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .auth-brand { display: none; }
+      .auth-form-panel {
+        padding: 32px 24px;
+        background: var(--bg);
+      }
+      .auth-form-wrap {
+        background: var(--white);
+        padding: 32px 24px;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+      }
+    }
+    @media (max-width: 480px) {
+      .auth-form-panel { padding: 20px 16px; }
+      .auth-form-wrap { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-split">
+
+    <!-- ── Brand Panel ── -->
+    <aside class="auth-brand" aria-hidden="true">
+      <div class="auth-brand__content">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-logo__icon"><i class="fas fa-recycle"></i></div>
+          <div class="brand-logo__name">gsm<span>stunter</span></div>
+        </a>
+        <h2 class="brand-headline">Welkom<br>terug bij<br><em>GSMStunter</em></h2>
+        <p class="brand-sub">Premium refurbished elektronica. Bewust duurzaam, altijd betrouwbaar.</p>
+        <ul class="brand-perks">
+          <li><div class="perk-icon"><i class="fas fa-shield-halved"></i></div> Tot 3 jaar garantie op elk apparaat</li>
+          <li><div class="perk-icon"><i class="fas fa-rotate-left"></i></div> 30 dagen retourrecht zonder gedoe</li>
+          <li><div class="perk-icon"><i class="fas fa-truck"></i></div> Gratis verzending – altijd</li>
+          <li><div class="perk-icon"><i class="fas fa-leaf"></i></div> Duurzaam en CO₂-vriendelijk</li>
+        </ul>
+      </div>
+      <div class="brand-dots"></div>
+      <div class="brand-footer">© 2026 GSMStunter · Alle rechten voorbehouden</div>
+    </aside>
+
+    <!-- ── Form Panel ── -->
+    <main class="auth-form-panel" role="main">
+      <div class="auth-form-wrap">
+        <div class="auth-header">
+          <h1 class="auth-header__title">Inloggen</h1>
+          <p class="auth-header__sub">Geen account? <a href="register.html">Maak er gratis één aan</a></p>
+        </div>
+
+        <div class="auth-alert" id="alertBox" role="alert">
+          <i class="fas fa-circle-info"></i>
+          <span id="alertMsg"></span>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="field-group">
+            <label class="field-label" for="loginEmail">E-mailadres</label>
+            <div class="field-wrap">
+              <i class="fas fa-envelope field-icon"></i>
+              <input class="field-input" type="email" id="loginEmail" name="email"
+                     placeholder="naam@voorbeeld.nl" autocomplete="email" required>
+            </div>
+            <div class="field-error" id="emailErr"><i class="fas fa-circle-exclamation"></i> <span></span></div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="loginPassword">Wachtwoord</label>
+            <div class="field-wrap">
+              <i class="fas fa-lock field-icon"></i>
+              <input class="field-input" type="password" id="loginPassword" name="password"
+                     placeholder="Jouw wachtwoord" autocomplete="current-password" required>
+              <button type="button" class="field-toggle" id="pwToggle" aria-label="Toon wachtwoord">
+                <i class="fas fa-eye" id="pwIcon"></i>
+              </button>
+            </div>
+            <div class="field-error" id="pwErr"><i class="fas fa-circle-exclamation"></i> <span></span></div>
+          </div>
+
+          <div class="auth-extras">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberMe">
+              <div class="checkbox-box"></div>
+              Onthoud mij
+            </label>
+            <a href="#" class="forgot-link">Wachtwoord vergeten?</a>
+          </div>
+
+          <button type="submit" class="btn-auth" id="loginBtn">
+            <span class="btn-text"><i class="fas fa-arrow-right-to-bracket"></i> Inloggen</span>
+            <div class="spinner"></div>
+          </button>
+        </form>
+
+        <div class="auth-divider">of ga verder als</div>
+
+        <button class="btn-guest" onclick="window.location.href='index.html'">
+          <i class="fas fa-user-secret"></i> Gast – ga naar winkel
+        </button>
+
+        <div class="auth-trust">
+          <div class="trust-item"><i class="fas fa-lock"></i> SSL beveiligd</div>
+          <div class="trust-item"><i class="fas fa-user-shield"></i> Privacy gewaarborgd</div>
+          <div class="trust-item"><i class="fas fa-check-circle"></i> GDPR conform</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/lang/nl.js"></script>
+  <script src="assets/js/lang/de.js"></script>
+  <script src="assets/js/lang/fr.js"></script>
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    /* ── Redirect if already logged in (server-side session check only) ── */
+    /* We deliberately do NOT redirect based on localStorage here —
+       localStorage may hold stale data from an expired PHP session,
+       which would cause an infinite account.html ↔ login.html loop.
+       script.js handles the proper API-based check via initAccountPage(). */
+
+    /* ── Password toggle ── */
+    document.getElementById('pwToggle').addEventListener('click', function() {
+      const inp = document.getElementById('loginPassword');
+      const icon = document.getElementById('pwIcon');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+      } else {
+        inp.type = 'password';
+        icon.className = 'fas fa-eye';
+      }
+    });
+
+    /* ── Field validation helpers ── */
+    function showFieldError(fieldId, errId, msg) {
+      const inp = document.getElementById(fieldId);
+      const err = document.getElementById(errId);
+      inp.classList.add('error');
+      err.querySelector('span').textContent = msg;
+      err.classList.add('visible');
+    }
+    function clearFieldError(fieldId, errId) {
+      document.getElementById(fieldId).classList.remove('error');
+      document.getElementById(errId).classList.remove('visible');
+    }
+    function showAlert(msg, type) {
+      const box = document.getElementById('alertBox');
+      const txt = document.getElementById('alertMsg');
+      box.className = 'auth-alert ' + type;
+      txt.textContent = msg;
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function hideAlert() {
+      document.getElementById('alertBox').className = 'auth-alert';
+    }
+
+    /* ── Live validation ── */
+    document.getElementById('loginEmail').addEventListener('input', function() {
+      clearFieldError('loginEmail','emailErr');
+    });
+    document.getElementById('loginPassword').addEventListener('input', function() {
+      clearFieldError('loginPassword','pwErr');
+    });
+
+    /* ── Form submit ── */
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      hideAlert();
+      let valid = true;
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError('loginEmail','emailErr','Vul een geldig e-mailadres in.');
+        valid = false;
+      }
+      if (!password) {
+        showFieldError('loginPassword','pwErr','Voer je wachtwoord in.');
+        valid = false;
+      }
+      if (!valid) return;
+
+      const btn = document.getElementById('loginBtn');
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('api/public/account_auth.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'login', email, password })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          if (document.getElementById('rememberMe').checked) {
+            localStorage.setItem('gsmstunter-customer', JSON.stringify(data.customer));
+          } else {
+            sessionStorage.setItem('gsmstunter-customer', JSON.stringify(data.customer));
+            localStorage.setItem('gsmstunter-customer', JSON.stringify(data.customer));
+          }
+          showAlert('Welkom terug, ' + (data.customer.name || data.customer.email) + '!', 'success');
+          setTimeout(() => window.location.replace('account.html'), 800);
+        } else {
+          showAlert(data.error || 'Inloggen mislukt. Controleer je gegevens.', 'error');
+          btn.classList.remove('loading');
+          btn.disabled = false;
+        }
+      } catch(err) {
+        showAlert('Verbindingsfout. Probeer het opnieuw.', 'error');
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

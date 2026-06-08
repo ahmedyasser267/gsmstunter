@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StockExport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ExportInfo>
+    <ExportDateTime>2026-06-07T08:00:00+02:00</ExportDateTime>
+    <Type>Full</Type>
+    <ExportStarted>Automatic</ExportStarted>
+  </ExportInfo>
+  <Products>
+    <Product>
+      <EcommerceProductGuid>a1b2c3d4-e5f6-7890-abcd-ef1234567890</EcommerceProductGuid>
+      <ProductId>IPH15PRO-256-BLK</ProductId>
+      <Quantity>18.00</Quantity>
+      <Reserved>2.00</Reserved>
+      <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+      <Barcodes>
+        <Barcode>0194253578123</Barcode>
+        <Barcode>0194253578124</Barcode>
+      </Barcodes>
+      <Offices>
+        <Office>
+          <OfficeName>Rotterdam Centrum</OfficeName>
+          <Quantity>10.0</Quantity>
+          <Reserved>1.00</Reserved>
+          <IsWarehouseOffice>false</IsWarehouseOffice>
+          <IsMainOffice>true</IsMainOffice>
+          <StockLocations>
+            <StockLocation>
+              <StockLocationName>Winkelvoorraad</StockLocationName>
+              <IsPreferredLocation>true</IsPreferredLocation>
+              <IsAvailableStock>true</IsAvailableStock>
+              <SortOrder>0</SortOrder>
+              <Stock>8.0000</Stock>
+            </StockLocation>
+            <StockLocation>
+              <StockLocationName>Showroom</StockLocationName>
+              <IsPreferredLocation>false</IsPreferredLocation>
+              <IsAvailableStock>false</IsAvailableStock>
+              <SortOrder>1</SortOrder>
+              <Stock>2.0000</Stock>
+            </StockLocation>
+          </StockLocations>
+        </Office>
+        <Office>
+          <OfficeName>Amsterdam Magazijn</OfficeName>
+          <Quantity>8.0</Quantity>
+          <Reserved>1.00</Reserved>
+          <IsWarehouseOffice>true</IsWarehouseOffice>
+          <IsMainOffice>false</IsMainOffice>
+          <StockLocations>
+            <StockLocation>
+              <StockLocationName>Magazijn A</StockLocationName>
+              <StorageLocationName>Plank 12-R</StorageLocationName>
+              <IsPreferredLocation>true</IsPreferredLocation>
+              <IsAvailableStock>true</IsAvailableStock>
+              <SortOrder>0</SortOrder>
+              <Stock>8.0000</Stock>
+            </StockLocation>
+          </StockLocations>
+        </Office>
+      </Offices>
+      <Suppliers>
+        <Supplier>
+          <SupplierName>Apple Distribution NL</SupplierName>
+          <SupplierNumber>22</SupplierNumber>
+          <Stock>50</Stock>
+          <IsDefaultSupplier>1</IsDefaultSupplier>
+          <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+          <ExpectedArrivalDateTime>2026-06-14T08:00:00+02:00</ExpectedArrivalDateTime>
+          <DeliveryDays>5</DeliveryDays>
+        </Supplier>
+      </Suppliers>
+    </Product>
+    <Product>
+      <EcommerceProductGuid>b2c3d4e5-f6a7-8901-bcde-f12345678901</EcommerceProductGuid>
+      <ProductId>S24U-256-TI</ProductId>
+      <Quantity>14.00</Quantity>
+      <Reserved>0.00</Reserved>
+      <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+      <Barcodes>
+        <Barcode>8806095123456</Barcode>
+      </Barcodes>
+      <Offices>
+        <Office>
+          <OfficeName>Rotterdam Centrum</OfficeName>
+          <Quantity>14.0</Quantity>
+          <Reserved>0.00</Reserved>
+          <IsMainOffice>true</IsMainOffice>
+        </Office>
+      </Offices>
+      <Suppliers>
+        <Supplier>
+          <SupplierName>Samsung Benelux</SupplierName>
+          <SupplierNumber>15</SupplierNumber>
+          <Stock>H</Stock>
+          <IsDefaultSupplier>1</IsDefaultSupplier>
+          <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+          <DeliveryDays>7</DeliveryDays>
+        </Supplier>
+      </Suppliers>
+    </Product>
+    <Product>
+      <EcommerceProductGuid>c3d4e5f6-a7b8-9012-cdef-123456789012</EcommerceProductGuid>
+      <ProductId>MBA13-M3-512-SL</ProductId>
+      <Quantity>9.00</Quantity>
+      <Reserved>1.00</Reserved>
+      <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+      <Barcodes>
+        <Barcode>1942535789012</Barcode>
+      </Barcodes>
+      <Offices>
+        <Office>
+          <OfficeName>Rotterdam Centrum</OfficeName>
+          <Quantity>9.0</Quantity>
+          <Reserved>1.00</Reserved>
+        </Office>
+      </Offices>
+      <Suppliers />
+    </Product>
+    <Product>
+      <EcommerceProductGuid>d4e5f6a7-b8c9-0123-def0-234567890123</EcommerceProductGuid>
+      <ProductId>WH1000XM5-BLK</ProductId>
+      <Quantity>20.00</Quantity>
+      <Reserved>0.00</Reserved>
+      <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+      <Barcodes>
+        <Barcode>4548736123456</Barcode>
+      </Barcodes>
+      <Offices>
+        <Office>
+          <OfficeName>Rotterdam Centrum</OfficeName>
+          <Quantity>20.0</Quantity>
+          <Reserved>0.00</Reserved>
+        </Office>
+      </Offices>
+      <Suppliers>
+        <Supplier>
+          <SupplierName>Sony Europe</SupplierName>
+          <SupplierNumber>31</SupplierNumber>
+          <Stock>Ja</Stock>
+          <IsDefaultSupplier>1</IsDefaultSupplier>
+          <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+          <DeliveryDays>3</DeliveryDays>
+        </Supplier>
+      </Suppliers>
+    </Product>
+    <Product>
+      <ProductId>USBC-30W-WHT</ProductId>
+      <Quantity>60.00</Quantity>
+      <Reserved>0.00</Reserved>
+      <AvailabilityStatus>Leverbaar</AvailabilityStatus>
+      <Barcodes>
+        <Barcode>6953156298765</Barcode>
+      </Barcodes>
+      <Offices>
+        <Office>
+          <OfficeName>Rotterdam Centrum</OfficeName>
+          <Quantity>60.0</Quantity>
+          <Reserved>0.00</Reserved>
+        </Office>
+      </Offices>
+      <Suppliers />
+    </Product>
+    <Product>
+      <ProductId>XPS13-1TB-BK</ProductId>
+      <Quantity>3.00</Quantity>
+      <Reserved>0.00</Reserved>
+      <AvailabilityStatus>Uitlopend</AvailabilityStatus>
+      <Barcodes />
+      <Offices>
+        <Office>
+          <OfficeName>Rotterdam Centrum</OfficeName>
+          <Quantity>3.0</Quantity>
+          <Reserved>0.00</Reserved>
+        </Office>
+      </Offices>
+      <Suppliers>
+        <Supplier>
+          <SupplierName>Dell Nederland</SupplierName>
+          <SupplierNumber>44</SupplierNumber>
+          <Stock>0</Stock>
+          <IsDefaultSupplier>1</IsDefaultSupplier>
+          <AvailabilityStatus>Niet leverbaar</AvailabilityStatus>
+          <DeliveryDays>21</DeliveryDays>
+        </Supplier>
+      </Suppliers>
+    </Product>
+  </Products>
+</StockExport>
